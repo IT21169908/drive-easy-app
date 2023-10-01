@@ -138,7 +138,7 @@ class _GuestHomeScreenState extends State<GuestHomeScreen> {
                 color: const Color.fromRGBO(0, 0, 0, 1),
                 fontSize: 24,
                 letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
                 height: 1,
               ),
             ),
@@ -215,17 +215,17 @@ Widget dashboardGridItem({required String title, dynamic count, required String 
           const SizedBox(height: 5),
           Text(
             title,
-            style: const TextStyle(
+            style: GoogleFonts.rubik(
               fontSize: 16,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w500,
               color: Colors.black,
             ),
           ),
           Text(
             "$count",
-            style: const TextStyle(
+            style: GoogleFonts.rubik(
               fontSize: 14,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w400,
               color: Colors.grey,
             ),
           ),

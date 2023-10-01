@@ -36,15 +36,19 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _refreshScreen() async {
-    setState(() {
-      _displayLogo = animatedLogo;
-      _initialImageHeight = _expandedImageHeight;
-    });
-    await Future.delayed(const Duration(milliseconds: 500), () {
+    if (mounted) {
       setState(() {
-        _displayLogo = defaultLogo;
-        _initialImageHeight = _defaultLogoHeight;
+        _displayLogo = animatedLogo;
+        _initialImageHeight = _expandedImageHeight;
       });
+    }
+    await Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        setState(() {
+          _displayLogo = defaultLogo;
+          _initialImageHeight = _defaultLogoHeight;
+        });
+      }
     });
     await Future.delayed(const Duration(seconds: 3), () => _authenticateUser());
   }
