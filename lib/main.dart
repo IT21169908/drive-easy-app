@@ -1,3 +1,4 @@
+import 'package:drive_easy_app/routes/app_routes.dart';
 import 'package:drive_easy_app/screens/splash_screen.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeConsts.lightTheme,
       darkTheme: ThemeConsts.darkTheme,
       home: const SplashScreen(),
+      routes: routes,
     );
   }
 }
