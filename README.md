@@ -46,7 +46,7 @@ _____________________
 * Project link: 
 * Project Github link: 
 
-## Online School Information Management System
+## Drive Easy Mobile Application
 
 | Registration Number | Name | Email |
 | :---: | :---: | :---: |
