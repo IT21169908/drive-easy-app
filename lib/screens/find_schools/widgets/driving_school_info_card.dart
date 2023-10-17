@@ -1,0 +1,114 @@
+import 'package:drive_easy_app/screens/find_schools/school_info.dart';
+import 'package:flutter/material.dart';
+
+class DrivingSchoolInfoCard extends StatelessWidget {
+  const DrivingSchoolInfoCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: Column(
+        children: [
+          //card
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              padding: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.blue.shade50,
+                boxShadow: const [
+                  BoxShadow(
+                    offset: Offset(8, 4),
+                    blurRadius: 25,
+                    spreadRadius: 0,
+                    color: Color(0x15000000),
+                  )
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    //image with title
+                    Row(
+                      children: [
+                        //image
+                        Container(
+                          width: 100.0,
+                          height: 100.0,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                          ),
+                        ),
+
+                        SizedBox(width: 10.0),
+                        //title
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Text("Driving School Name",
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                            Text("Rating here"),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.0),
+
+                    //location
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.place,
+                          color: Colors.grey.shade400,
+                          size: 30.0,
+                        ),
+                        Text(
+                          "Location comes here",
+                          style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 10.0),
+
+                    //view button
+                    MaterialButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => SchoolInfo()),
+                        );
+                      },
+                      minWidth: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 15.0),
+                      color: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      child: Text(
+                        "View",
+                        style: TextStyle(color: Colors.white, fontSize: 16.00),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
