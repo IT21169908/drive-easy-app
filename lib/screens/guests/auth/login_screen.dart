@@ -1,4 +1,5 @@
 import 'package:drive_easy_app/screens/guests/auth/register_screen.dart';
+import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,28 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      InkWell(
-                        borderRadius: BorderRadius.circular(20),
-                        onTap: () {
-                          Navigator.of(context).maybePop();
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: ThemeConsts.appPrimaryLightYellow,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new,
-                            size: 26,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  TopAppBar(),
                   SvgPicture.asset("assets/images/clip-arts/idea-bulb.svg"),
                   const SizedBox(height: 20),
                   Text(
