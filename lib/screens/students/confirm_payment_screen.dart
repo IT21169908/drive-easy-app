@@ -1,3 +1,5 @@
+import 'package:drive_easy_app/screens/students/pay_methods/bank_payment.dart';
+import 'package:drive_easy_app/screens/students/pay_methods/online_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,7 +52,9 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                   ),
                 ),
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    onlinePaymentModal(context);
+                  },
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   child: Row(
@@ -80,7 +84,9 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                   ),
                 ),
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    bankPaymentModal(context);
+                  },
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   child: Row(
@@ -129,38 +135,34 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                           width: 1,
                         ),
                       ),
-                      child: MaterialButton(
-                        onPressed: () {},
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset('assets/images/receipt.svg', semanticsLabel: 'receipt'),
-                            const SizedBox(width: 10),
-                            Column(
-                              children: [
-                                Text(
-                                  'Light Vehicle',
-                                  textAlign: TextAlign.left,
-                                  style: GoogleFonts.inter(
-                                    color: Color.fromRGBO(62, 62, 63, 1),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('assets/images/receipt.svg', semanticsLabel: 'receipt'),
+                          const SizedBox(width: 10),
+                          Column(
+                            children: [
+                              Text(
+                                'Light Vehicle',
+                                textAlign: TextAlign.left,
+                                style: GoogleFonts.inter(
+                                  color: Color.fromRGBO(62, 62, 63, 1),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
                                 ),
-                                Text(
-                                  'LKR 25,000.00',
-                                  textAlign: TextAlign.left,
-                                  style: GoogleFonts.inter(
-                                    color: Color.fromRGBO(62, 62, 63, 1),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                              ),
+                              Text(
+                                'LKR 25,000.00',
+                                textAlign: TextAlign.left,
+                                style: GoogleFonts.inter(
+                                  color: Color.fromRGBO(62, 62, 63, 1),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal,
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 15),
