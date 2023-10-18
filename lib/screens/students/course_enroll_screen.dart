@@ -1,6 +1,8 @@
+import 'package:drive_easy_app/screens/students/confirm_payment_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../utils/theme_consts.dart';
 
@@ -208,7 +210,14 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                         backgroundColor: Color(0xff4E74F9),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        PersistentNavBarNavigator.pushNewScreen(
+                          context,
+                          screen: ConfirmPaymentScreen(),
+                          withNavBar: true, // OPTIONAL VALUE. True by default.
+                          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                        );
+                      },
                       child: Text(
                         "PAYMENT METHOD",
                         style: TextStyle(
