@@ -1,8 +1,11 @@
 import 'package:drive_easy_app/screens/find_schools/school_info.dart';
+import 'package:drive_easy_app/screens/find_schools/models/school_model.dart';
 import 'package:flutter/material.dart';
 
 class DrivingSchoolInfoCard extends StatelessWidget {
-  const DrivingSchoolInfoCard({super.key});
+  School school;
+
+  DrivingSchoolInfoCard({super.key, required this.school});
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +53,13 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                           children: [
                             Container(
                               width: MediaQuery.of(context).size.width * 0.5,
-                              child: Text("Driving School Name",
+                              child: Text(school.name,
                                   style: TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
                                   )),
                             ),
-                            Text("Rating here"),
+                            Text(school.rating.toString()),
                           ],
                         ),
                       ],
@@ -72,7 +75,7 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                           size: 30.0,
                         ),
                         Text(
-                          "Location comes here",
+                          school.address,
                           style: TextStyle(
                               color: Colors.grey.shade400,
                               fontSize: 16.0,
@@ -87,7 +90,7 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                     MaterialButton(
                       onPressed: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => SchoolInfo()),
+                          MaterialPageRoute(builder: (context) => SchoolInfo(school: school)),
                         );
                       },
                       minWidth: double.infinity,

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:map_launcher/map_launcher.dart';
+import 'package:drive_easy_app/screens/find_schools/models/school_model.dart';
+import 'package:drive_easy_app/screens/find_schools/courses_list.dart';
+
 
 class SchoolInfo extends StatelessWidget {
-  const SchoolInfo({super.key});
+  School school;
+  SchoolInfo({super.key, required this.school});
 
   //get directions button
   Future<void> openMap(double latitude, double longitude) async {
@@ -179,7 +183,7 @@ class SchoolInfo extends StatelessWidget {
                   children: [
                     Center(
                       child: Text(
-                        "School Name Here",
+                        school.name,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 32.0,
@@ -200,7 +204,7 @@ class SchoolInfo extends StatelessWidget {
                         ),
                         SizedBox(width: 5.0),
                         Text(
-                          "Location comes here",
+                          school.address,
                           style: TextStyle(
                             color: Colors.grey.shade400,
                             fontSize: 16.0,
@@ -232,6 +236,26 @@ class SchoolInfo extends StatelessWidget {
                     ),
 
                     SizedBox(height: 10.0),
+
+                    //view button
+                    MaterialButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => CoursesList(school: school)),
+                        );
+                      },
+                      minWidth: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 15.0),
+                      color: Colors.yellow,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      child: Text(
+                        "View Available Courses",
+                        style: TextStyle(color: Colors.black, fontSize: 16.00),
+                      ),
+                    )
                   ],
                 ),
               ),

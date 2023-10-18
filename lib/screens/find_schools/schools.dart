@@ -1,8 +1,58 @@
-import 'package:drive_easy_app/screens/find_schools/widgets/driving_school_info_card.dart';
 import 'package:flutter/material.dart';
+import 'package:drive_easy_app/screens/find_schools/widgets/driving_school_info_card.dart';
+import 'package:drive_easy_app/screens/find_schools/models/school_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:great_circle_distance_calculator/great_circle_distance_calculator.dart';
 
-class Schools extends StatelessWidget {
-  const Schools({Key? key}) : super(key: key);
+class Schools extends StatefulWidget {
+  Schools({Key? key}) : super(key: key);
+
+  @override
+  State<Schools> createState() => _SchoolsState();
+}
+
+class _SchoolsState extends State<Schools> {
+  List<School> schoolData = DummyData.generateSchoolData(5);
+
+  ///location of user
+  void getLocation() async {
+    await Geolocator.checkPermission();
+    await Geolocator.requestPermission();
+
+    Position userPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    double userLat = userPosition.latitude;
+    double userLng = userPosition.longitude;
+    filterSchoolsByDistance(schoolData, userLat, userLng);
+  }
+
+  void filterSchoolsByDistance(
+      List<School> schools, double userLat, double userLng) {
+    // Filter the list based on distance <= 30000 meters
+    List<School> filteredSchools = schools.where((school) {
+      double distance = calculateDistance(
+          userLat, userLng, school.latitude, school.longitude);
+      return distance <= 30000;
+    }).toList();
+
+    setState(() {
+      schoolData = filteredSchools;
+    });
+
+    print(schoolData);
+  }
+
+  double calculateDistance(double lat1, double lng1, double lat2, double lng2) {
+    var distance = GreatCircleDistance.fromDegrees(
+      latitude1: lat1,
+      longitude1: lng1,
+      latitude2: lat2,
+      longitude2: lng2,
+    );
+    return double.parse(distance.haversineDistance().toStringAsFixed(2));
+  }
 
   //popup sheet
   Future _displayBottomSheet(BuildContext context) {
@@ -54,10 +104,55 @@ class Schools extends StatelessWidget {
                   ),
                 ],
               ),
-
               //body
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //text1
+                    Text(
+                      "Filter by distance",
+                      style: TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.left,
+                    ),
 
-              //2 button
+                    //text2
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: Text(
+                        "You can filter nearest driving schools upto 10KM",
+                        style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    //slider
+                    Container(child: SliderExample()),
+                    SizedBox(height: 30.0),
+                    //2 button
+
+                    MaterialButton(
+                      onPressed: getLocation,
+                      minWidth: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 15.0),
+                      color: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      child: Text(
+                        "Apply",
+                        style: TextStyle(color: Colors.white, fontSize: 16.00),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -130,16 +225,54 @@ class Schools extends StatelessWidget {
 
             // Card
             Expanded(
-              child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (BuildContext context, int index) {
-                  return DrivingSchoolInfoCard();
-                },
-              ),
+              child: schoolData.isEmpty
+                  ? Center(
+                      child: Text(
+                        'No driving schools available',
+                        style: TextStyle(
+                            fontSize: 18.0, fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: schoolData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        School school = schoolData[index];
+                        return DrivingSchoolInfoCard(school: school);
+                      },
+                    ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+//slider
+class SliderExample extends StatefulWidget {
+  const SliderExample({super.key});
+
+  @override
+  State<SliderExample> createState() => _SliderExampleState();
+}
+
+class _SliderExampleState extends State<SliderExample> {
+  double _currentSliderValue = 4;
+
+  @override
+  Widget build(BuildContext context) {
+    return Slider(
+      value: _currentSliderValue,
+      min: 0,
+      max: 10,
+      divisions: 10,
+      activeColor: Colors.blue,
+      label: _currentSliderValue.round().toString() + "KM",
+      onChanged: (double value) {
+        setState(() {
+          _currentSliderValue = value;
+        });
+      },
     );
   }
 }

@@ -40,6 +40,9 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_rating_bar: ^4.0.1
   map_launcher: ^3.0.1
+  fluttertoast: ^8.2.2
+  geolocator: ^10.1.0
+  great_circle_distance_calculator: ^1.0.4
 
 dev_dependencies:
   flutter_test:
