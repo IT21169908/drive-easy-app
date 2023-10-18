@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../utils/theme_consts.dart';
+import '../../../utils/theme_consts.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  SvgPicture.asset("assets/images/idea-bulb.svg"),
+                  SvgPicture.asset("assets/images/clip-arts/idea-bulb.svg"),
                   const SizedBox(height: 20),
                   Text(
                     'Welcome back',
