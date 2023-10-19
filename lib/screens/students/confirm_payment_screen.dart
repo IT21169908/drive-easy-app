@@ -1,8 +1,10 @@
 import 'package:drive_easy_app/screens/students/pay_methods/bank_payment.dart';
 import 'package:drive_easy_app/screens/students/pay_methods/online_payment.dart';
+import 'package:drive_easy_app/screens/students/payment_invoice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../widgets/widgets.g.dart';
 
@@ -290,7 +292,33 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                     const SizedBox(height: 10),
                   ],
                 ),
-              )
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff4E74F9),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                  onPressed: () {
+                    PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: PaymentInvoiceScreen(),
+                      withNavBar: true, // OPTIONAL VALUE. True by default.
+                      pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                    );
+                  },
+                  child: Text(
+                    "CONFIRM",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
             ],
           ),
         ),

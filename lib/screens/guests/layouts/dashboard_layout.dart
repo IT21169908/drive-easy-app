@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../../../routes/app_routes.dart';
 import '../../../widgets/widgets.g.dart';
 
 class GuestDashboardLayout extends StatefulWidget {
@@ -77,9 +78,11 @@ class _GuestDashboardLayoutState extends State<GuestDashboardLayout> {
       child: Scaffold(
         body: PersistentBottomNavBarWidget(
           context,
-          controller: _controller,
+          controller: persistentTabController,
           screens: _buildScreens,
           items: _navBarItems(context),
+          popAllScreensOnTapOfSelectedTab: true,
+          popActionScreens: PopActionScreensType.all,
         ),
       ),
     );
