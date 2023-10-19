@@ -1,4 +1,4 @@
-import 'package:drive_easy_app/widgets/dashboard/layout.dart';
+import 'package:drive_easy_app/widgets/dashboard/scaffold_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';

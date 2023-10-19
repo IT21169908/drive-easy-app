@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../../widgets/dashboard/layout.dart';
+import '../../../widgets/dashboard/scaffold_widget.dart';
 
 class GuestDashboardLayout extends StatefulWidget {
   const GuestDashboardLayout({super.key});
@@ -14,7 +14,6 @@ class GuestDashboardLayout extends StatefulWidget {
 }
 
 class _GuestDashboardLayoutState extends State<GuestDashboardLayout> {
-
   List<PersistentBottomNavBarItem> _navBarItems(BuildContext buildContext) => [
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.home),

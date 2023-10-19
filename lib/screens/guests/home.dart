@@ -159,22 +159,22 @@ class _GuestHomeScreenState extends State<GuestHomeScreen> {
               mainAxisSpacing: 15,
               padding: const EdgeInsets.symmetric(vertical: 20),
               children: const [
-                DashboardGridItem(
+                ButtonCard(
                   title: "Find Schools",
                   count: "200 learners",
                   asset: "assets/images/learning.png",
                 ),
-                DashboardGridItem(
+                ButtonCard(
                   title: "Tutorials",
                   count: "15 Courses",
                   asset: "assets/images/tools.png",
                 ),
-                DashboardGridItem(
+                ButtonCard(
                   title: "Blog & News",
                   count: "42 Articles",
                   asset: "assets/images/action.png",
                 ),
-                DashboardGridItem(
+                ButtonCard(
                   title: "Contact Us",
                   count: "24hr Support",
                   asset: "assets/images/agent.png",

@@ -1,3 +1,4 @@
+import 'package:drive_easy_app/screens/students/track_vehicles/track_vehicles_screen.dart';
 import 'package:drive_easy_app/screens/students/view_course_content_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/foundation.dart';
@@ -251,45 +252,53 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
               padding: const EdgeInsets.symmetric(vertical: 5),
               children: [
                 if (!isCourseEnrolled)
-                  const DashboardGridItem(
+                  const ButtonCard(
                     title: "Find Schools",
                     count: "200 learners",
                     asset: "assets/images/learning.png",
                   ),
                 if (isCourseEnrolled)
-                  const DashboardGridItem(
+                  ButtonCard(
                     title: "Track Vehicles",
                     count: "4 Vehicles",
                     asset: "assets/images/tracking-vehicles.png",
+                    onPressed: () async {
+                      await PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const TrackVehiclesScreen(),
+                        withNavBar: true,
+                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      );
+                    },
                   ),
-                const DashboardGridItem(
+                const ButtonCard(
                   title: "Tutorials", //TODO: Add relevant feature
                   count: "15 Courses",
                   asset: "assets/images/tools.png",
                 ),
-                const DashboardGridItem(
+                const ButtonCard(
                   title: "Blog & News", //TODO: Add relevant feature
                   count: "42 Articles",
                   asset: "assets/images/action.png",
                 ),
                 if (!isCourseEnrolled)
-                  const DashboardGridItem(
+                  const ButtonCard(
                     title: "Contact Us", //TODO: Add relevant feature
                     count: "24hr Support",
                     asset: "assets/images/agent.png",
                   ),
                 if (isCourseEnrolled) ...[
-                  const DashboardGridItem(
+                  const ButtonCard(
                     title: "My Progress", //TODO: Add relevant feature
                     count: "2 Tasks pending",
                     asset: "assets/images/progress.png",
                   ),
-                  const DashboardGridItem(
+                  const ButtonCard(
                     title: "Payments", //TODO: Add relevant feature
                     count: "2 Invoices",
                     asset: "assets/images/payments.png",
                   ),
-                  const DashboardGridItem(
+                  const ButtonCard(
                     title: "My Exams", //TODO: Add relevant feature
                     count: "3 MCQ Exams",
                     asset: "assets/images/exam.png",

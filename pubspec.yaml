@@ -44,6 +44,7 @@ dependencies:
   geolocator: ^10.1.0
   great_circle_distance_calculator: ^1.0.4
   sliding_up_panel: ^2.0.0+1
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -75,7 +76,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/clip-arts/
-    - assets/images/tracking-vehicles.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
