@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../widgets/widgets.g.dart';
+
 class GuestHomeScreen extends StatefulWidget {
   const GuestHomeScreen({super.key});
 
@@ -157,22 +159,22 @@ class _GuestHomeScreenState extends State<GuestHomeScreen> {
               mainAxisSpacing: 15,
               padding: const EdgeInsets.symmetric(vertical: 20),
               children: [
-                dashboardGridItem(
+                DashboardGridItem(
                   title: "Find Schools",
                   count: "200 learners",
                   asset: "assets/images/learning.png",
                 ),
-                dashboardGridItem(
+                DashboardGridItem(
                   title: "Tutorials",
                   count: "15 Courses",
                   asset: "assets/images/tools.png",
                 ),
-                dashboardGridItem(
+                DashboardGridItem(
                   title: "Blog & News",
                   count: "42 Articles",
                   asset: "assets/images/action.png",
                 ),
-                dashboardGridItem(
+                DashboardGridItem(
                   title: "Contact Us",
                   count: "24hr Support",
                   asset: "assets/images/agent.png",
@@ -184,53 +186,4 @@ class _GuestHomeScreenState extends State<GuestHomeScreen> {
       ),
     );
   }
-}
-
-Widget dashboardGridItem({required String title, dynamic count, required String asset}) {
-  return Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(15),
-      color: Colors.white,
-      boxShadow: const [
-        BoxShadow(
-          offset: Offset(8, 4),
-          blurRadius: 25,
-          spreadRadius: 0,
-          color: Color(0x15000000),
-        )
-      ],
-    ),
-    child: MaterialButton(
-      onPressed: () {},
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            asset,
-            width: 85,
-          ),
-          const SizedBox(height: 5),
-          Text(
-            title,
-            style: GoogleFonts.rubik(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
-            ),
-          ),
-          Text(
-            "$count",
-            style: GoogleFonts.rubik(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Colors.grey,
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
 }

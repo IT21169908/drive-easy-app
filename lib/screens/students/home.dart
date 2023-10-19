@@ -1,5 +1,6 @@
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StudentHomeScreen extends StatefulWidget {
@@ -20,6 +21,10 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
       return 'Good Evening';
     }
   }
+
+  // bool isCourseEnrolled = false;
+  //
+  bool isCourseEnrolled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -147,19 +152,83 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   ),
                 ),
               ),
-              AppTextButton(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                onPressed: () {
-                  print("Find learners");
-                },
-                text: "Find learners",
-                fontSize: 14,
-              ),
+              if (isCourseEnrolled)
+                AppTextButton(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  onPressed: () {
+                    print("Find learners");
+                  },
+                  text: "Find learners",
+                  fontSize: 14,
+                ),
             ],
           ),
+          if (isCourseEnrolled)
+            Container(
+              margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+              padding: const EdgeInsets.fromLTRB(25, 20, 10, 20),
+              decoration: BoxDecoration(
+                color: Color(0xff0029BA),
+                image: const DecorationImage(
+                  image: AssetImage('assets/images/card-decoration.png'),
+                  fit: BoxFit.contain,
+                  alignment: Alignment(1, 0),
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Light Vehicle",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        "ABS Learners",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8),
+                            bottomLeft: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
+                          ),
+                          color: Color.fromRGBO(201, 131, 222, 0.75),
+                        ),
+                        child: Text(
+                          "View",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SvgPicture.asset("assets/images/enrolled-course-card-girl.svg")
+                ],
+              ),
+            ),
           Container(
             width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 4, right: 4),
+            margin: const EdgeInsets.only(left: 4, right: 4, top: 15),
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: GridView.count(
               shrinkWrap: true,
@@ -169,13 +238,20 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
               childAspectRatio: (MediaQuery.of(context).size.width / 2) / 170,
               crossAxisSpacing: 15,
               mainAxisSpacing: 15,
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 5),
               children: [
-                DashboardGridItem(
-                  title: "Track Vehicles",
-                  count: "4 Vehicles",
-                  asset: "assets/images/tracking-vehicles.png",
-                ),
+                if (!isCourseEnrolled)
+                  DashboardGridItem(
+                    title: "Find Schools",
+                    count: "200 learners",
+                    asset: "assets/images/learning.png",
+                  ),
+                if (isCourseEnrolled)
+                  DashboardGridItem(
+                    title: "Track Vehicles",
+                    count: "4 Vehicles",
+                    asset: "assets/images/tracking-vehicles.png",
+                  ),
                 DashboardGridItem(
                   title: "Tutorials", //TODO: Add relevant feature
                   count: "15 Courses",
@@ -186,14 +262,33 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   count: "42 Articles",
                   asset: "assets/images/action.png",
                 ),
-                DashboardGridItem(
-                  title: "Contact Us", //TODO: Add relevant feature
-                  count: "24hr Support",
-                  asset: "assets/images/agent.png",
-                ),
+                if (!isCourseEnrolled)
+                  DashboardGridItem(
+                    title: "Contact Us", //TODO: Add relevant feature
+                    count: "24hr Support",
+                    asset: "assets/images/agent.png",
+                  ),
+                if (isCourseEnrolled) ...[
+                  DashboardGridItem(
+                    title: "My Progress", //TODO: Add relevant feature
+                    count: "2 Tasks pending",
+                    asset: "assets/images/progress.png",
+                  ),
+                  DashboardGridItem(
+                    title: "Payments", //TODO: Add relevant feature
+                    count: "2 Invoices",
+                    asset: "assets/images/payments.png",
+                  ),
+                  DashboardGridItem(
+                    title: "My Exams", //TODO: Add relevant feature
+                    count: "3 MCQ Exams",
+                    asset: "assets/images/exam.png",
+                  ),
+                ],
               ],
             ),
           ),
+          SizedBox(height: 30),
         ],
       ),
     );
