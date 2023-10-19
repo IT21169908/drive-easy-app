@@ -158,7 +158,7 @@ class _GuestHomeScreenState extends State<GuestHomeScreen> {
               crossAxisSpacing: 15,
               mainAxisSpacing: 15,
               padding: const EdgeInsets.symmetric(vertical: 20),
-              children: [
+              children: const [
                 DashboardGridItem(
                   title: "Find Schools",
                   count: "200 learners",

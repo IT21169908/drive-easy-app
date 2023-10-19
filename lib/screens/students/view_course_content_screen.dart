@@ -21,12 +21,12 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TopAppBar(),
+              const TopAppBar(),
               const SizedBox(height: 20),
               Container(
                 padding: const EdgeInsets.fromLTRB(25, 20, 10, 20),
                 decoration: BoxDecoration(
-                  color: Color(0xff0029BA),
+                  color: const Color(0xff0029BA),
                   image: const DecorationImage(
                     image: AssetImage('assets/images/card-decoration.png'),
                     fit: BoxFit.contain,
@@ -37,7 +37,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
+                    const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -74,7 +74,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
               ),
               const SizedBox(height: 20),
               CourseContentItemCard(
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 image: SvgPicture.asset(
                   "assets/images/study-materiel-icon.svg",
                   width: 40,
@@ -82,7 +82,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                 title: "Study",
               ),
               CourseContentItemCard(
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 image: SvgPicture.asset(
                   "assets/images/road-sign.svg",
                   width: 40,
@@ -90,7 +90,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                 title: "Road Signs",
               ),
               CourseContentItemCard(
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 image: SvgPicture.asset(
                   "assets/images/practice-questions-icon.svg",
                   width: 40,
@@ -98,7 +98,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                 title: "Practice Questions",
               ),
               CourseContentItemCard(
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 image: SvgPicture.asset(
                   "assets/images/tests-icon.svg",
                   width: 40,
@@ -106,7 +106,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                 title: "Tests",
               ),
               CourseContentItemCard(
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 image: SvgPicture.asset(
                   "assets/images/exam-results-icon.svg",
                   width: 40,

@@ -8,7 +8,7 @@ class PersistentBottomNavBarWidget extends StatelessWidget {
     this.controller,
     this.items,
     this.popAllScreensOnTapOfSelectedTab = true,
-    PopActionScreensType this.popActionScreens = PopActionScreensType.all,
+    this.popActionScreens = PopActionScreensType.all,
   });
 
   final BuildContext context;

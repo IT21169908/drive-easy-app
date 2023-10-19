@@ -5,7 +5,8 @@ class DashboardGridItem extends StatelessWidget {
   final dynamic count;
   final String asset;
 
-  DashboardGridItem({
+  const DashboardGridItem({
+    super.key,
     required this.title,
     required this.count,
     required this.asset,

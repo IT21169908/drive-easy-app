@@ -25,7 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Column(
                 children: [
-                  TopAppBar(),
+                  const TopAppBar(),
                   SvgPicture.asset(
                     "assets/images/clip-arts/laptop-bulb-idea.svg",
                     height: 110,
@@ -119,7 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 style: GoogleFonts.rubik(
                                   fontSize: 14,
                                 ),
-                                children: <TextSpan>[
+                                children: const <TextSpan>[
                                   TextSpan(
                                     text: 'By signing up you agree to our ',
                                     style: TextStyle(color: Colors.black),

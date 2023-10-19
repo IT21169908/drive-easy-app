@@ -21,17 +21,17 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: Column(
           children: [
-            TopAppBar(),
+            const TopAppBar(),
             const SizedBox(height: 20),
             Row(
               children: [
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
-                    color: Color.fromRGBO(201, 131, 222, 1),
+                    color: const Color.fromRGBO(201, 131, 222, 1),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  child: Text(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: const Text(
                     "ABS Learner",
                     style: TextStyle(
                       color: Color(0xFFFFFFFF),
@@ -46,7 +46,7 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                 const SizedBox(width: 5),
                 SvgPicture.asset('assets/images/star.svg', semanticsLabel: 'star'),
                 const SizedBox(width: 5),
-                Text(
+                const Text(
                   '4.0',
                   textAlign: TextAlign.left,
                   style: TextStyle(
@@ -62,7 +62,7 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Light Vehicle",
                   style: TextStyle(
                     fontSize: 24,
@@ -70,9 +70,9 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: Color(0xff292574)),
-                  child: Text(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: const Color(0xff292574)),
+                  child: const Text(
                     'LKR 25000.00',
                     textAlign: TextAlign.left,
                     style: TextStyle(
@@ -93,7 +93,7 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                   children: [
                     SvgPicture.asset('assets/images/user-icon.svg'),
                     const SizedBox(width: 5),
-                    Text(
+                    const Text(
                       "Lahiru Peris",
                       style: TextStyle(
                         color: Color(0xff272323),
@@ -101,10 +101,10 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                     ),
                   ],
                 ),
-                Row(
+                const Row(
                   children: [
                     Icon(Icons.history_toggle_off),
-                    const SizedBox(width: 5),
+                    SizedBox(width: 5),
                     Text(
                       '4Months 3w',
                       textAlign: TextAlign.left,
@@ -119,13 +119,13 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
               ],
             ),
             const SizedBox(height: 10),
-            Divider(color: Color(0xffE3E3E3)),
+            const Divider(color: Color(0xffE3E3E3)),
             const SizedBox(height: 10),
             Form(
               child: Column(
                 children: [
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "Full Name",
                       hintText: "Enter your full name",
                       suffixIcon: SizedBox(),
@@ -161,7 +161,7 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: const Color(0x1492dbff),
-                      border: Border.all(color: /*fileError == null ?*/ Color(0xffC2E6FF) /*: Colors.red*/),
+                      border: Border.all(color: /*fileError == null ?*/ const Color(0xffC2E6FF) /*: Colors.red*/),
                     ),
                     child: Row(
                       children: [
@@ -169,9 +169,9 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0), // Adjust border radius as needed
                           ),
-                          color: Color(0xfff1f1f1),
+                          color: const Color(0xfff1f1f1),
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             "Choose file",
                           ),
                         ),
@@ -183,7 +183,7 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                   DropdownButtonFormField<int>(
                     isExpanded: true,
                     value: null,
-                    items: [
+                    items: const [
                       DropdownMenuItem(
                         value: null,
                         child: Text("Choose Installment Period"),
@@ -197,7 +197,7 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                         child: Text("3 Month"),
                       )
                     ],
-                    hint: Text("Installment Period"),
+                    hint: const Text("Installment Period"),
                     onChanged: (value) {},
                     dropdownColor: ThemeConsts.lightTheme.primaryColorLight,
                   ),
@@ -207,18 +207,18 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                     height: 48,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff4E74F9),
+                        backgroundColor: const Color(0xff4E74F9),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       onPressed: () {
                         PersistentNavBarNavigator.pushNewScreen(
                           context,
-                          screen: ConfirmPaymentScreen(),
+                          screen: const ConfirmPaymentScreen(),
                           withNavBar: true, // OPTIONAL VALUE. True by default.
                           pageTransitionAnimation: PageTransitionAnimation.cupertino,
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         "PAYMENT METHOD",
                         style: TextStyle(
                           color: Colors.white,

@@ -20,8 +20,8 @@ class CourseContentItemCard extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Color.fromRGBO(255, 255, 255, 1),
-        boxShadow: [
+        color: const Color.fromRGBO(255, 255, 255, 1),
+        boxShadow: const [
           BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.12),
             offset: Offset(0, 5),
@@ -39,10 +39,10 @@ class CourseContentItemCard extends StatelessWidget {
         child: Row(
           children: [
             image,
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),

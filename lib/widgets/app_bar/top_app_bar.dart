@@ -5,7 +5,7 @@ class TopAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scaffold = Scaffold.of(context);
+    // var scaffold = Scaffold.of(context);
 
     return Container(
       decoration: const BoxDecoration(

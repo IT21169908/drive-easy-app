@@ -8,12 +8,12 @@ void onlinePaymentModal(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(),
-              Text(
+              const SizedBox(),
+              const Text(
                 "Add Credit Card",
                 style: TextStyle(
                   color: Color(0xff3E3E3F),
@@ -27,8 +27,8 @@ void onlinePaymentModal(BuildContext context) {
                   onPressed: () {
                     Navigator.of(context).maybePop();
                   },
-                  icon: Icon(Icons.close),
-                  color: Color(0xffbcbcbc),
+                  icon: const Icon(Icons.close),
+                  color: const Color(0xffbcbcbc),
                 ),
               )
             ],
@@ -37,7 +37,7 @@ void onlinePaymentModal(BuildContext context) {
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Column(
               children: [
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: "16 digits number",
@@ -51,13 +51,13 @@ void onlinePaymentModal(BuildContext context) {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     SizedBox(
                       width: (MediaQuery.of(context).size.width / 2) - 30,
                       child: TextFormField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "Expiration date",
                           hintText: "MM / YY",
                           suffixIcon: SizedBox(),
@@ -69,11 +69,11 @@ void onlinePaymentModal(BuildContext context) {
                       width: (MediaQuery.of(context).size.width / 2) - 30,
                       child: TextFormField(
                         obscureText: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "CVV / CVC",
                           hintText: "***",
                           suffixIcon: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
                             child: Icon(Icons.help_outline_outlined),
                           ),
                         ),
@@ -81,11 +81,11 @@ void onlinePaymentModal(BuildContext context) {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     Checkbox(value: false, onChanged: (val) {}),
-                    Text(
+                    const Text(
                       "Save this payment method?",
                       style: TextStyle(
                         color: Color(0xff474A56),
@@ -100,11 +100,11 @@ void onlinePaymentModal(BuildContext context) {
                   height: 48,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff4E74F9),
+                      backgroundColor: const Color(0xff4E74F9),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "ADD",
                       style: TextStyle(
                         color: Colors.white,

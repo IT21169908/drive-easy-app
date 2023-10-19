@@ -14,7 +14,6 @@ class GuestDashboardLayout extends StatefulWidget {
 }
 
 class _GuestDashboardLayoutState extends State<GuestDashboardLayout> {
-  final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
   List<PersistentBottomNavBarItem> _navBarItems(BuildContext buildContext) => [
         PersistentBottomNavBarItem(
@@ -63,7 +62,7 @@ class _GuestDashboardLayoutState extends State<GuestDashboardLayout> {
       ];
 
   final List<Widget> _buildScreens = [
-    GuestHomeScreen(),
+    const GuestHomeScreen(),
     Container(),
     Container(),
     Container(),

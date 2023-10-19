@@ -37,11 +37,11 @@ class ThemeConsts {
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: Color(0xffC2E6FF)),
+        borderSide: const BorderSide(color: Color(0xffC2E6FF)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: Color(0xffC2E6FF)),
+        borderSide: const BorderSide(color: Color(0xffC2E6FF)),
       ),
     ),
     buttonTheme: const ButtonThemeData(

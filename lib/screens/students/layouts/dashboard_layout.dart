@@ -14,8 +14,6 @@ class StudentDashboardLayout extends StatefulWidget {
 }
 
 class _StudentDashboardLayoutState extends State<StudentDashboardLayout> {
-  final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
-
   List<PersistentBottomNavBarItem> _navBarItems(BuildContext buildContext) => [
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.home),
@@ -54,8 +52,8 @@ class _StudentDashboardLayoutState extends State<StudentDashboardLayout> {
       ];
 
   final List<Widget> _buildScreens = [
-    StudentHomeScreen(),
-    CourseEnrollScreen(),
+    const StudentHomeScreen(),
+    const CourseEnrollScreen(),
     Container(),
     Container(),
   ];
