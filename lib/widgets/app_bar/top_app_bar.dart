@@ -11,6 +11,7 @@ class TopAppBar extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.transparent,
       ),
+      //padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: Padding(
         padding: EdgeInsets.zero,
         child: SafeArea(
