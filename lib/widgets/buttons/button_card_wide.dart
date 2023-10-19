@@ -1,14 +1,17 @@
 part of '../widgets.g.dart';
 
-class DashboardGridItem extends StatelessWidget {
+class ButtonCardWide extends StatelessWidget {
   final String title;
   final dynamic count;
   final String asset;
+  final VoidCallback? onPressed;
 
-  DashboardGridItem({
+  const ButtonCardWide({
+    super.key,
     required this.title,
-    required this.count,
+    this.count,
     required this.asset,
+    this.onPressed,
   });
 
   @override
@@ -27,17 +30,14 @@ class DashboardGridItem extends StatelessWidget {
         ],
       ),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: onPressed ?? () => log('Screen => $title'),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              asset,
-              width: 85,
-            ),
+            Image.asset(asset, width: 85),
             const SizedBox(height: 5),
             Text(
               title,
@@ -47,14 +47,16 @@ class DashboardGridItem extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            Text(
-              "$count",
-              style: GoogleFonts.rubik(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: Colors.grey,
-              ),
-            ),
+            count != null
+                ? Text(
+                    "$count",
+                    style: GoogleFonts.rubik(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey,
+                    ),
+                  )
+                : const SizedBox.shrink(),
           ],
         ),
       ),

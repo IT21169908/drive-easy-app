@@ -25,12 +25,12 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TopAppBar(),
+              const TopAppBar(),
               const SizedBox(height: 20),
               Text(
                 "Choose Payment Method",
                 style: GoogleFonts.inter(
-                  color: Color(0xff3E3E3F),
+                  color: const Color(0xff3E3E3F),
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -39,7 +39,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
               Text(
                 "Choose your preferred payment method",
                 style: GoogleFonts.inter(
-                  color: Color(0xff3E3E3F),
+                  color: const Color(0xff3E3E3F),
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
                 ),
@@ -49,7 +49,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: Color.fromRGBO(229, 229, 229, 1),
+                    color: const Color.fromRGBO(229, 229, 229, 1),
                     width: 1,
                   ),
                 ),
@@ -57,7 +57,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                   onPressed: () {
                     onlinePaymentModal(context);
                   },
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   child: Row(
                     children: [
@@ -67,7 +67,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                         'Online Payment',
                         textAlign: TextAlign.left,
                         style: GoogleFonts.inter(
-                          color: Color.fromRGBO(62, 62, 63, 1),
+                          color: const Color.fromRGBO(62, 62, 63, 1),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                         ),
@@ -81,7 +81,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: Color.fromRGBO(229, 229, 229, 1),
+                    color: const Color.fromRGBO(229, 229, 229, 1),
                     width: 1,
                   ),
                 ),
@@ -89,7 +89,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                   onPressed: () {
                     bankPaymentModal(context);
                   },
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   child: Row(
                     children: [
@@ -99,7 +99,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                         'Bank Transfer',
                         textAlign: TextAlign.left,
                         style: GoogleFonts.inter(
-                          color: Color.fromRGBO(62, 62, 63, 1),
+                          color: const Color.fromRGBO(62, 62, 63, 1),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                         ),
@@ -112,7 +112,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
               Text(
                 "Please review the details below",
                 style: GoogleFonts.inter(
-                  color: Color(0xff3E3E3F),
+                  color: const Color(0xff3E3E3F),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
                 ),
@@ -122,7 +122,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: Color.fromRGBO(229, 229, 229, 1),
+                    color: const Color.fromRGBO(229, 229, 229, 1),
                     width: 1,
                   ),
                 ),
@@ -133,11 +133,11 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: Color.fromRGBO(229, 229, 229, 1),
+                          color: const Color.fromRGBO(229, 229, 229, 1),
                           width: 1,
                         ),
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                       child: Row(
                         children: [
                           SvgPicture.asset('assets/images/receipt.svg', semanticsLabel: 'receipt'),
@@ -148,7 +148,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                 'Light Vehicle',
                                 textAlign: TextAlign.left,
                                 style: GoogleFonts.inter(
-                                  color: Color.fromRGBO(62, 62, 63, 1),
+                                  color: const Color.fromRGBO(62, 62, 63, 1),
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -157,7 +157,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                 'LKR 25,000.00',
                                 textAlign: TextAlign.left,
                                 style: GoogleFonts.inter(
-                                  color: Color.fromRGBO(62, 62, 63, 1),
+                                  color: const Color.fromRGBO(62, 62, 63, 1),
                                   fontSize: 12,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -169,7 +169,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                     ),
                     const SizedBox(height: 15),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -177,7 +177,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'Name',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 12,
                               fontWeight: FontWeight.normal,
                             ),
@@ -186,7 +186,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'Navod Hansajith',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
@@ -196,7 +196,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'Course',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 12,
                               fontWeight: FontWeight.normal,
                             ),
@@ -205,7 +205,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'Light Vehicle',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
@@ -215,7 +215,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'Course Fee',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 12,
                               fontWeight: FontWeight.normal,
                             ),
@@ -224,7 +224,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'LKR 25,000.00',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
@@ -234,7 +234,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'Tax',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 12,
                               fontWeight: FontWeight.normal,
                             ),
@@ -243,7 +243,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'LKR 100.00',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
@@ -253,7 +253,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'Document Fee',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 12,
                               fontWeight: FontWeight.normal,
                             ),
@@ -262,7 +262,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'LKR 500.00',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
@@ -272,7 +272,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'Total Amount',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 12,
                               fontWeight: FontWeight.normal,
                             ),
@@ -281,7 +281,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             'LKR 25,600.00',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
-                              color: Color.fromRGBO(62, 62, 63, 1),
+                              color: const Color.fromRGBO(62, 62, 63, 1),
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
@@ -299,18 +299,18 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                 height: 48,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff4E74F9),
+                    backgroundColor: const Color(0xff4E74F9),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
                   onPressed: () {
                     PersistentNavBarNavigator.pushNewScreen(
                       context,
-                      screen: PaymentInvoiceScreen(),
+                      screen: const PaymentInvoiceScreen(),
                       withNavBar: true, // OPTIONAL VALUE. True by default.
                       pageTransitionAnimation: PageTransitionAnimation.cupertino,
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     "CONFIRM",
                     style: TextStyle(
                       color: Colors.white,

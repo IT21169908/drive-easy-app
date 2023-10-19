@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Column(
                 children: [
-                  TopAppBar(),
+                  const TopAppBar(),
                   SvgPicture.asset("assets/images/clip-arts/idea-bulb.svg"),
                   const SizedBox(height: 20),
                   Text(

@@ -1,8 +1,10 @@
-import 'package:drive_easy_app/screens/student/home.dart';
-import 'package:drive_easy_app/widgets/widgets.g.dart';
+import 'package:drive_easy_app/widgets/dashboard/scaffold_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
+import '../course_enroll_screen.dart';
+import '../home.dart';
 
 class StudentDashboardLayout extends StatefulWidget {
   const StudentDashboardLayout({super.key});
@@ -12,8 +14,6 @@ class StudentDashboardLayout extends StatefulWidget {
 }
 
 class _StudentDashboardLayoutState extends State<StudentDashboardLayout> {
-  final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
-
   List<PersistentBottomNavBarItem> _navBarItems(BuildContext buildContext) => [
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.home),
@@ -53,23 +53,16 @@ class _StudentDashboardLayoutState extends State<StudentDashboardLayout> {
 
   final List<Widget> _buildScreens = [
     const StudentHomeScreen(),
-    Container(),
+    const CourseEnrollScreen(),
     Container(),
     Container(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        body: PersistentBottomNavBarWidget(
-          context,
-          controller: _controller,
-          screens: _buildScreens,
-          items: _navBarItems(context),
-        ),
-      ),
+    return ScaffoldWidget(
+      buildScreens: _buildScreens,
+      navBarItems: _navBarItems,
     );
   }
 }

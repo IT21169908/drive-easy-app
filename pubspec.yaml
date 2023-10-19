@@ -44,16 +44,11 @@ dependencies:
   geolocator: ^10.1.0
   great_circle_distance_calculator: ^1.0.4
   sliding_up_panel: ^2.0.0+1
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-# run the package: dart run flutter_launcher_icons
-flutter_launcher_icons:
-  android: true
-  ios: true
-  image_path: "assets/images/icon-250x250.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -62,6 +57,11 @@ flutter_launcher_icons:
   # rules and activating additional ones.
   flutter_lints: ^2.0.3
 
+# run the package: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon-250x250.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -76,7 +76,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/clip-arts/
-    - assets/images/tracking-vehicles.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

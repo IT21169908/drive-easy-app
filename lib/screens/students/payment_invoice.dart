@@ -1,6 +1,8 @@
-import 'package:drive_easy_app/routes/app_routes.dart';
+import 'package:drive_easy_app/screens/students/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../routes/app_routes.dart';
 
 class PaymentInvoiceScreen extends StatefulWidget {
   const PaymentInvoiceScreen({super.key});
@@ -21,8 +23,8 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
               width: MediaQuery.of(context).size.width,
               height: 255,
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              decoration: BoxDecoration(
-                image: const DecorationImage(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
                   image: AssetImage('assets/images/bg-decoration.png'),
                   fit: BoxFit.contain,
                   alignment: Alignment(-1, -1),
@@ -39,8 +41,8 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset('assets/images/payment-success-icon.svg', semanticsLabel: 'ellipse187'),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     'Your payment\nwas successful!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -59,7 +61,7 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Payment Details",
                     style: TextStyle(
                       color: Color(0xff474A56),
@@ -68,7 +70,7 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Text(
+                  const Text(
                     "COURSE",
                     style: TextStyle(
                       color: Color(0xff8A8A8A),
@@ -77,7 +79,7 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                     ),
                   ),
                   const SizedBox(height: 1),
-                  Text(
+                  const Text(
                     "Light Vehicle",
                     style: TextStyle(
                       color: Color(0xff474A56),
@@ -85,12 +87,12 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     color: Color.fromRGBO(200, 209, 225, 1),
                     thickness: 0.5,
                     height: 30,
                   ),
-                  Text(
+                  const Text(
                     "TRANSACTION NUMBER",
                     style: TextStyle(
                       color: Color(0xff8A8A8A),
@@ -99,7 +101,7 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                     ),
                   ),
                   const SizedBox(height: 1),
-                  Text(
+                  const Text(
                     "193321453667",
                     style: TextStyle(
                       color: Color(0xff474A56),
@@ -107,12 +109,12 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     color: Color.fromRGBO(200, 209, 225, 1),
                     thickness: 0.5,
                     height: 30,
                   ),
-                  Text(
+                  const Text(
                     "PAYMENT METHOD",
                     style: TextStyle(
                       color: Color(0xff8A8A8A),
@@ -128,7 +130,7 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                         width: 24,
                       ),
                       const SizedBox(width: 10),
-                      Text(
+                      const Text(
                         "**** **** **** 1234",
                         style: TextStyle(
                           color: Color(0xff474A56),
@@ -138,12 +140,12 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                       ),
                     ],
                   ),
-                  Divider(
+                  const Divider(
                     color: Color.fromRGBO(200, 209, 225, 1),
                     thickness: 0.5,
                     height: 30,
                   ),
-                  Text(
+                  const Text(
                     "AMOUNT",
                     style: TextStyle(
                       color: Color(0xff8A8A8A),
@@ -152,7 +154,7 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                     ),
                   ),
                   const SizedBox(height: 1),
-                  Text(
+                  const Text(
                     "LKR 25,600.00",
                     style: TextStyle(
                       color: Color(0xff474A56),
@@ -160,12 +162,12 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     color: Color.fromRGBO(200, 209, 225, 1),
                     thickness: 0.5,
                     height: 30,
                   ),
-                  Text(
+                  const Text(
                     "PAYMENT DATE",
                     style: TextStyle(
                       color: Color(0xff8A8A8A),
@@ -174,7 +176,7 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                     ),
                   ),
                   const SizedBox(height: 1),
-                  Text(
+                  const Text(
                     "15 OCT 2023, 10:30 AM",
                     style: TextStyle(
                       color: Color(0xff474A56),
@@ -191,11 +193,11 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                           height: 48,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xff4E74F9),
+                              backgroundColor: const Color(0xff4E74F9),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             ),
                             onPressed: () {},
-                            child: Text(
+                            child: const Text(
                               "SAVE PDF",
                               style: TextStyle(
                                 color: Colors.white,
@@ -210,7 +212,15 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                           height: 48,
                           child: ElevatedButton(
                             onPressed: () {
-                              //TODO: REMOVE ROUTE HISTORY AND NAVIGATE
+                              Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return const StudentDashboardLayout();
+                                  },
+                                ),
+                                (_) => false,
+                              );
+                              //Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => CourseEnrollScreen()), (route) => false);
                               persistentTabController.jumpToTab(0);
                             },
                             style: ButtonStyle(
@@ -220,14 +230,14 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(6),
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                     color: Color.fromRGBO(51, 77, 143, 1),
                                     width: 1.5,
                                   ),
                                 ),
                               ),
                             ),
-                            child: Padding(
+                            child: const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                               child: Text(
                                 "DASHBOARD",
