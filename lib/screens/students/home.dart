@@ -1,7 +1,9 @@
+import 'package:drive_easy_app/screens/students/view_course_content_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class StudentHomeScreen extends StatefulWidget {
   const StudentHomeScreen({super.key});
@@ -200,17 +202,22 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                         ),
                       ),
                       SizedBox(height: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8),
-                            topRight: Radius.circular(8),
-                            bottomLeft: Radius.circular(8),
-                            bottomRight: Radius.circular(8),
-                          ),
-                          color: Color.fromRGBO(201, 131, 222, 0.75),
+                      MaterialButton(
+                        onPressed: () {
+                          // Navigator.of(context).push(MaterialPageRoute(builder: (context) => ViewCourseContentScreen()));
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const ViewCourseContentScreen(),
+                            withNavBar: false,
+                            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                          );
+                        },
+                        elevation: 0,
+                        color: Color(0xBFC983DE),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
                           "View",
                           style: TextStyle(
