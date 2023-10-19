@@ -1,6 +1,8 @@
-import 'package:drive_easy_app/routes/app_routes.dart';
+import 'package:drive_easy_app/screens/students/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../routes/app_routes.dart';
 
 class PaymentInvoiceScreen extends StatefulWidget {
   const PaymentInvoiceScreen({super.key});
@@ -210,7 +212,15 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                           height: 48,
                           child: ElevatedButton(
                             onPressed: () {
-                              //TODO: REMOVE ROUTE HISTORY AND NAVIGATE
+                              Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return StudentDashboardLayout();
+                                  },
+                                ),
+                                (_) => false,
+                              );
+                              //Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => CourseEnrollScreen()), (route) => false);
                               persistentTabController.jumpToTab(0);
                             },
                             style: ButtonStyle(

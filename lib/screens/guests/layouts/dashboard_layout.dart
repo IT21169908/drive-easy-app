@@ -1,12 +1,10 @@
 import 'package:drive_easy_app/screens/guests/auth/login_screen.dart';
 import 'package:drive_easy_app/screens/guests/home.dart';
-import 'package:drive_easy_app/screens/students/course_enroll_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../../routes/app_routes.dart';
-import '../../../widgets/widgets.g.dart';
+import '../../../widgets/dashboard/layout.dart';
 
 class GuestDashboardLayout extends StatefulWidget {
   const GuestDashboardLayout({super.key});
@@ -66,25 +64,16 @@ class _GuestDashboardLayoutState extends State<GuestDashboardLayout> {
 
   final List<Widget> _buildScreens = [
     GuestHomeScreen(),
-    CourseEnrollScreen(),
+    Container(),
     Container(),
     Container(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        body: PersistentBottomNavBarWidget(
-          context,
-          controller: persistentTabController,
-          screens: _buildScreens,
-          items: _navBarItems(context),
-          popAllScreensOnTapOfSelectedTab: true,
-          popActionScreens: PopActionScreensType.all,
-        ),
-      ),
+    return ScaffoldWidget(
+      buildScreens: _buildScreens,
+      navBarItems: _navBarItems,
     );
   }
 }
