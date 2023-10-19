@@ -1,9 +1,10 @@
+import 'package:drive_easy_app/screens/find_schools/widgets/course_info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:drive_easy_app/screens/find_schools/models/school_model.dart';
 
 class CoursesList extends StatelessWidget {
-  School school;
-  CoursesList({super.key, required this.school});
+  List<Course> courses;
+  CoursesList({super.key, required this.courses});
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +35,11 @@ class CoursesList extends StatelessWidget {
             // Card
             Expanded(
               child: ListView.builder(
-                itemCount: 3,
+                itemCount: courses.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    width: 100.0,
-                    height: 100,
-                    color: Colors.amber,
-                  );
+                  Course course = courses[index];
+                  return 
+                  CourseCard(course : course);
                 },
               ),
             ),

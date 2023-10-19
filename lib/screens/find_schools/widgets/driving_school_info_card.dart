@@ -10,7 +10,7 @@ class DrivingSchoolInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding: const EdgeInsets.only(bottom: 20.0),
       child: Column(
         children: [
           //card
@@ -20,7 +20,7 @@ class DrivingSchoolInfoCard extends StatelessWidget {
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.blue.shade50,
+                color: Colors.grey.shade200,
                 boxShadow: const [
                   BoxShadow(
                     offset: Offset(8, 4),
@@ -90,13 +90,14 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                     MaterialButton(
                       onPressed: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => SchoolInfo(school: school)),
+                          MaterialPageRoute(
+                              builder: (context) => SchoolInfo(school: school)),
                         );
                       },
                       minWidth: double.infinity,
                       padding: EdgeInsets.symmetric(
                           horizontal: 10.0, vertical: 15.0),
-                      color: Colors.blue,
+                      color: Colors.indigo.shade900,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),

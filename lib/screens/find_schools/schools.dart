@@ -141,7 +141,7 @@ class _SchoolsState extends State<Schools> {
                       minWidth: double.infinity,
                       padding: EdgeInsets.symmetric(
                           horizontal: 10.0, vertical: 15.0),
-                      color: Colors.blue,
+                      color: Colors.indigo.shade900,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
@@ -266,7 +266,7 @@ class _SliderExampleState extends State<SliderExample> {
       min: 0,
       max: 10,
       divisions: 10,
-      activeColor: Colors.blue,
+      activeColor: Colors.amber,
       label: _currentSliderValue.round().toString() + "KM",
       onChanged: (double value) {
         setState(() {
