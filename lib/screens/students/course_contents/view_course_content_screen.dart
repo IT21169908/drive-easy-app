@@ -1,8 +1,10 @@
+import 'package:drive_easy_app/screens/students/course_contents/study_materials/study_materials_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../widgets/cards/course_content_card.dart';
-import '../../widgets/widgets.g.dart';
+import '../../../widgets/cards/course_content_card.dart';
+import '../../../widgets/widgets.g.dart';
 
 class ViewCourseContentScreen extends StatefulWidget {
   const ViewCourseContentScreen({super.key});
@@ -23,52 +25,41 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
             children: [
               const TopAppBar(),
               const SizedBox(height: 20),
-              Container(
+              ScreenTopBanner(
+                margin: EdgeInsets.zero,
                 padding: const EdgeInsets.fromLTRB(25, 20, 10, 20),
-                decoration: BoxDecoration(
-                  color: const Color(0xff0029BA),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/images/card-decoration.png'),
-                    fit: BoxFit.contain,
-                    alignment: Alignment(1, 0),
-                  ),
-                  borderRadius: BorderRadius.circular(16),
+                image: SvgPicture.asset(
+                  "assets/images/enrolled-course-card-girl.svg",
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Light Vehicle",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          "ABS Learners",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          "0% Completed",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      "Light Vehicle",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    SvgPicture.asset("assets/images/enrolled-course-card-girl.svg")
+                    SizedBox(height: 5),
+                    Text(
+                      "ABS Learners",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "0% Completed",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -80,6 +71,15 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                   width: 40,
                 ),
                 title: "Study",
+                onPressed: () {
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) => StudyMaterialsListScreen()()));
+                  PersistentNavBarNavigator.pushNewScreen(
+                    context,
+                    screen: const StudyMaterialsListScreen(),
+                    withNavBar: false,
+                    pageTransitionAnimation: PageTransitionAnimation.scale,
+                  );
+                },
               ),
               CourseContentItemCard(
                 margin: const EdgeInsets.only(bottom: 10),
@@ -88,6 +88,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                   width: 40,
                 ),
                 title: "Road Signs",
+                onPressed: () {},
               ),
               CourseContentItemCard(
                 margin: const EdgeInsets.only(bottom: 10),
@@ -96,6 +97,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                   width: 40,
                 ),
                 title: "Practice Questions",
+                onPressed: () {},
               ),
               CourseContentItemCard(
                 margin: const EdgeInsets.only(bottom: 10),
@@ -104,6 +106,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                   width: 40,
                 ),
                 title: "Tests",
+                onPressed: () {},
               ),
               CourseContentItemCard(
                 margin: const EdgeInsets.only(bottom: 10),
@@ -112,6 +115,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                   width: 40,
                 ),
                 title: "Test Results",
+                onPressed: () {},
               ),
             ],
           ),

@@ -21,8 +21,19 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
               const TopAppBar(),
               const SizedBox(height: 20),
               const ScreenTopBanner(
-                title: 'Vehicle Tracking',
+                width: 110,
                 assets: 'assets/images/tracking-vehicles.png',
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    'Vehicle Tracking',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               Container(

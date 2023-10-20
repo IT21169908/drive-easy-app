@@ -16,81 +16,122 @@ class School {
   String name;
   String description;
   double rating;
-  double latitude;
-  double longitude;
+  LatLng location; // Using LatLng for latitude and longitude
   List<Course> courses;
-  String address;  // Added address field
+  String address;
 
   School({
     required this.name,
     required this.description,
     required this.rating,
-    required this.latitude,
-    required this.longitude,
+    required this.location,
     required this.courses,
-    required this.address,  // Added address field in the constructor
+    required this.address,
   });
 }
 
-class DummyData {
-  static List<School> generateSchoolData(int itemCount) {
-    List<String> schoolNames = [
-      'School 1',
-      'School 2',
-      'School 3',
-      'School 4',
-      'School 5',
-    ];
+class LatLng {
+  double latitude;
+  double longitude;
 
-    List<String> descriptions = [
-      'Description 1',
-      'Description 2',
-      'Description 3',
-      'Description 4',
-      'Description 5',
-    ];
-
-    List<String> addresses = [
-      '123 Main St, City, State',
-      '456 Elm St, City, State',
-      '789 Oak St, City, State',
-      '101 Pine St, City, State',
-      '202 Cedar St, City, State',
-    ];
-
-    List<School> schoolList = [];
-
-    for (int i = 0; i < itemCount; i++) {
-      Random random = Random();
-      double lat = 40.0 + random.nextDouble() * 10.0;
-      double long = -80.0 - random.nextDouble() * 10.0;
-
-      List<Course> courses = [
-        Course(
-          name: 'Math',
-          about: 'Learn fundamental math concepts.',
-          price: 99.99,
-        ),
-        Course(
-          name: 'Science',
-          about: 'Explore the world of science.',
-          price: 149.99,
-        ),
-      ];
-
-      School school = School(
-        name: schoolNames[random.nextInt(schoolNames.length)],
-        description: descriptions[random.nextInt(descriptions.length)],
-        rating: random.nextDouble() * 5,
-        latitude: lat,
-        longitude: long,
-        courses: courses,
-        address: addresses[random.nextInt(addresses.length)],  // Add address
-      );
-
-      schoolList.add(school);
-    }
-
-    return schoolList;
-  }
+  LatLng(this.latitude, this.longitude);
 }
+
+List<School> schoolList = [
+  School(
+    name: 'Nishan Learners',
+    description: 'Description 1',
+    rating: 4.5,
+    //37.423410, -122.082659 near google
+    location: LatLng(37.423410, -122.082659),
+    courses: [
+      Course(
+        name: 'Math',
+        about: 'Learn fundamental math concepts.',
+        price: 99.99,
+      ),
+      Course(
+        name: 'Science',
+        about: 'Explore the world of science.',
+        price: 149.99,
+      ),
+    ],
+    address: '123 Main St, City, State',
+  ),
+  School(
+    name: 'Samagi Learners',
+    description: 'Description 2',
+    rating: 4.2,
+    location: LatLng(41.0, -81.0),
+    courses: [
+      Course(
+        name: 'English',
+        about: 'Improve your English language skills.',
+        price: 79.99,
+      ),
+      Course(
+        name: 'History',
+        about: 'Discover the past.',
+        price: 129.99,
+      ),
+    ],
+    address: '456 Elm St, City, State',
+  ),
+  School(
+    name: 'Napoli Learners',
+    description: 'Description 3',
+    rating: 4.8,
+    location: LatLng(39.5, -79.5),
+    courses: [
+      Course(
+        name: 'Art',
+        about: 'Unleash your creativity.',
+        price: 119.99,
+      ),
+      Course(
+        name: 'Music',
+        about: 'Explore the world of music.',
+        price: 169.99,
+      ),
+    ],
+    address: '789 Oak St, City, State',
+  ),
+  School(
+    name: 'Ishan Learners',
+    description: 'Description 4',
+    rating: 4.0,
+    location: LatLng(39.8, -79.2),
+    courses: [
+      Course(
+        name: 'Physics',
+        about: 'Learn the laws of the universe.',
+        price: 139.99,
+      ),
+      Course(
+        name: 'Chemistry',
+        about: 'Explore the world of molecules.',
+        price: 159.99,
+      ),
+    ],
+    address: '101 Pine St, City, State',
+  ),
+  School(
+    name: 'Gampaha Central Learners',
+    description: 'Description 5',
+    rating: 4.3,
+    location: LatLng(40.2, -79.8),
+    courses: [
+      Course(
+        name: 'Physical Education',
+        about: 'Stay fit and active.',
+        price: 89.99,
+      ),
+      Course(
+        name: 'Computer Science',
+        about: 'Master the world of computers.',
+        price: 179.99,
+      ),
+    ],
+    address: '202 Cedar St, City, State',
+  ),
+];

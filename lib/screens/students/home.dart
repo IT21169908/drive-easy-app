@@ -1,5 +1,5 @@
+import 'package:drive_easy_app/screens/students/course_contents/view_course_content_screen.dart';
 import 'package:drive_easy_app/screens/students/track_vehicles/track_vehicles_screen.dart';
-import 'package:drive_easy_app/screens/students/view_course_content_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -170,70 +170,54 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
             ],
           ),
           if (isCourseEnrolled)
-            Container(
-              margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-              padding: const EdgeInsets.fromLTRB(25, 20, 10, 20),
-              decoration: BoxDecoration(
-                color: const Color(0xff0029BA),
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/card-decoration.png'),
-                  fit: BoxFit.contain,
-                  alignment: Alignment(1, 0),
-                ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ScreenTopBanner(
+              image: SvgPicture.asset("assets/images/enrolled-course-card-girl.svg"),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Light Vehicle",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      const Text(
-                        "ABS Learners",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      MaterialButton(
-                        onPressed: () {
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (context) => ViewCourseContentScreen()));
-                          PersistentNavBarNavigator.pushNewScreen(
-                            context,
-                            screen: const ViewCourseContentScreen(),
-                            withNavBar: false,
-                            pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                          );
-                        },
-                        elevation: 0,
-                        color: const Color(0xBFC983DE),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: const Text(
-                          "View",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ),
-                    ],
+                  const Text(
+                    "Light Vehicle",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  SvgPicture.asset("assets/images/enrolled-course-card-girl.svg")
+                  const SizedBox(height: 5),
+                  const Text(
+                    "ABS Learners",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  MaterialButton(
+                    onPressed: () {
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => ViewCourseContentScreen()));
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const ViewCourseContentScreen(),
+                        withNavBar: false,
+                        pageTransitionAnimation: PageTransitionAnimation.scale,
+                      );
+                    },
+                    elevation: 0,
+                    color: const Color(0xBFC983DE),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: const Text(
+                      "View",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -2,7 +2,8 @@ import 'package:drive_easy_app/screens/students/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../routes/app_routes.dart';
+import '../../../routes/app_routes.dart';
+
 
 class PaymentInvoiceScreen extends StatefulWidget {
   const PaymentInvoiceScreen({super.key});

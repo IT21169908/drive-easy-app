@@ -36,31 +36,37 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                   children: [
                     //image with title
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //image
                         Container(
-                          width: 100.0,
-                          height: 100.0,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                          ),
+                          width: 100, // Set the desired width
+                          height: 100, // Set the desired height
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.network(
+                                'https://houstondrivingschool.net/wp-content/uploads/2020/04/driving-lessons.jpg'),
+                          ), // Replace with your image URL
                         ),
 
                         SizedBox(width: 10.0),
                         //title
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: Text(school.name,
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
-                            Text(school.rating.toString()),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                child: Text(school.name,
+                                    style: TextStyle(
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                              Text(school.rating.toString()),
+                            ],
+                          ),
                         ),
                       ],
                     ),

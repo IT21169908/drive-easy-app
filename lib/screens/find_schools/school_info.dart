@@ -141,9 +141,13 @@ class SchoolInfo extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Image.network(
-                    'https://www.lifewire.com/thmb/pe-HqOKptr9JMz-ILbvCTnbF8BQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/The10BestEducationalWebsitesforTakingOnlineCoursesin2021-final-a1b955b29f624dfc84645c86f33d6c3b.jpg',
-                    fit: BoxFit.cover,
+                  Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: Image.network(
+                      'https://houstondrivingschool.net/wp-content/uploads/2020/04/driving-lessons.jpg',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Positioned(
                     top: 10, // Adjust the top position as needed
@@ -267,12 +271,20 @@ class SchoolInfo extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    //map view
-                    Image.network(
-                      'http://filiz.it/wp-content/uploads/2016/01/maps_tutorial.png',
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: 300.0,
-                      fit: BoxFit.fitWidth,
+                    //about us
+                    Text(
+                      "About Us",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Driving lessons are essential educational programs designed to teach individuals the knowledge, skills, and responsible behaviors necessary for safe and confident driving. These courses typically cover a wide range of topics, including road rules, defensive driving techniques, traffic signs, and vehicle operation. They often include both theoretical classroom instruction and practical hands-on training behind the wheel. These lessons are a fundamental step in preparing new drivers to obtain their driver's licenses and navigate the complexities of the road. Importantly, driving lessons not only focus on teaching the technical aspects of driving but also emphasize the importance of safe driving practices and responsible behavior on the road, contributing to overall road safety and reducing accidents.",
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w200, color: Colors.grey),
+                      ),
                     ),
 
                     SizedBox(height: 20.0),

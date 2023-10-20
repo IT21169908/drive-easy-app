@@ -30,7 +30,15 @@ class CoursesList extends StatelessWidget {
               "Courses",
               style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10.0),
+
+            Text(
+              "Click to see more details of the course",
+              textAlign: TextAlign.justify,
+              style:
+                  TextStyle(fontWeight: FontWeight.w200, color: Colors.grey),
+            ),
+
+            SizedBox(height: 15.0),
 
             // Card
             Expanded(
@@ -38,8 +46,7 @@ class CoursesList extends StatelessWidget {
                 itemCount: courses.length,
                 itemBuilder: (BuildContext context, int index) {
                   Course course = courses[index];
-                  return 
-                  CourseCard(course : course);
+                  return CourseCard(course: course);
                 },
               ),
             ),
