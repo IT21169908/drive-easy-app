@@ -1,6 +1,7 @@
 import 'package:drive_easy_app/screens/students/course_enrollment/pay_methods/bank_payment.dart';
 import 'package:drive_easy_app/screens/students/course_enrollment/pay_methods/online_payment.dart';
 import 'package:drive_easy_app/screens/students/course_enrollment/payment_invoice.dart';
+import 'package:drive_easy_app/widgets/cards/payment_method_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,70 +46,32 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: const Color.fromRGBO(229, 229, 229, 1),
-                    width: 1,
-                  ),
+              PaymentMethodCard(
+                onPressed: () {
+                  onlinePaymentModal(context);
+                },
+                text: 'Online Payment',
+                textStyle: GoogleFonts.inter(
+                  color: const Color.fromRGBO(62, 62, 63, 1),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
                 ),
-                child: MaterialButton(
-                  onPressed: () {
-                    onlinePaymentModal(context);
-                  },
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset('assets/images/pay-method-card.svg', semanticsLabel: 'pay-method-card'),
-                      const SizedBox(width: 10),
-                      Text(
-                        'Online Payment',
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.inter(
-                          color: const Color.fromRGBO(62, 62, 63, 1),
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: const Color.fromRGBO(229, 229, 229, 1),
-                    width: 1,
-                  ),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    bankPaymentModal(context);
-                  },
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset('assets/images/pay-method-card.svg', semanticsLabel: 'pay-method-card'),
-                      const SizedBox(width: 10),
-                      Text(
-                        'Bank Transfer',
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.inter(
-                          color: const Color.fromRGBO(62, 62, 63, 1),
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                image: SvgPicture.asset('assets/images/pay-method-card.svg', semanticsLabel: 'pay-method-card'),
               ),
               const SizedBox(height: 10),
+              PaymentMethodCard(
+                onPressed: () {
+                  bankPaymentModal(context);
+                },
+                text: 'Bank Transfer',
+                textStyle: GoogleFonts.inter(
+                  color: const Color.fromRGBO(62, 62, 63, 1),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                image: SvgPicture.asset('assets/images/pay-method-card.svg', semanticsLabel: 'pay-method-card'),
+              ),
+              const SizedBox(height: 15),
               Text(
                 "Please review the details below",
                 style: GoogleFonts.inter(
@@ -117,10 +80,11 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 10),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
+                  color: const Color(0xFFF4F4F4),
                   border: Border.all(
                     color: const Color.fromRGBO(229, 229, 229, 1),
                     width: 1,
@@ -318,7 +282,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
             ],
           ),
         ),
