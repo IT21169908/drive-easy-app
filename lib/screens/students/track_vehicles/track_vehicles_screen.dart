@@ -26,11 +26,10 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: Text(
-                    'Track Vehicles',
+                    'Vehicle Tracking',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
-                      //fontSize: title.length > 20 ? 18 : 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -45,18 +44,18 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 1,
-                  childAspectRatio: (MediaQuery.of(context).size.width / 2) / 170,
+                  childAspectRatio: (MediaQuery.of(context).size.width / 2) / 60,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   children: const [
                     ButtonCardWide(
                       title: "Available Vehicles",
-                      asset: "assets/images/tools.png",
+                      asset: "assets/images/available_vehicles.png",
                     ),
                     ButtonCardWide(
                       title: "Nearby Vehicles",
-                      asset: "assets/images/action.png",
+                      asset: "assets/images/nearby_vehicles.png",
                     ),
                   ],
                 ),
