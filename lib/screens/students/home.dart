@@ -1,5 +1,5 @@
+import 'package:drive_easy_app/screens/students/course_contents/view_course_content_screen.dart';
 import 'package:drive_easy_app/screens/students/track_vehicles/track_vehicles_screen.dart';
-import 'package:drive_easy_app/screens/students/view_course_content_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

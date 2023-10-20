@@ -1,12 +1,12 @@
-import 'package:drive_easy_app/screens/students/pay_methods/bank_payment.dart';
-import 'package:drive_easy_app/screens/students/pay_methods/online_payment.dart';
-import 'package:drive_easy_app/screens/students/payment_invoice.dart';
+import 'package:drive_easy_app/screens/students/course_enrollment/pay_methods/bank_payment.dart';
+import 'package:drive_easy_app/screens/students/course_enrollment/pay_methods/online_payment.dart';
+import 'package:drive_easy_app/screens/students/course_enrollment/payment_invoice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../widgets/widgets.g.dart';
+import '../../../widgets/widgets.g.dart';
 
 class ConfirmPaymentScreen extends StatefulWidget {
   const ConfirmPaymentScreen({super.key});

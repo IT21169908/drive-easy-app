@@ -1,10 +1,10 @@
-import 'package:drive_easy_app/screens/students/confirm_payment_screen.dart';
+import 'package:drive_easy_app/screens/students/course_enrollment/confirm_payment_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../utils/theme_consts.dart';
+import '../../../utils/theme_consts.dart';
 
 class CourseEnrollScreen extends StatefulWidget {
   const CourseEnrollScreen({super.key});

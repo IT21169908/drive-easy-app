@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../widgets/cards/course_content_card.dart';
-import '../../widgets/widgets.g.dart';
+import '../../../widgets/cards/course_content_card.dart';
+import '../../../widgets/widgets.g.dart';
 
 class ViewCourseContentScreen extends StatefulWidget {
   const ViewCourseContentScreen({super.key});
