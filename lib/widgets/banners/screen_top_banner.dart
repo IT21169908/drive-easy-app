@@ -14,7 +14,7 @@ class ScreenTopBanner extends StatelessWidget {
     required this.child,
     this.image,
     this.width,
-    this.margin = const EdgeInsets.fromLTRB(10, 15, 10, 0),
+    this.margin = EdgeInsets.zero,
     this.padding = const EdgeInsets.fromLTRB(25, 20, 10, 20),
   }) : assert(
           (assets != null && image == null && width != null) || (assets == null && image != null) || (assets == null && image == null),

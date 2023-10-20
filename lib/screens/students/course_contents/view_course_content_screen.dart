@@ -26,11 +26,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
               const TopAppBar(),
               const SizedBox(height: 20),
               ScreenTopBanner(
-                margin: EdgeInsets.zero,
-                padding: const EdgeInsets.fromLTRB(25, 20, 10, 20),
-                image: SvgPicture.asset(
-                  "assets/images/enrolled-course-card-girl.svg",
-                ),
+                image: SvgPicture.asset("assets/images/enrolled-course-card-girl.svg"),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

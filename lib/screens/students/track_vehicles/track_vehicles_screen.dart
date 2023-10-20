@@ -1,3 +1,4 @@
+import 'package:drive_easy_app/screens/students/track_vehicles/rounded_map_container.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/material.dart';
 
@@ -21,10 +22,11 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
               const TopAppBar(),
               const SizedBox(height: 20),
               const ScreenTopBanner(
+                margin: EdgeInsets.zero,
                 width: 110,
                 assets: 'assets/images/tracking-vehicles.png',
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.only(bottom: 0),
                   child: Text(
                     'Vehicle Tracking',
                     style: TextStyle(
@@ -38,8 +40,13 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
               const SizedBox(height: 20),
               Container(
                 width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.only(left: 4, right: 4, top: 15),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                child: const RoundedMapContainer(),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(horizontal: 15),
                 child: GridView.count(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

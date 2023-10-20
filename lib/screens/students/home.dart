@@ -171,6 +171,8 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
           ),
           if (isCourseEnrolled)
             ScreenTopBanner(
+              margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+              padding: const EdgeInsets.fromLTRB(25, 20, 10, 20),
               image: SvgPicture.asset("assets/images/enrolled-course-card-girl.svg"),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,7 +202,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                         context,
                         screen: const ViewCourseContentScreen(),
                         withNavBar: false,
-                        pageTransitionAnimation: PageTransitionAnimation.scale,
+                        pageTransitionAnimation: PageTransitionAnimation.sizeUp,
                       );
                     },
                     elevation: 0,
@@ -251,7 +253,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                         context,
                         screen: const TrackVehiclesScreen(),
                         withNavBar: true,
-                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                        pageTransitionAnimation: PageTransitionAnimation.scale,
                       );
                     },
                   ),

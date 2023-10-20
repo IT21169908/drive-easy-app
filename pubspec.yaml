@@ -45,6 +45,10 @@ dependencies:
   great_circle_distance_calculator: ^1.0.4
   sliding_up_panel: ^2.0.0+1
   auto_size_text: ^3.0.0
+  google_maps_flutter: ^2.5.0
+  flutter_polyline_points: ^2.0.0
+  location: ^5.0.3
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +59,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.3
+  flutter_lints: ^3.0.0
 
 # run the package: dart run flutter_launcher_icons
 flutter_launcher_icons:
