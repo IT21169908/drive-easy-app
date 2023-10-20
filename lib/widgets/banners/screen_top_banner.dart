@@ -1,19 +1,34 @@
 part of '../widgets.g.dart';
 
 class ScreenTopBanner extends StatelessWidget {
-  final String title;
-  final String assets;
+  final Widget child;
+  final String? assets;
+  final Widget? image;
+  final double? width;
+  final EdgeInsets margin;
+  final EdgeInsets padding;
 
   const ScreenTopBanner({
     super.key,
-    required this.title,
-    required this.assets,
-  });
+    this.assets,
+    required this.child,
+    this.image,
+    this.width,
+    this.margin = const EdgeInsets.fromLTRB(10, 15, 10, 0),
+    this.padding = const EdgeInsets.fromLTRB(25, 20, 10, 20),
+  }) : assert(
+          (assets != null && image == null && width != null) || (assets == null && image != null) || (assets == null && image == null),
+          'You should provide one of the following options:\n'
+          '- assets and width (for images loaded from assets)\n'
+          '- image (for custom images)\n'
+          'But you should not provide both assets and image or neither.',
+        );
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(25, 20, 25, 5),
+      margin: margin,
+      padding: padding,
       decoration: BoxDecoration(
         color: const Color(0xff0029BA),
         image: const DecorationImage(
@@ -26,20 +41,15 @@ class ScreenTopBanner extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: title.length > 20 ? 18 : 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Image.asset(assets, width: 110),
+          child,
+          image != null
+              ? image!
+              : (isSvgImage(assets!)
+                  ? SvgPicture.asset(
+                      assets!,
+                      width: width,
+                    )
+                  : Image.asset(assets!, width: width)),
         ],
       ),
     );

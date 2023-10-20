@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:drive_easy_app/utils/check_image_extension.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
