@@ -8,13 +8,24 @@ class CourseContentItemCard extends StatelessWidget {
     required this.title,
     this.icon = Icons.arrow_forward_ios,
     this.margin,
-  });
+    this.showSuffix = true,
+    this.fontWeight = FontWeight.w600,
+    this.fontSize = 18,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+  }) : assert(
+          !showSuffix || mainAxisAlignment == MainAxisAlignment.start,
+          'If showSuffix is true, you must set mainAxisAlignment to MainAxisAlignment.start.',
+        );
 
   final Widget image;
   final String title;
   final IconData? icon;
   final EdgeInsetsGeometry? margin;
   final Function()? onPressed;
+  final bool showSuffix;
+  final FontWeight fontWeight;
+  final double fontSize;
+  final MainAxisAlignment mainAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -39,25 +50,29 @@ class CourseContentItemCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Row(
+          mainAxisAlignment: mainAxisAlignment,
           children: [
             image,
             const SizedBox(width: 10),
-            Text(
-              title,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-              ),
-            ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Icon(
-                  icon,
-                  size: 15,
+            Center(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontWeight: fontWeight,
+                  fontSize: fontSize,
                 ),
               ),
-            )
+            ),
+            if (showSuffix)
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Icon(
+                    icon,
+                    size: 15,
+                  ),
+                ),
+              )
           ],
         ),
       ),

@@ -200,7 +200,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                         context,
                         screen: const ViewCourseContentScreen(),
                         withNavBar: false,
-                        pageTransitionAnimation: PageTransitionAnimation.scale,
+                        pageTransitionAnimation: PageTransitionAnimation.sizeUp,
                       );
                     },
                     elevation: 0,
