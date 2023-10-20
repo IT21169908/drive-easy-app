@@ -34,7 +34,7 @@ class ScreenTopBanner extends StatelessWidget {
         image: const DecorationImage(
           image: AssetImage('assets/images/card-decoration.png'),
           fit: BoxFit.contain,
-          alignment: Alignment(1, 0),
+          alignment: Alignment(1, -1),
         ),
         borderRadius: BorderRadius.circular(16),
       ),
