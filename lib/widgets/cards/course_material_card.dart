@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
-class CourseContentItemCard extends StatelessWidget {
-  const CourseContentItemCard({
+class CourseMaterialItemCard extends StatelessWidget {
+  const CourseMaterialItemCard({
     super.key,
     required this.onPressed,
     required this.image,
     required this.title,
+    required this.subtitle,
     this.icon = Icons.arrow_forward_ios,
     this.margin,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
   });
 
   final Widget image;
   final String title;
+  final String subtitle;
   final IconData? icon;
   final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
   final Function()? onPressed;
 
   @override
@@ -34,7 +38,7 @@ class CourseContentItemCard extends StatelessWidget {
       child: MaterialButton(
         height: 75,
         onPressed: onPressed,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        padding: padding,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -42,22 +46,26 @@ class CourseContentItemCard extends StatelessWidget {
           children: [
             image,
             const SizedBox(width: 10),
-            Text(
-              title,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
             ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Icon(
-                  icon,
-                  size: 15,
-                ),
-              ),
-            )
           ],
         ),
       ),

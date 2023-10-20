@@ -1,5 +1,7 @@
+import 'package:drive_easy_app/screens/students/course_contents/study_materials/study_materials_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../widgets/cards/course_content_card.dart';
 import '../../../widgets/widgets.g.dart';
@@ -69,6 +71,15 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                   width: 40,
                 ),
                 title: "Study",
+                onPressed: () {
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) => StudyMaterialsListScreen()()));
+                  PersistentNavBarNavigator.pushNewScreen(
+                    context,
+                    screen: const StudyMaterialsListScreen(),
+                    withNavBar: false,
+                    pageTransitionAnimation: PageTransitionAnimation.scale,
+                  );
+                },
               ),
               CourseContentItemCard(
                 margin: const EdgeInsets.only(bottom: 10),
@@ -77,6 +88,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                   width: 40,
                 ),
                 title: "Road Signs",
+                onPressed: () {},
               ),
               CourseContentItemCard(
                 margin: const EdgeInsets.only(bottom: 10),
@@ -85,6 +97,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                   width: 40,
                 ),
                 title: "Practice Questions",
+                onPressed: () {},
               ),
               CourseContentItemCard(
                 margin: const EdgeInsets.only(bottom: 10),
@@ -93,6 +106,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                   width: 40,
                 ),
                 title: "Tests",
+                onPressed: () {},
               ),
               CourseContentItemCard(
                 margin: const EdgeInsets.only(bottom: 10),
@@ -101,6 +115,7 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                   width: 40,
                 ),
                 title: "Test Results",
+                onPressed: () {},
               ),
             ],
           ),
