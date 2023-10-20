@@ -2,14 +2,14 @@ part of '../widgets.g.dart';
 
 class ButtonCardWide extends StatelessWidget {
   final String title;
-  final dynamic count;
+  final String? subtitle;
   final String asset;
   final VoidCallback? onPressed;
 
   const ButtonCardWide({
     super.key,
     required this.title,
-    this.count,
+    this.subtitle,
     required this.asset,
     this.onPressed,
   });
@@ -35,28 +35,35 @@ class ButtonCardWide extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(asset, width: 85),
-            const SizedBox(height: 5),
-            Text(
-              title,
-              style: GoogleFonts.rubik(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.black,
-              ),
+            Image.asset(asset, width: 100),
+            const SizedBox(width: 20),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.rubik(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
+                ),
+                subtitle != null
+                    ? Text(
+                        subtitle!,
+                        style: GoogleFonts.rubik(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ],
             ),
-            count != null
-                ? Text(
-                    "$count",
-                    style: GoogleFonts.rubik(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey,
-                    ),
-                  )
-                : const SizedBox.shrink(),
           ],
         ),
       ),
