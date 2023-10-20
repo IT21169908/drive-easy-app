@@ -1,19 +1,19 @@
-import 'package:drive_easy_app/screens/guests/auth/login_screen.dart';
-import 'package:drive_easy_app/screens/guests/home.dart';
+import 'package:drive_easy_app/widgets/dashboard/scaffold_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../../widgets/dashboard/scaffold_widget.dart';
+import '../course_enroll_screen.dart';
+import '../home.dart';
 
-class GuestDashboardLayout extends StatefulWidget {
-  const GuestDashboardLayout({super.key});
+class StudentDashboardLayout extends StatefulWidget {
+  const StudentDashboardLayout({super.key});
 
   @override
-  State<GuestDashboardLayout> createState() => _GuestDashboardLayoutState();
+  State<StudentDashboardLayout> createState() => _StudentDashboardLayoutState();
 }
 
-class _GuestDashboardLayoutState extends State<GuestDashboardLayout> {
+class _StudentDashboardLayoutState extends State<StudentDashboardLayout> {
   List<PersistentBottomNavBarItem> _navBarItems(BuildContext buildContext) => [
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.home),
@@ -39,30 +39,21 @@ class _GuestDashboardLayoutState extends State<GuestDashboardLayout> {
           },
         ),
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.login),
-          title: ("Logout"),
+          icon: const Icon(Icons.person_2_outlined),
+          title: ("Profile"),
           activeColorPrimary: Colors.blue,
           inactiveColorPrimary: Colors.grey,
           onPressed: (BuildContext? context) {
             if (kDebugMode) {
-              print("logout");
-            }
-            // TODO: CHECK context is null first time app launches or some moments
-            if (mounted) {
-              PersistentNavBarNavigator.pushNewScreen(
-                buildContext,
-                screen: const LoginScreen(),
-                withNavBar: false,
-                pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              );
+              print("Profile screen");
             }
           },
         ),
       ];
 
   final List<Widget> _buildScreens = [
-    const GuestHomeScreen(),
-    Container(),
+    const StudentHomeScreen(),
+    const CourseEnrollScreen(),
     Container(),
     Container(),
   ];

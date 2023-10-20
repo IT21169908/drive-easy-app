@@ -5,12 +5,13 @@ class TopAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scaffold = Scaffold.of(context);
+    // var scaffold = Scaffold.of(context);
 
     return Container(
       decoration: const BoxDecoration(
         color: Colors.transparent,
       ),
+      //padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: Padding(
         padding: EdgeInsets.zero,
         child: SafeArea(

@@ -7,12 +7,16 @@ class PersistentBottomNavBarWidget extends StatelessWidget {
     required this.screens,
     this.controller,
     this.items,
+    this.popAllScreensOnTapOfSelectedTab = true,
+    this.popActionScreens = PopActionScreensType.all,
   });
 
   final BuildContext context;
   final PersistentTabController? controller;
   final List<Widget> screens;
   final List<PersistentBottomNavBarItem>? items;
+  final bool popAllScreensOnTapOfSelectedTab;
+  final PopActionScreensType popActionScreens;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +46,8 @@ class PersistentBottomNavBarWidget extends StatelessWidget {
       screenTransitionAnimation: const ScreenTransitionAnimation(
         animateTabTransition: true,
       ),
+      popAllScreensOnTapOfSelectedTab: popAllScreensOnTapOfSelectedTab,
+      popActionScreens: popActionScreens,
       navBarStyle: NavBarStyle.style1,
     );
   }

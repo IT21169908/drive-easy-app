@@ -1,68 +1,82 @@
-import 'package:drive_easy_app/screens/find_schools/widgets/driving_school_info_card.dart';
 import 'package:flutter/material.dart';
+import 'package:drive_easy_app/screens/find_schools/widgets/driving_school_info_card.dart';
+import 'package:drive_easy_app/screens/find_schools/models/school_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:great_circle_distance_calculator/great_circle_distance_calculator.dart';
+import 'dart:math'; // Import the dart:math library
 
-class Schools extends StatelessWidget {
-  const Schools({Key? key}) : super(key: key);
+class Schools extends StatefulWidget {
+  Schools({Key? key}) : super(key: key);
 
-  //popup sheet
-  Future _displayBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(30.0),
-        ),
-      ),
-      builder: (context) => Container(
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Icon(
-                      Icons.close,
-                      color: Colors.black,
-                      size: 30.0,
-                    ),
-                  ),
-                ],
-              ),
-              //title and close button
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.tune,
-                    color: Colors.black,
-                    size: 30.0,
-                  ),
-                  SizedBox(width: 5.0),
-                  Text(
-                    "Filter",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+  @override
+  State<Schools> createState() => _SchoolsState();
+}
 
-              //body
+class _SchoolsState extends State<Schools> {
+  List<School> schoolData = schoolList;
+  double maxDistance = 4;
 
-              //2 button
-            ],
-          ),
-        ),
-      ),
-    );
+  void onDataReceived(double data) {
+    // Process the data received from the child widget.
+    setState(() {
+      maxDistance = data;
+    });
+    ;
+  }
+
+  ///location of user
+  void getLocation() async {
+    await Geolocator.checkPermission();
+    await Geolocator.requestPermission();
+
+    Position userPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    double userLat = userPosition.latitude;
+    double userLng = userPosition.longitude;
+    filterSchoolsByDistance(schoolData, userLat, userLng);
+  }
+
+  void filterSchoolsByDistance(
+      List<School> schools, double userLat, double userLng) {
+    // Filter the list based on distance <= 30000 meters
+    List<School> filteredSchools = schools.where((school) {
+      double distance = calculateDistance(userLat, userLng,
+          school.location.latitude, school.location.longitude);
+      print(maxDistance);
+      return distance <= maxDistance;
+    }).toList();
+
+    setState(() {
+      schoolData = filteredSchools;
+    });
+  }
+
+  double radians(double degrees) {
+    return degrees * (pi / 180.0);
+  }
+
+  double calculateDistance(double lat1, double lng1, double lat2, double lng2) {
+    var radiusOfEarth = 6371.0; // Earth's radius in
+    print("user lat and lon " + lat1.toString() + " " + lng1.toString());
+    print("school lat and long " + lat2.toString() + " " + lng2.toString());
+
+    var phi1 = radians(lat1);
+    var phi2 = radians(lat2);
+
+    var deltaPhi = radians(lat2 - lat1);
+    var deltaLambda = radians(lng2 - lng1);
+
+    var a = sin(deltaPhi / 2) * sin(deltaPhi / 2) +
+        cos(phi1) * cos(phi2) * sin(deltaLambda / 2) * sin(deltaLambda / 2);
+    var c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+    var distanceInKilometers = radiusOfEarth * c;
+    print("distance between user and school + " +
+        distanceInKilometers.toString());
+
+    return distanceInKilometers;
   }
 
   @override
@@ -78,7 +92,7 @@ class Schools extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +131,144 @@ class Schools extends StatelessWidget {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () => _displayBottomSheet(context),
+                    onTap: () {
+                      /////////////////////////////////////////////////////////////////////////////
+                      showModalBottomSheet(
+                        context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(30.0),
+                          ),
+                        ),
+                        builder: (context) => Container(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Icon(
+                                        Icons.close,
+                                        color: Colors.black,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                //title and close button
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.tune,
+                                      color: Colors.black,
+                                      size: 30.0,
+                                    ),
+                                    SizedBox(width: 5.0),
+                                    Text(
+                                      "Filter",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 32.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                //body
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      //text1
+                                      Text(
+                                        "Filter by distance",
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.left,
+                                      ),
+
+                                      //text2
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.9,
+                                        child: Text(
+                                          "You can filter nearest driving schools upto 10KM",
+                                          style: TextStyle(
+                                            color: Colors.grey.shade700,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 15.0),
+                                      //slider
+                                      Container(
+                                          child: SliderExample(
+                                              callback: onDataReceived)),
+                                      SizedBox(height: 20.0),
+                                      //2 button
+
+                                      MaterialButton(
+                                        onPressed: getLocation,
+                                        minWidth: double.infinity,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0, vertical: 15.0),
+                                        color: Colors.indigo.shade900,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        child: Text(
+                                          "Apply",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16.00),
+                                        ),
+                                      ),
+                                      SizedBox(height: 10.0),
+
+                                      MaterialButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            schoolData = schoolList;
+                                          });
+                                        },
+                                        minWidth: double.infinity,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0, vertical: 15.0),
+                                        color: Colors.grey,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        child: Text(
+                                          "Reset",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16.00),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    //////////////////////////////////
                     child: Icon(
                       Icons.tune,
                       size: 32.0,
@@ -130,16 +281,56 @@ class Schools extends StatelessWidget {
 
             // Card
             Expanded(
-              child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (BuildContext context, int index) {
-                  return DrivingSchoolInfoCard();
-                },
-              ),
+              child: schoolData.isEmpty
+                  ? Center(
+                      child: Text(
+                        'No driving schools available',
+                        style: TextStyle(
+                            fontSize: 18.0, fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: schoolData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        School school = schoolData[index];
+                        return DrivingSchoolInfoCard(school: school);
+                      },
+                    ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+//slider
+class SliderExample extends StatefulWidget {
+  final Function(double) callback;
+  const SliderExample({super.key, required this.callback});
+
+  @override
+  State<SliderExample> createState() => _SliderExampleState();
+}
+
+class _SliderExampleState extends State<SliderExample> {
+  double _currentSliderValue = 4;
+
+  @override
+  Widget build(BuildContext context) {
+    return Slider(
+      value: _currentSliderValue,
+      min: 0,
+      max: 10,
+      divisions: 10,
+      activeColor: Colors.amber,
+      label: _currentSliderValue.round().toString() + "KM",
+      onChanged: (double value) {
+        setState(() {
+          _currentSliderValue = value;
+          widget.callback(value);
+        });
+      },
     );
   }
 }

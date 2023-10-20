@@ -33,31 +33,35 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.6
   flutter_svg: ^2.0.7
   google_fonts: ^6.1.0
   persistent_bottom_nav_bar: ^5.0.2
   flutter_launcher_icons: ^0.13.1
   flutter_rating_bar: ^4.0.1
   map_launcher: ^3.0.1
+  fluttertoast: ^8.2.2
+  geolocator: ^10.1.0
+  great_circle_distance_calculator: ^1.0.4
+  sliding_up_panel: ^2.0.0+1
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-# run the package: dart run flutter_launcher_icons
-flutter_launcher_icons:
-  android: true
-  ios: true
-  image_path: "assets/images/icon-250x250.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.3
 
+# run the package: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon-250x250.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

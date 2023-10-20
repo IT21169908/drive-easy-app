@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: check logged user
     Future.delayed(const Duration(seconds: 5)).then((res) async {
       if (mounted) {
-        Navigator.of(context).pushNamedAndRemoveUntil(RouteName.guestDashboard, (route) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil(RouteName.studentDashboard, (route) => false);
       }
     });
   }

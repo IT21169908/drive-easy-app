@@ -1,13 +1,16 @@
 import 'package:drive_easy_app/screens/find_schools/school_info.dart';
+import 'package:drive_easy_app/screens/find_schools/models/school_model.dart';
 import 'package:flutter/material.dart';
 
 class DrivingSchoolInfoCard extends StatelessWidget {
-  const DrivingSchoolInfoCard({super.key});
+  School school;
+
+  DrivingSchoolInfoCard({super.key, required this.school});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding: const EdgeInsets.only(bottom: 20.0),
       child: Column(
         children: [
           //card
@@ -17,7 +20,7 @@ class DrivingSchoolInfoCard extends StatelessWidget {
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.blue.shade50,
+                color: Colors.grey.shade200,
                 boxShadow: const [
                   BoxShadow(
                     offset: Offset(8, 4),
@@ -33,31 +36,37 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                   children: [
                     //image with title
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //image
                         Container(
-                          width: 100.0,
-                          height: 100.0,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                          ),
+                          width: 100, // Set the desired width
+                          height: 100, // Set the desired height
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.network(
+                                'https://houstondrivingschool.net/wp-content/uploads/2020/04/driving-lessons.jpg'),
+                          ), // Replace with your image URL
                         ),
 
                         SizedBox(width: 10.0),
                         //title
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: Text("Driving School Name",
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
-                            Text("Rating here"),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                child: Text(school.name,
+                                    style: TextStyle(
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                              Text(school.rating.toString()),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -72,7 +81,7 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                           size: 30.0,
                         ),
                         Text(
-                          "Location comes here",
+                          school.address,
                           style: TextStyle(
                               color: Colors.grey.shade400,
                               fontSize: 16.0,
@@ -87,13 +96,14 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                     MaterialButton(
                       onPressed: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => SchoolInfo()),
+                          MaterialPageRoute(
+                              builder: (context) => SchoolInfo(school: school)),
                         );
                       },
                       minWidth: double.infinity,
                       padding: EdgeInsets.symmetric(
                           horizontal: 10.0, vertical: 15.0),
-                      color: Colors.blue,
+                      color: Colors.indigo.shade900,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
