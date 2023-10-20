@@ -21,7 +21,7 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
               const TopAppBar(),
               const SizedBox(height: 20),
               const ScreenTopBanner(
-                title: 'Track Vehicles',
+                title: 'Vehicle Tracking',
                 assets: 'assets/images/tracking-vehicles.png',
               ),
               const SizedBox(height: 20),
@@ -33,18 +33,18 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 1,
-                  childAspectRatio: (MediaQuery.of(context).size.width / 2) / 170,
+                  childAspectRatio: (MediaQuery.of(context).size.width / 2) / 60,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   children: const [
                     ButtonCardWide(
                       title: "Available Vehicles",
-                      asset: "assets/images/tools.png",
+                      asset: "assets/images/available_vehicles.png",
                     ),
                     ButtonCardWide(
                       title: "Nearby Vehicles",
-                      asset: "assets/images/action.png",
+                      asset: "assets/images/nearby_vehicles.png",
                     ),
                   ],
                 ),
