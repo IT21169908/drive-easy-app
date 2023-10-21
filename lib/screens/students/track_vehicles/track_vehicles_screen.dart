@@ -67,6 +67,7 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
                   ],
                 ),
               ),
+              const SizedBox(height: 40),
             ],
           ),
         ),

@@ -1,9 +1,74 @@
+import 'dart:async';
+
 import 'package:drive_easy_app/utils/theme_consts.dart';
+import 'package:drive_easy_app/utils/user_location.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class RoundedMapContainer extends StatelessWidget {
+class RoundedMapContainer extends StatefulWidget {
   const RoundedMapContainer({super.key});
+
+  @override
+  State<RoundedMapContainer> createState() => _RoundedMapContainerState();
+}
+
+class _RoundedMapContainerState extends State<RoundedMapContainer> {
+  final Completer<GoogleMapController> _googleMapController = Completer();
+  late CameraPosition _userCurrentLocation;
+  late List<Marker> _markers;
+  UserLocation? _userLocation;
+
+  @override
+  void initState() {
+    super.initState();
+    _userLocation = UserLocation(context: context);
+    _userLocation!.getUserLastLocation().then((position) {
+      _userCurrentLocation = CameraPosition(
+        target: position != null ? LatLng(position.latitude, position.longitude) : const LatLng(6.927079, 79.861244), //Colombo, Sri Lanka
+        zoom: 14.4746,
+      );
+      _markers = <Marker>[
+        Marker(
+          markerId: const MarkerId("my-position"),
+          position: _userCurrentLocation.target,
+          infoWindow: const InfoWindow(
+            title: 'My Position',
+          ),
+        ),
+      ];
+      setState(() {});
+    });
+    _initLocationOnMap();
+    _userLocation!.startPermissionCheckTimer(startAfter: 25, interval: 10);
+  }
+
+  void _initLocationOnMap() async {
+    _userLocation!.getUserCurrentLocation().then((value) async {
+      _markers!.clear();
+      _markers!.add(
+        Marker(
+          markerId: const MarkerId("my-current"),
+          position: LatLng(value.latitude, value.longitude),
+          infoWindow: const InfoWindow(
+            title: 'My Current Location',
+          ),
+        ),
+      );
+      CameraPosition cameraPosition = CameraPosition(
+        target: LatLng(value.latitude, value.longitude),
+        zoom: 14,
+      );
+      final GoogleMapController controller = await _googleMapController.future;
+      controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _userLocation!.cancelPermissionCheckTimer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +119,16 @@ class RoundedMapContainer extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(
+          SizedBox(
             height: 250,
             child: GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(37.7749, -122.4194),
-                zoom: 14.0,
-              ),
+              mapType: MapType.normal,
+              myLocationEnabled: true,
+              initialCameraPosition: _userCurrentLocation,
+              markers: Set<Marker>.of(_markers!),
+              onMapCreated: (GoogleMapController controller) {
+                _googleMapController.complete(controller);
+              },
             ),
           ),
         ],
