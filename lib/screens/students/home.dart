@@ -245,7 +245,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   ),
                 if (isCourseEnrolled)
                   ButtonCard(
-                    title: "Vehicle Tracking",
+                    title: "Vehicle Track",
                     count: "4 Vehicles",
                     asset: "assets/images/tracking-vehicles.png",
                     onPressed: () async {

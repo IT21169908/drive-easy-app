@@ -18,7 +18,7 @@ class UserLocation {
           if (canServiceEnable) {
             _permissionCheckTimer?.cancel();
             await getUserCurrentLocation();
-          } else {
+          } else if (!await Geolocator.isLocationServiceEnabled()) {
             startPermissionCheckTimer(startAfter: startAfter, interval: interval);
           }
         });
