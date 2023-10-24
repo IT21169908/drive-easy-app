@@ -23,114 +23,6 @@ class SchoolInfo extends StatelessWidget {
     }
   }
 
-  //rate button popup sheet
-  Future _displayRateNowSheet(BuildContext context) {
-    return showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(30.0),
-        ),
-      ),
-      builder: (context) => Container(
-        width: double.infinity,
-        height: 300.0,
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            children: [
-              //close button
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Icon(
-                      Icons.close,
-                      color: Colors.grey.shade700,
-                      size: 30.0,
-                    ),
-                  ),
-                ],
-              ),
-              //title and close button
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.tune,
-                    color: Colors.black,
-                    size: 30.0,
-                  ),
-                  SizedBox(width: 5.0),
-                  Text(
-                    "RATE NOW",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 20.0),
-              //text
-              Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: Text(
-                  "How was your experience with this driving school ?",
-                  style: TextStyle(
-                    color: Colors.grey.shade700,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: 0.8,
-                    wordSpacing: 1.0,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(height: 20.0),
-              //body
-              RatingBar.builder(
-                initialRating: 0,
-                minRating: 1,
-                direction: Axis.horizontal,
-                itemCount: 5,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                ),
-                onRatingUpdate: (rating) {
-                  print(rating);
-                },
-              ),
-
-              //button
-              SizedBox(height: 25.0),
-              MaterialButton(
-                onPressed: () {},
-                minWidth: MediaQuery.of(context).size.width * 0.4,
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-                color: Colors.indigo.shade900,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: Text(
-                  "Submit",
-                  style: TextStyle(color: Colors.white, fontSize: 16.00),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -240,6 +132,31 @@ class SchoolInfo extends StatelessWidget {
 
                       SizedBox(height: 10.0),
 
+                      //telephone
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.directions_car,
+                            color: Colors.grey.shade400,
+                            size: 30.0,
+                          ),
+                          SizedBox(width: 5.0),
+                          Text(
+                            school.distance >= 1
+                                        ? '${school.distance.toStringAsFixed(1)} km'
+                                        : '${(school.distance * 1000).toInt()} m',
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(height: 10.0),
+
                       //view button
                       MaterialButton(
                         onPressed: () {
@@ -294,7 +211,7 @@ class SchoolInfo extends StatelessWidget {
                       children: [
                         MaterialButton(
                           onPressed: () {
-                            openMap(37.7749, -122.4194);
+                            openMap(school.location.latitude, school.location.longitude);
                           },
                           minWidth: MediaQuery.of(context).size.width * 0.4,
                           padding: EdgeInsets.symmetric(
@@ -312,7 +229,15 @@ class SchoolInfo extends StatelessWidget {
                         SizedBox(width: 25.0),
                         MaterialButton(
                           onPressed: () {
-                            _displayRateNowSheet(context);
+                            showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30.0),
+        ),
+      ),
+      builder: (context) => rateNowScreen(),
+    );
                           },
                           minWidth: MediaQuery.of(context).size.width * 0.4,
                           padding: EdgeInsets.symmetric(
@@ -338,5 +263,118 @@ class SchoolInfo extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+
+class rateNowScreen extends StatefulWidget {
+  const rateNowScreen({super.key});
+
+  @override
+  State<rateNowScreen> createState() => _rateNowScreenState();
+}
+
+class _rateNowScreenState extends State<rateNowScreen> {
+  double userRating = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: double.infinity,
+        height: 300.0,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              //close button
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Icon(
+                      Icons.close,
+                      color: Colors.grey.shade700,
+                      size: 30.0,
+                    ),
+                  ),
+                ],
+              ),
+              //title and close button
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.tune,
+                    color: Colors.black,
+                    size: 30.0,
+                  ),
+                  SizedBox(width: 5.0),
+                  Text(
+                    "RATE NOW",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 20.0),
+              //text
+              Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: Text(
+                  "How was your experience with this driving school ?",
+                  style: TextStyle(
+                    color: Colors.grey.shade700,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 0.8,
+                    wordSpacing: 1.0,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: 20.0),
+              //body
+              RatingBar.builder(
+                initialRating: 0,
+                minRating: 1,
+                direction: Axis.horizontal,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (rating) {
+                  userRating = rating;
+                  print(rating);
+                },
+              ),
+
+              //button
+              SizedBox(height: 25.0),
+              MaterialButton(
+                onPressed: () {},
+                minWidth: MediaQuery.of(context).size.width * 0.4,
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+                color: Colors.indigo.shade900,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: Text(
+                  "Submit",
+                  style: TextStyle(color: Colors.white, fontSize: 16.00),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
   }
 }
