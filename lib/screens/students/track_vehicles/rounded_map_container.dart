@@ -14,8 +14,19 @@ class RoundedMapContainer extends StatefulWidget {
 
 class _RoundedMapContainerState extends State<RoundedMapContainer> {
   final Completer<GoogleMapController> _googleMapController = Completer();
-  late CameraPosition _userCurrentLocation;
-  late List<Marker> _markers;
+  CameraPosition _userCurrentLocation = const CameraPosition(
+    target: LatLng(6.927079, 79.861244), //Colombo, Sri Lanka
+    zoom: 14.4746,
+  );
+  List<Marker> _markers = <Marker>[
+    const Marker(
+      markerId: MarkerId("app-position"),
+      position: LatLng(6.927079, 79.861244), //Colombo, Sri Lanka
+      infoWindow: InfoWindow(
+        title: 'My Position',
+      ),
+    ),
+  ];
   UserLocation? _userLocation;
 
   @override
@@ -39,13 +50,13 @@ class _RoundedMapContainerState extends State<RoundedMapContainer> {
       setState(() {});
     });
     _initLocationOnMap();
-    _userLocation!.startPermissionCheckTimer(startAfter: 25, interval: 10);
+    _userLocation!.startPermissionCheckTimer(startAfter: 15, interval: 10);
   }
 
   void _initLocationOnMap() async {
     _userLocation!.getUserCurrentLocation().then((value) async {
-      _markers!.clear();
-      _markers!.add(
+      _markers.clear();
+      _markers.add(
         Marker(
           markerId: const MarkerId("my-current"),
           position: LatLng(value.latitude, value.longitude),
@@ -125,7 +136,7 @@ class _RoundedMapContainerState extends State<RoundedMapContainer> {
               mapType: MapType.normal,
               myLocationEnabled: true,
               initialCameraPosition: _userCurrentLocation,
-              markers: Set<Marker>.of(_markers!),
+              markers: Set<Marker>.of(_markers),
               onMapCreated: (GoogleMapController controller) {
                 _googleMapController.complete(controller);
               },
