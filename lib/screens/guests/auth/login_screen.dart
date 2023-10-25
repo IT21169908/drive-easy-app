@@ -1,10 +1,15 @@
+import 'package:drive_easy_app/firebase_auth_service.dart';
 import 'package:drive_easy_app/screens/guests/auth/register_screen.dart';
+import 'package:drive_easy_app/utils/auth_checker.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../../../utils/check_role_and_redirect.dart';
 import '../../../utils/theme_consts.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,6 +20,50 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      navigateByAuth(context, mounted, redirectToGuest: false, waitDuration: 0);
+    });
+    super.initState();
+  }
+
+  Future<void> _login() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState?.save();
+      CircularLoaderWidget(context);
+      try {
+        User? user = await FireAuthService.signInUsingEmailPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+        if (mounted) {
+          // TODO: get role from db
+          CheckRoleAndRedirect(context, user);
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      } finally {
+        CircularLoaderWidget.dismiss();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    CircularLoaderWidget.dismiss();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -53,9 +102,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
                   Form(
+                    key: _formKey,
                     child: Column(
                       children: [
                         TextFormField(
+                          controller: _emailController,
+                          validator: (email) {
+                            if ((email == null || email.isEmpty)) {
+                              return "Please enter your email";
+                            }
+                            return null;
+                          },
                           decoration: const InputDecoration(
                             labelText: "Email",
                             hintText: "Enter your email or phone",
@@ -64,7 +121,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
+                          controller: _passwordController,
                           obscureText: true,
+                          validator: (password) {
+                            if ((password == null || password.isEmpty)) {
+                              return "Please enter your password";
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
                             labelText: "Password",
                             hintText: "Enter your Password",
@@ -96,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 20),
                         MaterialButton(
-                          onPressed: () {},
+                          onPressed: _login,
                           minWidth: double.infinity,
                           height: 50,
                           shape: RoundedRectangleBorder(

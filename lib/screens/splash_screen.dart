@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../routes/app_routes.dart';
+import '../utils/auth_checker.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -26,13 +26,8 @@ class _SplashScreenState extends State<SplashScreen> {
     _authenticateUser();
   }
 
-  void _authenticateUser() {
-    // TODO: check logged user
-    Future.delayed(const Duration(seconds: 5)).then((res) async {
-      if (mounted) {
-        Navigator.of(context).pushNamedAndRemoveUntil(RouteName.studentDashboard, (route) => false);
-      }
-    });
+  _authenticateUser() async {
+    navigateByAuth(context, mounted);
   }
 
   Future<void> _refreshScreen() async {
@@ -55,12 +50,21 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // return StreamBuilder<User?>(
+    //   stream: FirebaseAuth.instance.authStateChanges(),
+    //   builder: (context, snapshot) {
+    //     if (kDebugMode) {
+    //       print("StreamBuilder snapshot connectionState: ${snapshot.connectionState.name}");
+    //       print("StreamBuilder snapshot data: ${snapshot.data}");
+    //     }
+    //     if (snapshot.connectionState == ConnectionState.active) {
+    //       return AuthChecker();
+    //     }
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -106,5 +110,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ],
       ),
     );
+    //   },
+    // );
   }
 }
