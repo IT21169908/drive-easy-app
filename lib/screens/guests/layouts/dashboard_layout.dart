@@ -1,5 +1,5 @@
 import 'package:drive_easy_app/screens/guests/auth/login_screen.dart';
-import 'package:drive_easy_app/screens/guests/home.dart';
+import 'package:drive_easy_app/screens/guests/dashboard.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';

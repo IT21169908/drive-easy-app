@@ -69,4 +69,12 @@ app.*.map.json
 android/key.properties
 android/construct_pro_key.jks
 
+# Firebase Configurations
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
+/ios/firebase_app_id_file.json
+/macos/Runner/GoogleService-Info.plist
+/macos/firebase_app_id_file.json
+/lib/firebase_options.dart
+
 #TODO: Add standerd ignore files
