@@ -50,7 +50,7 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                         ),
 
                         SizedBox(width: 10.0),
-                        //title
+                        //school name
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
@@ -64,7 +64,40 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     )),
                               ),
-                              Text(school.rating.toString()),
+
+                              SizedBox(height: 10.0),
+                              Row(
+                                children: [
+                                  //rating
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star_rate,
+                                        color: Colors.amber,
+                                      ),
+                                      Text(school.rating.toString()),
+                                    ],
+                                  ),
+
+                                  SizedBox(width: 15),
+                                  //distance
+                                  Icon(
+                                    Icons.directions_car,
+                                    color: Colors.grey.shade600,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Text(
+                                    school.distance >= 1
+                                        ? '${school.distance.toStringAsFixed(1)} km'
+                                        : '${(school.distance * 1000).toInt()} m',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
