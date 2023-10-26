@@ -1,5 +1,6 @@
+import 'package:drive_easy_app/screens/admin/school_registration.dart';
 import 'package:flutter/material.dart';
-import 'package:drive_easy_app/screens/find_schools/models/school_model.dart';
+import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class CourseInfo extends StatelessWidget {
@@ -91,7 +92,13 @@ class PanelWidget extends StatelessWidget {
                 Divider(thickness: 0.4),
                 //start course button
                 MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const schoolRegistration(),
+                      ),
+                    );
+                  },
                   minWidth: double.infinity,
                   padding:
                       EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),

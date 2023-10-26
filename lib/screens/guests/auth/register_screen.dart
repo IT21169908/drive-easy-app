@@ -124,6 +124,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if ((fullName == null || fullName.isEmpty)) {
                               return "Please enter your Full Name";
                             }
+                            if (fullName.split(" ").length <= 1) {
+                              return "Please provide your full name";
+                            }
                             return null;
                           },
                           decoration: const InputDecoration(
