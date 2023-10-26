@@ -171,10 +171,10 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
           ),
           if (isCourseEnrolled)
             ScreenTopBanner(
-              margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-              padding: const EdgeInsets.fromLTRB(25, 20, 10, 20),
+              bannerMargin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+              titlePadding: const EdgeInsets.fromLTRB(25, 20, 10, 20),
               image: SvgPicture.asset("assets/images/enrolled-course-card-girl.svg"),
-              child: Column(
+              title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
