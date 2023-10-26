@@ -1,7 +1,7 @@
 import 'package:drive_easy_app/screens/students/course_contents/view_course_content_screen.dart';
-import 'package:drive_easy_app/screens/students/exams/exam_dashboard.dart';
-import 'package:drive_easy_app/screens/students/track_vehicles/track_vehicles_screen.dart';
+import 'package:drive_easy_app/screens/students/exams/widgets/exam_dashboard.dart';
 import 'package:drive_easy_app/screens/students/find_schools/schools.dart';
+import 'package:drive_easy_app/screens/students/track_vehicles/track_vehicles_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

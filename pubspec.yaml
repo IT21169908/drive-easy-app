@@ -57,6 +57,7 @@ dependencies:
   firebase_database: ^10.3.2
   flutter_overlay_loader: ^2.0.0
   expandable_bottom_sheet: ^1.1.1+1
+  fl_chart: ^0.64.0
 
 dev_dependencies:
   flutter_test:
