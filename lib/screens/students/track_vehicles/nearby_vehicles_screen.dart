@@ -2,6 +2,7 @@ import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class NearbyVehiclesScreen extends StatefulWidget {
   const NearbyVehiclesScreen({super.key});
@@ -56,7 +57,62 @@ class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/images/select_vehicles.png",
+                          width: 150,
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          'Closest Vehicles to your Location',
+                          style: TextStyle(
+                            color: ThemeConsts.appPrimaryColorDark.withOpacity(0.8),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(left: 4, right: 4, top: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: GridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        // childAspectRatio: width/height
+                        childAspectRatio: (MediaQuery.of(context).size.width / 2) / 220,
+                        crossAxisSpacing: 15,
+                        mainAxisSpacing: 15,
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        children: const [
+                          VehicleCard(
+                            title: "Tutorials", //TODO: Add relevant feature
+                            count: "15 Courses",
+                            asset: "assets/images/tools.png",
+                          ),
+                          VehicleCard(
+                            title: "Blog & News", //TODO: Add relevant feature
+                            count: "42 Articles",
+                            asset: "assets/images/action.png",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 40),
               ],
             ),

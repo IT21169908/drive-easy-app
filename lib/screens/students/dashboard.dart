@@ -239,10 +239,18 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
               padding: const EdgeInsets.symmetric(vertical: 5),
               children: [
                 if (!isCourseEnrolled)
-                  const ButtonCard(
+                  ButtonCard(
                     title: "Find Schools",
                     count: "200 learners",
                     asset: "assets/images/learning.png",
+                    onPressed: () async {
+                      await PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: Schools(),
+                        withNavBar: true,
+                        pageTransitionAnimation: PageTransitionAnimation.scale,
+                      );
+                    },
                   ),
                 if (isCourseEnrolled)
                   ButtonCard(

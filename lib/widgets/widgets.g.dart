@@ -38,3 +38,5 @@ part 'notifications/app_toast_widget.dart';
 part 'maps/map_container.dart';
 
 part 'maps/rounded_map_container.dart';
+
+part 'cards/vehicle_card.dart';

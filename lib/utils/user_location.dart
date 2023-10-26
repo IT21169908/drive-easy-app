@@ -34,7 +34,7 @@ class UserLocation {
     if (!await Geolocator.isLocationServiceEnabled()) {
       await Geolocator.requestPermission().then((value) {}).onError((error, stackTrace) async {
         await Geolocator.requestPermission();
-        log("ERROR: $error");
+        log("UserLocation ERROR::: $error");
       });
     }
     return await Geolocator.getCurrentPosition();
@@ -76,6 +76,7 @@ class UserLocation {
   }
 
   Future<Position?> getUserLastLocation() async {
+    await Geolocator.requestPermission();
     return await Geolocator.getLastKnownPosition();
   }
 }
