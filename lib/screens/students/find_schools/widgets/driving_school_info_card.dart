@@ -1,5 +1,5 @@
-import 'package:drive_easy_app/screens/find_schools/school_info.dart';
-import 'package:drive_easy_app/screens/find_schools/models/school_model.dart';
+import 'package:drive_easy_app/screens/students/find_schools/school_info.dart';
+import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
 import 'package:flutter/material.dart';
 
 class DrivingSchoolInfoCard extends StatelessWidget {

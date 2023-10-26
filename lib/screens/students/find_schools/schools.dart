@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:drive_easy_app/screens/find_schools/widgets/driving_school_info_card.dart';
-import 'package:drive_easy_app/screens/find_schools/models/school_model.dart';
+import 'package:drive_easy_app/screens/students/find_schools/widgets/driving_school_info_card.dart';
+import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:math'; // Import the dart:math library
@@ -106,7 +106,9 @@ class _SchoolsState extends State<Schools> {
         title: Text(""),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
       ),
       body: Padding(
@@ -260,7 +262,7 @@ class _filterScreenState extends State<filterScreen> {
     return Container(
       width: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
             Row(
@@ -329,7 +331,7 @@ class _filterScreenState extends State<filterScreen> {
                   //slider
                   Container(
                       child: SliderExample(callback: onSliderValueReceived)),
-                  SizedBox(height: 20.0),
+                  SizedBox(height: 10.0),
                   //2 button
 
                   MaterialButton(
@@ -369,10 +371,11 @@ class _filterScreenState extends State<filterScreen> {
                       "Reset",
                       style: TextStyle(color: Colors.white, fontSize: 16.00),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
+
           ],
         ),
       ),

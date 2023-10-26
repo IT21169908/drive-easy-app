@@ -1,5 +1,6 @@
 import 'package:drive_easy_app/screens/students/course_contents/view_course_content_screen.dart';
 import 'package:drive_easy_app/screens/students/track_vehicles/track_vehicles_screen.dart';
+import 'package:drive_easy_app/screens/students/find_schools/schools.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,8 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 0),
                       child: RichText(
                         text: TextSpan(
                           style: GoogleFonts.dmSans(
@@ -120,7 +122,8 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   child: SearchBar(
                     elevation: const MaterialStatePropertyAll(0),
                     hintText: "Search",
-                    padding: const MaterialStatePropertyAll(EdgeInsets.only(left: 16.0, right: 4)),
+                    padding: const MaterialStatePropertyAll(
+                        EdgeInsets.only(left: 16.0, right: 4)),
                     constraints: const BoxConstraints(maxHeight: 50),
                     leading: const Icon(Icons.search),
                     trailing: <Widget>[
@@ -150,21 +153,24 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(0, 0, 0, 1),
                     fontSize: 24,
-                    letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
+                    letterSpacing:
+                        0 /*percentages not used in flutter. defaulting to zero*/,
                     fontWeight: FontWeight.w500,
                     height: 1,
                   ),
                 ),
               ),
-              if (isCourseEnrolled)
                 AppTextButton(
                   padding: const EdgeInsets.symmetric(horizontal: 18),
-                  onPressed: () {
-                    if (kDebugMode) {
-                      print("Find learners");
-                    }
+                  onPressed: () async {
+                    await PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: Schools(),
+                      withNavBar: true,
+                      pageTransitionAnimation: PageTransitionAnimation.scale,
+                    );
                   },
-                  text: "Find learners",
+                  text: "Find driving schools",
                   fontSize: 14,
                 ),
             ],
@@ -173,7 +179,8 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
             ScreenTopBanner(
               margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
               padding: const EdgeInsets.fromLTRB(25, 20, 10, 20),
-              image: SvgPicture.asset("assets/images/enrolled-course-card-girl.svg"),
+              image: SvgPicture.asset(
+                  "assets/images/enrolled-course-card-girl.svg"),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

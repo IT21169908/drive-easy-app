@@ -1,6 +1,6 @@
-import 'package:drive_easy_app/screens/find_schools/widgets/course_info_card.dart';
+import 'package:drive_easy_app/screens/students/find_schools/widgets/course_info_card.dart';
 import 'package:flutter/material.dart';
-import 'package:drive_easy_app/screens/find_schools/models/school_model.dart';
+import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
 
 class CoursesList extends StatelessWidget {
   List<Course> courses;

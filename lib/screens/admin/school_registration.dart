@@ -350,7 +350,7 @@ class _schoolRegistrationState extends State<schoolRegistration> {
                         ),
                 ),
               ),
-              SizedBox(height: 25.0),
+              SizedBox(height: 15.0),
               MaterialButton(
                 onPressed: () {
                   uploadData();
@@ -366,7 +366,10 @@ class _schoolRegistrationState extends State<schoolRegistration> {
                   style: TextStyle(color: Colors.white, fontSize: 16.00),
                 ),
               ),
-              SizedBox(height: 25.0),
+              SizedBox(
+                height: 50.0,
+                width: 50,
+              ),
             ],
           ),
         ),
