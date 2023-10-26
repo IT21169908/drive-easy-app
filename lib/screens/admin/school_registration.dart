@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:firebase_database/firebase_database.dart';
+import 'dart:convert';
 
 class schoolRegistration extends StatefulWidget {
   const schoolRegistration({super.key});
@@ -11,44 +13,93 @@ class schoolRegistration extends StatefulWidget {
 }
 
 class _schoolRegistrationState extends State<schoolRegistration> {
+  TextEditingController schoolNameController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController contactNoController1 = TextEditingController();
+  TextEditingController contactNoController2 = TextEditingController();
+  TextEditingController aboutUsController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  File? file;
+  ImagePicker image = ImagePicker();
+  DatabaseReference? dbRef;
+
+  Future<void> _getUserLocation() async {
+    await Geolocator.checkPermission();
+    await Geolocator.requestPermission();
+
+    Position userPosition = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+
+    double userLat = userPosition.latitude;
+    double userLon = userPosition.longitude;
+
+    // Update the text in the TextField
+    locationController.text = "${userLat}, ${userLon}";
+  }
+
+  getImage() async {
+    var img = await image.pickImage(source: ImageSource.gallery);
+    setState(() {
+      file = File(img!.path);
+    });
+  }
+
+  String imageToBase64(File imageFile) {
+    List<int> imageBytes = imageFile.readAsBytesSync();
+    String base64Image = base64Encode(imageBytes);
+    return base64Image;
+  }
+
+  Future<void> uploadData() async {
+    try {
+      if (file != null) {
+        String base64Image = base64Encode(file!.readAsBytesSync());
+
+        String locationText = locationController.text;
+
+        if (locationText.isNotEmpty) {
+          List<String> locationParts = locationText.split(', ');
+
+          if (locationParts.length == 2) {
+            double userLat = double.tryParse(locationParts[0]) ?? 0.0;
+            double userLon = double.tryParse(locationParts[1]) ?? 0.0;
+
+            Map<String, dynamic> schoolData = {
+              'schoolName': schoolNameController.text,
+              'address': addressController.text,
+              'contactNo1': contactNoController1.text,
+              'contactNo2': contactNoController2.text,
+              'aboutUs': aboutUsController.text,
+              'location': {
+                'latitude': userLat,
+                'longitude': userLon,
+              },
+              'imageBase64': base64Image,
+            };
+
+            dbRef!.push().set(schoolData);
+          } else {
+            print("Invalid location format in locationController");
+          }
+        } else {
+          print("Location is empty in locationController");
+        }
+      }
+    } catch (e) {
+      // Handle errors
+      print("Error uploading data: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    dbRef = FirebaseDatabase.instance.ref().child('schools');
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController schoolNameController = TextEditingController();
-    TextEditingController addressController = TextEditingController();
-    TextEditingController contactNoController1 = TextEditingController();
-    TextEditingController contactNoController2 = TextEditingController();
-    TextEditingController aboutUsController = TextEditingController();
-    TextEditingController locationController = TextEditingController();
-    File? _image;
-
-    Future<void> _getUserLocation() async {
-      await Geolocator.checkPermission();
-      await Geolocator.requestPermission();
-
-      Position userPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-
-      double userLat = userPosition.latitude;
-      double userLon = userPosition.longitude;
-
-      // Update the text in the TextField
-      locationController.text = "Latitude: ${userLat}, Longitude: ${userLon}";
-    }
-
-    Future<void> _getImage() async {
-      final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(
-          source: ImageSource
-              .gallery); // You can use ImageSource.camera to open the camera
-
-      if (pickedFile != null) {
-        setState(() {
-          _image = File(pickedFile.path);
-        });
-      }
-    }
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -263,35 +314,47 @@ class _schoolRegistrationState extends State<schoolRegistration> {
                 child: Text('Image', style: TextStyle(color: Colors.black)),
               ),
               SizedBox(height: 25.0),
-              GestureDetector(
-                onTap: _getImage,
+              Center(
                 child: Container(
-                  width: 200,
                   height: 200,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey.shade400,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Color.fromARGB(
+                          255, 180, 180, 180), // Lighter grey color
+                      width: 1.0, // Border width
                     ),
-                    padding: EdgeInsets.all(8.0), // Add padding
-                    child: Center(
-                      child: _image == null
-                          ? Icon(
-                              Icons.add_a_photo,
-                              color: Colors.grey,
-                              size: 50,
-                            )
-                          : Image.file(_image!, fit: BoxFit.cover),
-                    ),
+                    borderRadius: BorderRadius.circular(15.0), // Border radius
                   ),
+                  child: file == null
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.add_a_photo,
+                            size: 90,
+                            color: Color.fromARGB(
+                                255, 180, 180, 180), // Lighter grey color
+                          ),
+                          onPressed: () {
+                            getImage();
+                          },
+                        )
+                      : MaterialButton(
+                          height: 100,
+                          child: Image.file(
+                            file!,
+                            fit: BoxFit.fill,
+                          ),
+                          onPressed: () {
+                            getImage();
+                          },
+                        ),
                 ),
               ),
               SizedBox(height: 25.0),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  uploadData();
+                },
                 minWidth: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
                 color: Colors.indigo.shade900,
