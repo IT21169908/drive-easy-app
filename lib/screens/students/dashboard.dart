@@ -165,7 +165,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                     pageTransitionAnimation: PageTransitionAnimation.scale,
                   );
                 },
-                text: "Find driving schools",
+                text: "Find Schools",
                 fontSize: 14,
               ),
             ],
