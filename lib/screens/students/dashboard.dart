@@ -1,6 +1,7 @@
 import 'package:drive_easy_app/screens/students/course_contents/view_course_content_screen.dart';
-import 'package:drive_easy_app/screens/students/track_vehicles/track_vehicles_screen.dart';
+import 'package:drive_easy_app/screens/students/exams/widgets/exam_dashboard.dart';
 import 'package:drive_easy_app/screens/students/find_schools/schools.dart';
+import 'package:drive_easy_app/screens/students/track_vehicles/track_vehicles_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -293,10 +294,18 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                     count: "2 Invoices",
                     asset: "assets/images/payments.png",
                   ),
-                  const ButtonCard(
+                  ButtonCard(
                     title: "My Exams", //TODO: Add relevant feature
                     count: "3 MCQ Exams",
                     asset: "assets/images/exam.png",
+                    onPressed: () {
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const ExamDashboardScreen(),
+                        withNavBar: false,
+                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      );
+                    },
                   ),
                 ],
               ],

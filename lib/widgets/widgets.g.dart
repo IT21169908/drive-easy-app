@@ -5,6 +5,7 @@ import 'package:drive_easy_app/utils/check_image_extension.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:drive_easy_app/utils/user_location.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:flutter_svg/svg.dart';
@@ -29,14 +30,18 @@ part 'buttons/button_card.dart';
 
 part 'buttons/button_card_wide.dart';
 
+part 'charts/indicator.dart';
+
+part 'charts/pie_chart.dart';
+
 part 'loaders/circular_loader_widget.dart';
-
-part 'notifications/app_snack_bar_widget.dart';
-
-part 'notifications/app_toast_widget.dart';
 
 part 'maps/map_container.dart';
 
 part 'maps/rounded_map_container.dart';
 
 part 'cards/vehicle_card.dart';
+
+part 'notifications/app_snack_bar_widget.dart';
+
+part 'notifications/app_toast_widget.dart';

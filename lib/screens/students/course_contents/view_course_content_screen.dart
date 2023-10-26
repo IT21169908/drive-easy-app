@@ -6,6 +6,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../widgets/cards/course_content_card.dart';
 import '../../../widgets/widgets.g.dart';
+import '../exams/widgets/exam_dashboard.dart';
 
 class ViewCourseContentScreen extends StatefulWidget {
   const ViewCourseContentScreen({super.key});
@@ -110,7 +111,14 @@ class _ViewCourseContentScreenState extends State<ViewCourseContentScreen> {
                   width: 40,
                 ),
                 title: "Tests",
-                onPressed: () {},
+                onPressed: () {
+                  PersistentNavBarNavigator.pushNewScreen(
+                    context,
+                    screen: const ExamDashboardScreen(),
+                    withNavBar: false,
+                    pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                  );
+                },
               ),
               CourseContentItemCard(
                 margin: const EdgeInsets.only(bottom: 10),

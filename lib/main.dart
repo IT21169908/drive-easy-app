@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Drive Easy',
       theme: ThemeConsts.lightTheme,
-      darkTheme: ThemeConsts.darkTheme,
+      // darkTheme: ThemeConsts.darkTheme,
       home: const SplashScreen(),
       routes: routes,
     );
