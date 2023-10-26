@@ -27,7 +27,6 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
   }
 
   // bool isCourseEnrolled = false;
-  //
   bool isCourseEnrolled = true;
 
   @override

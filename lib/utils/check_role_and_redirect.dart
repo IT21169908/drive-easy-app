@@ -1,11 +1,12 @@
 import 'package:drive_easy_app/enums/user_roles.dart';
+import 'package:drive_easy_app/screens/errors/permission_denied.dart';
+import 'package:drive_easy_app/screens/errors/records_not_found.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../routes/app_routes.dart';
-import '../screens/errors/records_not_found.dart';
 
 class CheckRoleAndRedirect {
   final BuildContext widgetContext;
@@ -24,12 +25,16 @@ class CheckRoleAndRedirect {
     if (kDebugMode) {
       print("CheckRoleAndRedirect _checkAndRedirect: $userRole");
     }
-    if (userRole == UserRoles.student.name) {
+    if (userRole == UserRoles.admin.name) {
+      await _redirectToAdminDashboard();
+    } else if (userRole == UserRoles.student.name) {
       await _redirectToStudentDashboard();
     } else if (userRole == UserRoles.schoolOwner.name) {
       await _redirectToSchoolOwnerDashboard();
+    } else if (userRole == UserRoles.instructor.name) {
+      await _redirectToInstructorDashboard();
     } else {
-      await _redirectTNotFound();
+      await _redirectToPermissionDenied();
     }
     return;
   }
@@ -52,18 +57,40 @@ class CheckRoleAndRedirect {
     return null;
   }
 
-  Future<void> _redirectToSchoolOwnerDashboard() async {
-    await Navigator.of(widgetContext).pushNamedAndRemoveUntil(RouteName.studentDashboard, (route) => false);
+  Future<void> _redirectToAdminDashboard() async {
+    // await Navigator.of(widgetContext).pushNamedAndRemoveUntil(RouteName.studentDashboard, (route) => false);
+    _redirectTNotFound();
   }
 
   Future<void> _redirectToStudentDashboard() async {
     await Navigator.of(widgetContext).pushNamedAndRemoveUntil(RouteName.studentDashboard, (route) => false);
   }
 
+  Future<void> _redirectToSchoolOwnerDashboard() async {
+    // await Navigator.of(widgetContext).pushNamedAndRemoveUntil(RouteName.studentDashboard, (route) => false);
+    _redirectTNotFound();
+  }
+
+  Future<void> _redirectToInstructorDashboard() async {
+    // await Navigator.of(widgetContext).pushNamedAndRemoveUntil(RouteName.studentDashboard, (route) => false);
+    _redirectTNotFound();
+  }
+
   Future<void> _redirectTNotFound() async {
     await Navigator.of(widgetContext).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => const RecordsNotFound(
+        builder: (context) => const PageNotFound(
+          title: "Page Not Found",
+          subtitle: 'Please Contact Us!.',
+        ),
+      ),
+    );
+  }
+
+  Future<void> _redirectToPermissionDenied() async {
+    await Navigator.of(widgetContext).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const PermissionDeniedScreen(
           title: "Role is not valid",
           subtitle: 'Contact Administrator.',
         ),
