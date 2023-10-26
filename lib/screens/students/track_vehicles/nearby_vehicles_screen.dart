@@ -1,18 +1,16 @@
-import 'package:drive_easy_app/screens/students/track_vehicles/nearby_vehicles_screen.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-class TrackVehiclesScreen extends StatefulWidget {
-  const TrackVehiclesScreen({super.key});
+class NearbyVehiclesScreen extends StatefulWidget {
+  const NearbyVehiclesScreen({super.key});
 
   @override
-  State<TrackVehiclesScreen> createState() => _TrackVehiclesScreenState();
+  State<NearbyVehiclesScreen> createState() => _NearbyVehiclesScreenState();
 }
 
-class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
+class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
   final GlobalKey<ExpandableBottomSheetState> _bottomSheetKey = GlobalKey();
   final TextEditingController _searchController = TextEditingController();
 
@@ -44,12 +42,12 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
                 const ScreenTopBanner(
                   isNormalPage: true,
                   bannerMargin: EdgeInsets.zero,
-                  imageWidth: 110,
-                  assets: 'assets/images/tracking-vehicles.png',
+                  imageWidth: 100,
+                  assets: 'assets/images/nearby_vehicles.png',
                   title: Padding(
                     padding: EdgeInsets.only(bottom: 0),
                     child: Text(
-                      'Vehicle Tracking',
+                      'Nearby Vehicles',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -59,40 +57,6 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  child: const RoundedMapContainer(),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 1,
-                    childAspectRatio: (MediaQuery.of(context).size.width / 2) / 60,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    children: [
-                      const ButtonCardWide(
-                        title: "Available Vehicles",
-                        asset: "assets/images/available_vehicles.png",
-                      ),
-                      ButtonCardWide(
-                        title: "Nearby Vehicles",
-                        asset: "assets/images/nearby_vehicles.png",
-                        onPressed: () {
-                          setState(() {
-                            _bottomSheetKey.currentState!.expand();
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
                 const SizedBox(height: 40),
               ],
             ),
@@ -190,14 +154,7 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
                                 SizedBox(
                                   height: 26.0,
                                   child: ElevatedButton(
-                                    onPressed: () async {
-                                      await PersistentNavBarNavigator.pushNewScreen(
-                                        context,
-                                        screen: const NearbyVehiclesScreen(),
-                                        withNavBar: true,
-                                        pageTransitionAnimation: PageTransitionAnimation.sizeUp,
-                                      );
-                                    },
+                                    onPressed: () {},
                                     style: ElevatedButton.styleFrom(
                                       foregroundColor: Colors.white,
                                       backgroundColor: ThemeConsts.appPrimaryBlue,
@@ -212,14 +169,7 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
                                 SizedBox(
                                   height: 26.0,
                                   child: ElevatedButton(
-                                    onPressed: () async {
-                                      await PersistentNavBarNavigator.pushNewScreen(
-                                        context,
-                                        screen: const NearbyVehiclesScreen(),
-                                        withNavBar: true,
-                                        pageTransitionAnimation: PageTransitionAnimation.sizeUp,
-                                      );
-                                    },
+                                    onPressed: () {},
                                     style: ElevatedButton.styleFrom(
                                       foregroundColor: Colors.white,
                                       backgroundColor: ThemeConsts.appPrimaryLightYellow,

@@ -1,9 +1,4 @@
-import 'dart:async';
-
-import 'package:drive_easy_app/utils/theme_consts.dart';
-import 'package:drive_easy_app/utils/user_location.dart';
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+part of '../widgets.g.dart';
 
 class RoundedMapContainer extends StatefulWidget {
   const RoundedMapContainer({super.key});

@@ -1,6 +1,6 @@
 import 'package:drive_easy_app/screens/admin/school_registration.dart';
 import 'package:flutter/material.dart';
-import 'package:drive_easy_app/screens/find_schools/models/school_model.dart';
+import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class CourseInfo extends StatelessWidget {

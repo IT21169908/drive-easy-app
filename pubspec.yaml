@@ -56,6 +56,7 @@ dependencies:
   package_info_plus: ^4.2.0
   firebase_database: ^10.3.2
   flutter_overlay_loader: ^2.0.0
+  expandable_bottom_sheet: ^1.1.1+1
 
 dev_dependencies:
   flutter_test:
