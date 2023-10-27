@@ -58,7 +58,7 @@ class ScreenTopBanner extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: image != null
                     ? image!
                     : (isSvgImage(assets!)

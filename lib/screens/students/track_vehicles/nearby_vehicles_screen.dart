@@ -1,8 +1,9 @@
+import 'package:drive_easy_app/screens/errors/records_not_found.dart';
+import 'package:drive_easy_app/screens/students/track_vehicles/vehicle_details_bottom_sheet.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class NearbyVehiclesScreen extends StatefulWidget {
   const NearbyVehiclesScreen({super.key});
@@ -15,8 +16,11 @@ class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
   final GlobalKey<ExpandableBottomSheetState> _bottomSheetKey = GlobalKey();
   final TextEditingController _searchController = TextEditingController();
 
+  List<dynamic> _nearbyVehicles = [];
+
   @override
   void initState() {
+    _getNearbyVehicles();
     super.initState();
   }
 
@@ -24,6 +28,12 @@ class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  void _getNearbyVehicles() {
+    setState(() {
+      _nearbyVehicles = [1, 2, 3, 4, 5];
+    });
   }
 
   @override
@@ -57,205 +67,95 @@ class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
                     ),
                   ),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          "assets/images/select_vehicles.png",
-                          width: 150,
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          'Closest Vehicles to your Location',
-                          style: TextStyle(
-                            color: ThemeConsts.appPrimaryColorDark.withOpacity(0.8),
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(left: 4, right: 4, top: 15),
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: GridView.count(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        crossAxisCount: 2,
-                        // childAspectRatio: width/height
-                        childAspectRatio: (MediaQuery.of(context).size.width / 2) / 220,
-                        crossAxisSpacing: 15,
-                        mainAxisSpacing: 15,
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        children: const [
-                          VehicleCard(
-                            title: "Tutorials", //TODO: Add relevant feature
-                            count: "15 Courses",
-                            asset: "assets/images/tools.png",
-                          ),
-                          VehicleCard(
-                            title: "Blog & News", //TODO: Add relevant feature
-                            count: "42 Articles",
-                            asset: "assets/images/action.png",
+                _nearbyVehicles.isEmpty
+                    ? Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: 40),
+                              Image.asset("assets/images/select_vehicles.png", width: 300),
+                              const SizedBox(height: 5),
+                              Text(
+                                'Closest Vehicles to your Location',
+                                style: TextStyle(
+                                  color: ThemeConsts.appPrimaryColorDark.withOpacity(0.8),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 25),
+                              const Text(
+                                'Not Found',
+                                style: TextStyle(
+                                  color: ThemeConsts.appPrimaryColorDanger,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
+                      )
+                    : Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset("assets/images/select_vehicles.png", width: 150),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    'Closest Vehicles to your Location',
+                                    style: TextStyle(
+                                      color: ThemeConsts.appPrimaryColorDark.withOpacity(0.8),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: const EdgeInsets.only(left: 4, right: 4, top: 15),
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: GridView.count(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  crossAxisCount: 2,
+                                  childAspectRatio: (MediaQuery.of(context).size.width / 2) / 280,
+                                  crossAxisSpacing: 15,
+                                  mainAxisSpacing: 15,
+                                  padding: const EdgeInsets.symmetric(vertical: 5),
+                                  children: _nearbyVehicles.map((e) {
+                                    return const VehicleCard(
+                                      vehicleNo: "ABC 1234",
+                                      vehicleCategory: "VAN",
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 40),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
               ],
             ),
           ),
         ),
-        expandableContent: Container(
-          decoration: const BoxDecoration(
-            color: ThemeConsts.appPrimaryColorLight,
-            borderRadius: BorderRadius.all(Radius.circular(36)),
-          ),
-          margin: const EdgeInsets.only(top: 0, bottom: 15),
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Column(
-            children: [
-              Container(
-                height: 180, //header size
-                decoration: BoxDecoration(
-                  color: ThemeConsts.appPrimaryColorLight,
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(36)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: ThemeConsts.appPrimaryColorDark.withOpacity(0.1),
-                      offset: const Offset(0, -4),
-                      blurRadius: 10,
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 8),
-                        width: 100,
-                        height: 4,
-                        decoration: BoxDecoration(
-                          color: ThemeConsts.appPrimaryColorDark.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                      ),
-                      const Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.location_on_sharp),
-                          SizedBox(width: 5.0),
-                          Text(
-                            'See Nearby Vehicles',
-                            style: TextStyle(
-                              color: ThemeConsts.appPrimaryColorDark,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 5.0),
-                      const Text(
-                        'Select your location...',
-                        style: TextStyle(
-                          color: ThemeConsts.appPrimaryColorDark,
-                          fontSize: 12,
-                        ),
-                      ),
-                      const SizedBox(height: 10.0),
-                      SizedBox(
-                        width: 300,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              controller: _searchController,
-                              validator: (term) => (term == null || term.isEmpty) ? "Please enter your location" : null,
-                              decoration: InputDecoration(
-                                labelText: "Search",
-                                hintText: "Search ...",
-                                prefixIcon: const Icon(Icons.search_rounded, size: 28),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(color: ThemeConsts.appPrimaryColorDark.withOpacity(0.3)),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(color: ThemeConsts.appPrimaryBlue.withOpacity(0.3)),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: const BorderSide(color: ThemeConsts.appPrimaryColorDanger),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 14.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                SizedBox(
-                                  height: 26.0,
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor: Colors.white,
-                                      backgroundColor: ThemeConsts.appPrimaryBlue,
-                                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(25.0),
-                                      ),
-                                    ),
-                                    child: const Text("Device Location"),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 26.0,
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor: Colors.white,
-                                      backgroundColor: ThemeConsts.appPrimaryLightYellow,
-                                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(25.0),
-                                      ),
-                                    ),
-                                    child: const Text(
-                                      "Select",
-                                      style: TextStyle(color: ThemeConsts.appPrimaryColorDark),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: const MapContainer(),
-              ),
-            ],
-          ),
-        ),
+        expandableContent: const VehicleDetailsBottomSheet(),
         animationDurationExtend: const Duration(milliseconds: 500),
         animationCurveExpand: Curves.easeIn,
       ),

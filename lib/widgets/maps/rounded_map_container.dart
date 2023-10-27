@@ -45,7 +45,7 @@ class _RoundedMapContainerState extends State<RoundedMapContainer> {
       setState(() {});
     });
     _initLocationOnMap();
-    _userLocation!.startPermissionCheckTimer(startAfter: 15, interval: 10);
+    _userLocation!.startPermissionCheckTimer(startAfter: 10, interval: 5);
   }
 
   void _initLocationOnMap() async {
