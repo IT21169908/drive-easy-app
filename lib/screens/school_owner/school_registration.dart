@@ -3,7 +3,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class schoolRegistration extends StatefulWidget {
   const schoolRegistration({super.key});
@@ -13,6 +15,8 @@ class schoolRegistration extends StatefulWidget {
 }
 
 class _schoolRegistrationState extends State<schoolRegistration> {
+  late final User? loggedUser;
+  DatabaseReference? dbRef;
   TextEditingController schoolNameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController contactNoController1 = TextEditingController();
@@ -21,7 +25,6 @@ class _schoolRegistrationState extends State<schoolRegistration> {
   TextEditingController locationController = TextEditingController();
   File? file;
   ImagePicker image = ImagePicker();
-  DatabaseReference? dbRef;
 
   Future<void> _getUserLocation() async {
     await Geolocator.checkPermission();
@@ -76,7 +79,13 @@ class _schoolRegistrationState extends State<schoolRegistration> {
               'imageBase64': base64Image,
             };
 
-            dbRef!.push().set(schoolData);
+            if (loggedUser != null) {
+              String? userId = loggedUser?.uid;
+              DatabaseReference schoolRef = dbRef!.child(userId ?? '');
+              schoolRef.set(schoolData);
+            } else {
+              print("No user is currently logged in.");
+            }
           } else {
             print("Invalid location format in locationController");
           }
@@ -93,6 +102,7 @@ class _schoolRegistrationState extends State<schoolRegistration> {
   @override
   void initState() {
     super.initState();
+    loggedUser = FirebaseAuth.instance.currentUser;
     dbRef = FirebaseDatabase.instance.ref().child('schools');
   }
 
@@ -116,11 +126,11 @@ class _schoolRegistrationState extends State<schoolRegistration> {
           child: Column(
             children: [
               Text(
-                "Register Driving School",
+                "Add Driving School Info",
                 style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
               ),
               Text(
-                "Click to see more details of the course",
+                "Fill your driving school information",
                 textAlign: TextAlign.justify,
                 style:
                     TextStyle(fontWeight: FontWeight.w200, color: Colors.grey),

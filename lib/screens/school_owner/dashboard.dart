@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/widgets.g.dart';
+import '../school_owner/school_registration.dart';
+import 'package:drive_easy_app/screens/students/track_vehicles/track_vehicles_screen.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class SchoolOwnerHomeScreen extends StatefulWidget {
   const SchoolOwnerHomeScreen({super.key});
@@ -10,7 +13,7 @@ class SchoolOwnerHomeScreen extends StatefulWidget {
 }
 
 class _SchoolOwnerHomeScreenState extends State<SchoolOwnerHomeScreen> {
-    String getGreeting() {
+  String getGreeting() {
     final hour = DateTime.now().hour;
     if (hour < 12) {
       return 'Good Morning';
@@ -20,6 +23,7 @@ class _SchoolOwnerHomeScreenState extends State<SchoolOwnerHomeScreen> {
       return 'Good Evening';
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -57,7 +61,8 @@ class _SchoolOwnerHomeScreenState extends State<SchoolOwnerHomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 0),
                       child: RichText(
                         text: TextSpan(
                           style: GoogleFonts.dmSans(
@@ -110,7 +115,8 @@ class _SchoolOwnerHomeScreenState extends State<SchoolOwnerHomeScreen> {
                   child: SearchBar(
                     elevation: const MaterialStatePropertyAll(0),
                     hintText: "Search",
-                    padding: const MaterialStatePropertyAll(EdgeInsets.only(left: 16.0, right: 4)),
+                    padding: const MaterialStatePropertyAll(
+                        EdgeInsets.only(left: 16.0, right: 4)),
                     constraints: const BoxConstraints(maxHeight: 50),
                     leading: const Icon(Icons.search),
                     trailing: <Widget>[
@@ -129,19 +135,39 @@ class _SchoolOwnerHomeScreenState extends State<SchoolOwnerHomeScreen> {
             ),
           ),
           const SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Text(
-              'Dashboard',
-              textAlign: TextAlign.left,
-              style: GoogleFonts.rubik(
-                color: const Color.fromRGBO(0, 0, 0, 1),
-                fontSize: 24,
-                letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                fontWeight: FontWeight.w500,
-                height: 1,
+          Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Text(
+                  'Dashboard',
+                  textAlign: TextAlign.left,
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(0, 0, 0, 1),
+                    fontSize: 24,
+                    letterSpacing:
+                        0 /*percentages not used in flutter. defaulting to zero*/,
+                    fontWeight: FontWeight.w500,
+                    height: 1,
+                  ),
+                ),
               ),
-            ),
+
+              AppTextButton(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                onPressed: () async {
+                  await PersistentNavBarNavigator.pushNewScreen(
+                    context,
+                    screen: const schoolRegistration(),
+                    withNavBar: true,
+                    pageTransitionAnimation: PageTransitionAnimation.scale,
+                  );
+                },
+                text: "Add Driving School Info",
+                fontSize: 14,
+              ),
+            ],
           ),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -156,10 +182,18 @@ class _SchoolOwnerHomeScreenState extends State<SchoolOwnerHomeScreen> {
               crossAxisSpacing: 15,
               mainAxisSpacing: 15,
               padding: const EdgeInsets.symmetric(vertical: 20),
-              children: const [
+              children: [
                 ButtonCard(
-                  title: "School Info",
+                  title: "My Profile",
                   asset: "assets/images/learning.png",
+                  onPressed: () async {
+                    await PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: const schoolRegistration(),
+                      withNavBar: true,
+                      pageTransitionAnimation: PageTransitionAnimation.scale,
+                    );
+                  },
                 ),
                 ButtonCard(
                   title: "Settings",

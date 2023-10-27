@@ -149,11 +149,7 @@ class _SchoolsState extends State<Schools> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const schoolRegistration(),
-              ),
-            );
+            Navigator.of(context).pop();
           },
         ),
       ),
