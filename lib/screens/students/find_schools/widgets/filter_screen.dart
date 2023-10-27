@@ -18,7 +18,6 @@ class _filterScreenState extends State<filterScreen> {
     // Process the data received from the child widget.
     setState(() {
       sliderValue = data;
-      print('received slider value to the filter screen');
     });
   }
 
@@ -103,8 +102,6 @@ class _filterScreenState extends State<filterScreen> {
                     onPressed: () {
                       widget.callback(sliderValue);
                       Navigator.of(context).pop();
-                      print(
-                          'button click - passing slider value to the school list screen');
                     },
                     minWidth: double.infinity,
                     padding:
@@ -176,7 +173,6 @@ class _SliderExampleState extends State<SliderExample> {
         setState(() {
           _currentSliderValue = value;
           widget.callback(_currentSliderValue);
-          print('passing value from slider');
         });
       },
     );
