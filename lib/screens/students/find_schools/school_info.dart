@@ -175,11 +175,10 @@ class SchoolInfo extends StatelessWidget {
                       //view button
                       MaterialButton(
                         onPressed: () {
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //       builder: (context) =>
-                          //           CoursesList(courses: school)),
-                          // );
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => CoursesList()),
+                          );
                         },
                         minWidth: double.infinity,
                         padding: EdgeInsets.symmetric(
