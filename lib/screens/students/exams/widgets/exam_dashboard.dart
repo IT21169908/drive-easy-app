@@ -144,16 +144,37 @@ class _ExamDashboardScreenState extends State<ExamDashboardScreen> {
                   GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.only(top: 20),
                     crossAxisCount: 2,
                     // childAspectRatio: width/height
                     childAspectRatio: (MediaQuery.of(context).size.width / 2) / 235,
                     crossAxisSpacing: 15,
                     mainAxisSpacing: 15,
                     children: const [
-                      ExamGridCard(),
-                      ExamGridCard(),
-                      ExamGridCard(),
-                      ExamGridCard(),
+                      ExamGridCard(
+                        asset: "assets/images/courses/exam-grid-img.png",
+                        title: 'MCQ Exam 1',
+                        subtitle: '30 Questions',
+                        examDuration: '1 Hour',
+                      ),
+                      ExamGridCard(
+                        asset: "assets/images/courses/exam-grid-img-2.png",
+                        title: 'MCQ Exam 2',
+                        subtitle: '60 Questions',
+                        examDuration: '1 Hour',
+                      ),
+                      ExamGridCard(
+                        asset: "assets/images/courses/exam-grid-img-3.png",
+                        title: 'MCQ Exam 3',
+                        subtitle: '25 Questions',
+                        examDuration: '30 Min',
+                      ),
+                      ExamGridCard(
+                        asset: "assets/images/courses/exam-grid-img-5.png",
+                        title: 'MCQ Exam 4',
+                        subtitle: '30 Questions',
+                        examDuration: '1 Hour',
+                      ),
                     ],
                   ),
                   const SizedBox(height: 20),

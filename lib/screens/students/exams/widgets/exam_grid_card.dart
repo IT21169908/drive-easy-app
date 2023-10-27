@@ -1,15 +1,26 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class ExamGridCard extends StatelessWidget {
-  const ExamGridCard({super.key});
+  const ExamGridCard({
+    super.key,
+    required this.asset,
+    required this.title,
+    required this.subtitle,
+    required this.examDuration,
+    this.onPressed,
+  });
+
+  final String asset;
+  final String title;
+  final String subtitle;
+  final String examDuration;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 180,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(8),
@@ -38,21 +49,23 @@ class ExamGridCard extends StatelessWidget {
           ),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              "assets/images/courses/exam-grid-img.svg",
-              width: 180,
+            Image.asset(
+              asset,
+              height: 100,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 0, top: 0),
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 0, top: 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'MCQ Exam 1',
+                    title,
                     textAlign: TextAlign.left,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xFF1C1D23),
                       fontSize: 15,
                       letterSpacing: 0,
@@ -60,19 +73,19 @@ class ExamGridCard extends StatelessWidget {
                       height: 1,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 8),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.menu,
                         size: 18,
                         color: Color(0xff471EBA),
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       Text(
-                        '250+ Questions',
+                        subtitle,
                         textAlign: TextAlign.left,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xff5B5E6D),
                           fontSize: 14,
                           letterSpacing: 0,
@@ -82,19 +95,19 @@ class ExamGridCard extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 6),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.watch_later_outlined,
                         size: 18,
                         color: Color(0xff471EBA),
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       Text(
-                        '12 Min',
+                        examDuration,
                         textAlign: TextAlign.left,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xff5B5E6D),
                           fontSize: 14,
                           letterSpacing: 0,
