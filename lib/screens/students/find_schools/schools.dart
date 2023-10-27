@@ -1,23 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:drive_easy_app/screens/students/find_schools/widgets/driving_school_info_card.dart';
-import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
-import 'package:drive_easy_app/screens/students/find_schools/widgets/filter_screen.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
 import 'dart:math';
+
+import 'package:drive_easy_app/models/models.dart';
+import 'package:drive_easy_app/screens/students/find_schools/widgets/driving_school_info_card.dart';
+import 'package:drive_easy_app/screens/students/find_schools/widgets/filter_screen.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:drive_easy_app/screens/school_owner/school_registration.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class Schools extends StatefulWidget {
-  Schools({Key? key}) : super(key: key);
+  const Schools({super.key});
 
   @override
   State<Schools> createState() => _SchoolsState();
 }
 
 class _SchoolsState extends State<Schools> {
-  final DatabaseReference dbRef =
-      FirebaseDatabase.instance.ref().child('schools');
+  final DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('schools');
   List<School> schoolData = [];
   double sliderValue = 4.0;
   double userLat = 0.0;
@@ -32,7 +30,6 @@ class _SchoolsState extends State<Schools> {
 
     if (dataSnapshot.value != null) {
       Map<dynamic, dynamic> data = dataSnapshot.value as Map<dynamic, dynamic>;
-
       data.forEach((key, value) {
         School school = School(
           schoolName: value['schoolName'],
@@ -43,8 +40,8 @@ class _SchoolsState extends State<Schools> {
           latitude: value['latitude'],
           longitude: value['longitude'],
           imageBase64: value['imageBase64'],
+          id: key,
         );
-
         tempList.add(school);
       });
     }
@@ -81,8 +78,7 @@ class _SchoolsState extends State<Schools> {
     });
 
     // Filter schoolData based on the slider value
-    schoolData =
-        schoolData.where((school) => school.distance < sliderValue).toList();
+    schoolData = schoolData.where((school) => school.distance < sliderValue).toList();
     print(schoolData);
   }
 
@@ -109,8 +105,7 @@ class _SchoolsState extends State<Schools> {
     // Haversine formula
     double dLat = lat2 - lat1;
     double dLon = lon2 - lon1;
-    double a = sin(dLat / 2) * sin(dLat / 2) +
-        cos(lat1) * cos(lat2) * sin(dLon / 2) * sin(dLon / 2);
+    double a = sin(dLat / 2) * sin(dLat / 2) + cos(lat1) * cos(lat2) * sin(dLon / 2) * sin(dLon / 2);
     double c = 2 * atan2(sqrt(a), sqrt(1 - a));
     double distance = earthRadius * c;
 
@@ -121,8 +116,7 @@ class _SchoolsState extends State<Schools> {
     await Geolocator.checkPermission();
     await Geolocator.requestPermission();
 
-    Position userPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    Position userPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
     setState(() {
       userLat = userPosition.latitude;
@@ -145,9 +139,9 @@ class _SchoolsState extends State<Schools> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(""),
+        title: const Text(""),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -159,15 +153,15 @@ class _SchoolsState extends State<Schools> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Find Schools",
               style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
 
             //search field
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(30.0),
@@ -182,7 +176,7 @@ class _SchoolsState extends State<Schools> {
                         color: Colors.grey[700],
                         size: 32.0,
                       ),
-                      SizedBox(width: 10.0),
+                      const SizedBox(width: 10.0),
                       Text(
                         "Search anything",
                         style: TextStyle(
@@ -197,19 +191,18 @@ class _SchoolsState extends State<Schools> {
                       /////////////////////////////////////////////////////////////////////////////
                       showModalBottomSheet(
                           context: context,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(30.0),
                             ),
                           ),
                           builder: (context) => filterScreen(
                                 callback: onSliderValueReceived,
-                                resetCallback:
-                                    resetSchoolData, // Pass the reset function
+                                resetCallback: resetSchoolData, // Pass the reset function
                               ));
                     },
                     //////////////////////////////////
-                    child: Icon(
+                    child: const Icon(
                       Icons.tune,
                       size: 32.0,
                     ),
@@ -217,16 +210,15 @@ class _SchoolsState extends State<Schools> {
                 ],
               ),
             ),
-            SizedBox(height: 25.0),
+            const SizedBox(height: 25.0),
 
             // Card
             Expanded(
               child: schoolData.isEmpty
-                  ? Center(
+                  ? const Center(
                       child: Text(
                         'No driving schools available',
-                        style: TextStyle(
-                            fontSize: 18.0, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                       ),
                     )
                   : ListView.builder(

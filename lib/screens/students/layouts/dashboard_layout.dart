@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../course_enrollment/course_enroll_screen.dart';
 import '../dashboard.dart';
 
 class StudentDashboardLayout extends StatefulWidget {
@@ -64,7 +63,7 @@ class _StudentDashboardLayoutState extends State<StudentDashboardLayout> {
 
   final List<Widget> _buildScreens = [
     const StudentHomeScreen(),
-    const CourseEnrollScreen(),
+    Container(),
     Container(),
     Container(),
   ];

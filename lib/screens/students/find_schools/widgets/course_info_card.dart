@@ -1,12 +1,11 @@
-import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
+import 'package:drive_easy_app/models/models.dart';
 import 'package:drive_easy_app/screens/students/find_schools/course_info.dart';
 import 'package:flutter/material.dart';
-import 'package:drive_easy_app/screens/students/find_schools/models/course_model.dart';
 
 class CourseCard extends StatelessWidget {
   final Course course;
 
-  CourseCard({Key? key, required this.course}) : super(key: key);
+  const CourseCard({super.key, required this.course});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,7 @@ class CourseCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 16.0),
+              const SizedBox(width: 16.0),
               // Course information
               Expanded(
                 child: Column(
@@ -47,7 +46,7 @@ class CourseCard extends StatelessWidget {
                   children: [
                     Text(
                       course.name,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -60,8 +59,8 @@ class CourseCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
-                          "LKR "+course.price.toString(),
-                          style: TextStyle(
+                          "LKR ${course.price}",
+                          style: const TextStyle(
                             fontSize: 12.0,
                             color: Colors.white,
                           ),
@@ -72,7 +71,7 @@ class CourseCard extends StatelessWidget {
                 ),
               ),
               // Trailing icon
-              Icon(Icons.chevron_right),
+              const Icon(Icons.chevron_right),
             ],
           ),
         ),

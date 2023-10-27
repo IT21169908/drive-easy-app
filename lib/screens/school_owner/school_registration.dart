@@ -1,21 +1,22 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:drive_easy_app/models/models.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:convert';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
 
-class schoolRegistration extends StatefulWidget {
-  const schoolRegistration({super.key});
+class SchoolRegistration extends StatefulWidget {
+  const SchoolRegistration({super.key});
 
   @override
-  State<schoolRegistration> createState() => _schoolRegistrationState();
+  State<SchoolRegistration> createState() => _SchoolRegistrationState();
 }
 
-class _schoolRegistrationState extends State<schoolRegistration> {
+class _SchoolRegistrationState extends State<SchoolRegistration> {
   late final User? loggedUser;
   DatabaseReference? dbRef;
   TextEditingController schoolNameController = TextEditingController();
@@ -56,57 +57,55 @@ class _schoolRegistrationState extends State<schoolRegistration> {
   }
 
   Future<void> uploadData() async {
-  try {
-    if (file != null) {
-      String base64Image = base64Encode(file!.readAsBytesSync());
-      String locationText = locationController.text;
+    try {
+      if (file != null) {
+        String base64Image = base64Encode(file!.readAsBytesSync());
+        String locationText = locationController.text;
 
-      if (locationText.isNotEmpty) {
-        List<String> locationParts = locationText.split(', ');
+        if (locationText.isNotEmpty) {
+          List<String> locationParts = locationText.split(', ');
 
-        if (locationParts.length == 2) {
-          double userLat = double.tryParse(locationParts[0]) ?? 0.0;
-          double userLon = double.tryParse(locationParts[1]) ?? 0.0;
+          if (locationParts.length == 2) {
+            double userLat = double.tryParse(locationParts[0]) ?? 0.0;
+            double userLon = double.tryParse(locationParts[1]) ?? 0.0;
 
-          School school = School(
-            schoolName: schoolNameController.text,
-            address: addressController.text,
-            contactNo1: contactNoController1.text,
-            contactNo2: contactNoController2.text,
-            aboutUs: aboutUsController.text,
-            latitude: userLat,
-            longitude: userLon,
-            imageBase64: base64Image,
-          );
-
-          if (loggedUser != null) {
-            String? userId = loggedUser?.uid;
-            DatabaseReference schoolRef = dbRef!.child(userId ?? '');
-            schoolRef.set(school.toJson());
-            Fluttertoast.showToast(
-              msg: "School info added successfully",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              backgroundColor: Colors.grey.shade800,
-              textColor: Colors.white,
-              fontSize: 16.0,
+            School school = School(
+              schoolName: schoolNameController.text,
+              address: addressController.text,
+              contactNo1: contactNoController1.text,
+              contactNo2: contactNoController2.text,
+              aboutUs: aboutUsController.text,
+              latitude: userLat,
+              longitude: userLon,
+              imageBase64: base64Image,
             );
+            if (loggedUser != null) {
+              String? userId = loggedUser?.uid;
+              DatabaseReference schoolRef = dbRef!.child(userId ?? '');
+              schoolRef.set(school.toJson());
+              Fluttertoast.showToast(
+                msg: "School info added successfully",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                backgroundColor: Colors.grey.shade800,
+                textColor: Colors.white,
+                fontSize: 16.0,
+              );
+            } else {
+              print("No user is currently logged in.");
+            }
           } else {
-            print("No user is currently logged in.");
+            print("Invalid location format in locationController");
           }
         } else {
-          print("Invalid location format in locationController");
+          print("Location is empty in locationController");
         }
-      } else {
-        print("Location is empty in locationController");
       }
+    } catch (e) {
+      // Handle errors
+      print("Error uploading data: $e");
     }
-  } catch (e) {
-    // Handle errors
-    print("Error uploading data: $e");
   }
-}
-
 
   @override
   void initState() {
@@ -141,14 +140,12 @@ class _schoolRegistrationState extends State<schoolRegistration> {
               Text(
                 "Fill your driving school information",
                 textAlign: TextAlign.justify,
-                style:
-                    TextStyle(fontWeight: FontWeight.w200, color: Colors.grey),
+                style: TextStyle(fontWeight: FontWeight.w200, color: Colors.grey),
               ),
               SizedBox(height: 25.0),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Driving School Name',
-                    style: TextStyle(color: Colors.black)),
+                child: Text('Driving School Name', style: TextStyle(color: Colors.black)),
               ),
               SizedBox(height: 15.0),
               TextField(
@@ -200,8 +197,7 @@ class _schoolRegistrationState extends State<schoolRegistration> {
               SizedBox(height: 25.0),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Contact Number 1',
-                    style: TextStyle(color: Colors.black)),
+                child: Text('Contact Number 1', style: TextStyle(color: Colors.black)),
               ),
               SizedBox(height: 15.0),
               TextField(
@@ -227,8 +223,7 @@ class _schoolRegistrationState extends State<schoolRegistration> {
               SizedBox(height: 25.0),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Contact Number 2',
-                    style: TextStyle(color: Colors.black)),
+                child: Text('Contact Number 2', style: TextStyle(color: Colors.black)),
               ),
               SizedBox(height: 15.0),
               TextField(
@@ -309,8 +304,7 @@ class _schoolRegistrationState extends State<schoolRegistration> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color:
-                            Colors.grey.shade200, // Light grey background color
+                        color: Colors.grey.shade200, // Light grey background color
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10.0),
                           bottomRight: Radius.circular(10.0),
@@ -334,37 +328,38 @@ class _schoolRegistrationState extends State<schoolRegistration> {
               Center(
                 child: Container(
                   height: 200,
-                  width: MediaQuery.of(context).size.width * 0.9,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.9,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Color.fromARGB(
-                          255, 180, 180, 180), // Lighter grey color
+                      color: Color.fromARGB(255, 180, 180, 180), // Lighter grey color
                       width: 1.0, // Border width
                     ),
                     borderRadius: BorderRadius.circular(15.0), // Border radius
                   ),
                   child: file == null
                       ? IconButton(
-                          icon: Icon(
-                            Icons.add_a_photo,
-                            size: 90,
-                            color: Color.fromARGB(
-                                255, 180, 180, 180), // Lighter grey color
-                          ),
-                          onPressed: () {
-                            getImage();
-                          },
-                        )
+                    icon: Icon(
+                      Icons.add_a_photo,
+                      size: 90,
+                      color: Color.fromARGB(255, 180, 180, 180), // Lighter grey color
+                    ),
+                    onPressed: () {
+                      getImage();
+                    },
+                  )
                       : MaterialButton(
-                          height: 100,
-                          child: Image.file(
-                            file!,
-                            fit: BoxFit.fill,
-                          ),
-                          onPressed: () {
-                            getImage();
-                          },
-                        ),
+                    height: 100,
+                    child: Image.file(
+                      file!,
+                      fit: BoxFit.fill,
+                    ),
+                    onPressed: () {
+                      getImage();
+                    },
+                  ),
                 ),
               ),
               SizedBox(height: 15.0),
