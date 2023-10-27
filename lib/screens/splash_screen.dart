@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../utils/auth_checker.dart';
-
+// SplashScreen
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
