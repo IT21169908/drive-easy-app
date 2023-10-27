@@ -1,14 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:map_launcher/map_launcher.dart';
-import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
-import 'package:drive_easy_app/screens/students/find_schools/courses_list.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:drive_easy_app/models/models.dart';
+import 'package:drive_easy_app/screens/students/find_schools/courses_list.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:map_launcher/map_launcher.dart';
+
 class SchoolInfo extends StatelessWidget {
-  School school;
-  SchoolInfo({super.key, required this.school});
+  final School school;
+
+  const SchoolInfo({super.key, required this.school});
 
   //get directions button
   Future<void> openMap(double latitude, double longitude) async {
@@ -43,14 +45,13 @@ class SchoolInfo extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.4,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: image
-                              .image, // Extract the ImageProvider from the Image widget
+                          image: image.image, // Extract the ImageProvider from the Image widget
                           fit: BoxFit.fill, // Replace with your desired BoxFit
                         ),
                       ),
@@ -60,7 +61,7 @@ class SchoolInfo extends StatelessWidget {
                     top: 10, // Adjust the top position as needed
                     left: 10, // Adjust the left position as needed
                     child: IconButton(
-                      icon: Icon(Icons.chevron_left),
+                      icon: const Icon(Icons.chevron_left),
                       color: Colors.black, // Icon color
                       iconSize: 32, // Icon size
                       onPressed: () {
@@ -70,11 +71,11 @@ class SchoolInfo extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
 
               //school info
               Container(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.white,
@@ -94,7 +95,7 @@ class SchoolInfo extends StatelessWidget {
                       Center(
                         child: Text(
                           school.schoolName,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 32.0,
                             fontWeight: FontWeight.bold,
@@ -112,7 +113,7 @@ class SchoolInfo extends StatelessWidget {
                             color: Colors.grey.shade400,
                             size: 30.0,
                           ),
-                          SizedBox(width: 5.0),
+                          const SizedBox(width: 5.0),
                           Text(
                             school.address,
                             style: TextStyle(
@@ -133,9 +134,9 @@ class SchoolInfo extends StatelessWidget {
                             color: Colors.grey.shade400,
                             size: 30.0,
                           ),
-                          SizedBox(width: 5.0),
+                          const SizedBox(width: 5.0),
                           Text(
-                            "0112 123 456 / 0775 419 752",
+                            "${school.contactNo1} / ${school.contactNo2}",
                             style: TextStyle(
                               color: Colors.grey.shade400,
                               fontSize: 16.0,
@@ -145,7 +146,7 @@ class SchoolInfo extends StatelessWidget {
                         ],
                       ),
 
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
 
                       //telephone
                       Row(
@@ -156,11 +157,9 @@ class SchoolInfo extends StatelessWidget {
                             color: Colors.grey.shade400,
                             size: 30.0,
                           ),
-                          SizedBox(width: 5.0),
+                          const SizedBox(width: 5.0),
                           Text(
-                            school.distance >= 1
-                                ? '${school.distance.toStringAsFixed(1)} km'
-                                : '${(school.distance * 1000).toInt()} m',
+                            school.distance >= 1 ? '${school.distance.toStringAsFixed(1)} km' : '${(school.distance * 1000).toInt()} m',
                             style: TextStyle(
                               color: Colors.grey.shade400,
                               fontSize: 16.0,
@@ -170,55 +169,50 @@ class SchoolInfo extends StatelessWidget {
                         ],
                       ),
 
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
 
                       //view button
                       MaterialButton(
                         onPressed: () {
                           Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => CoursesList()),
+                            MaterialPageRoute(builder: (context) => CourseListScreen(school: school)),
                           );
                         },
                         minWidth: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 15.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
                         color: Colors.yellow,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0),
                         ),
-                        child: Text(
+                        child: const Text(
                           "View Available Courses",
-                          style:
-                              TextStyle(color: Colors.black, fontSize: 16.00),
+                          style: TextStyle(color: Colors.black, fontSize: 16.00),
                         ),
                       )
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
                     //about us
-                    Text(
+                    const Text(
                       "About Us",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Driving lessons are essential educational programs designed to teach individuals the knowledge, skills, and responsible behaviors necessary for safe and confident driving. These courses typically cover a wide range of topics, including road rules, defensive driving techniques, traffic signs, and vehicle operation. They often include both theoretical classroom instruction and practical hands-on training behind the wheel. These lessons are a fundamental step in preparing new drivers to obtain their driver's licenses and navigate the complexities of the road. Importantly, driving lessons not only focus on teaching the technical aspects of driving but also emphasize the importance of safe driving practices and responsible behavior on the road, contributing to overall road safety and reducing accidents.",
+                        school.aboutUs,
                         textAlign: TextAlign.justify,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w200, color: Colors.grey),
+                        style: const TextStyle(fontWeight: FontWeight.w200, color: Colors.grey),
                       ),
                     ),
 
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     //2 buttons
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -228,47 +222,43 @@ class SchoolInfo extends StatelessWidget {
                             openMap(school.latitude, school.longitude);
                           },
                           minWidth: MediaQuery.of(context).size.width * 0.4,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 15.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
                           color: Colors.indigo.shade900,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),
-                          child: Text(
+                          child: const Text(
                             "Get Directions",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16.00),
+                            style: TextStyle(color: Colors.white, fontSize: 16.00),
                           ),
                         ),
-                        SizedBox(width: 25.0),
+                        const SizedBox(width: 25.0),
                         MaterialButton(
                           onPressed: () {
                             showModalBottomSheet(
                               context: context,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(30.0),
                                 ),
                               ),
-                              builder: (context) => rateNowScreen(),
+                              builder: (context) => const rateNowScreen(),
                             );
                           },
                           minWidth: MediaQuery.of(context).size.width * 0.4,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 15.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
                           color: Colors.grey,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),
-                          child: Text(
+                          child: const Text(
                             "Rate",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16.00),
+                            style: TextStyle(color: Colors.white, fontSize: 16.00),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 50.0,
                       width: 50,
                     ),
@@ -295,7 +285,7 @@ class _rateNowScreenState extends State<rateNowScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 300.0,
       child: Padding(
@@ -319,7 +309,7 @@ class _rateNowScreenState extends State<rateNowScreen> {
               ],
             ),
             //title and close button
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
@@ -339,9 +329,9 @@ class _rateNowScreenState extends State<rateNowScreen> {
               ],
             ),
 
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             //text
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.6,
               child: Text(
                 "How was your experience with this driving school ?",
@@ -355,15 +345,15 @@ class _rateNowScreenState extends State<rateNowScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             //body
             RatingBar.builder(
               initialRating: 0,
               minRating: 1,
               direction: Axis.horizontal,
               itemCount: 5,
-              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) => Icon(
+              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+              itemBuilder: (context, _) => const Icon(
                 Icons.star,
                 color: Colors.amber,
               ),
@@ -374,16 +364,16 @@ class _rateNowScreenState extends State<rateNowScreen> {
             ),
 
             //button
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             MaterialButton(
               onPressed: () {},
               minWidth: MediaQuery.of(context).size.width * 0.4,
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
               color: Colors.indigo.shade900,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: Text(
+              child: const Text(
                 "Submit",
                 style: TextStyle(color: Colors.white, fontSize: 16.00),
               ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
 import '../../widgets/widgets.g.dart';
 import '../school_owner/school_registration.dart';
-import 'package:drive_easy_app/screens/students/track_vehicles/track_vehicles_screen.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class SchoolOwnerHomeScreen extends StatefulWidget {
   const SchoolOwnerHomeScreen({super.key});
@@ -159,7 +159,7 @@ class _SchoolOwnerHomeScreenState extends State<SchoolOwnerHomeScreen> {
                 onPressed: () async {
                   await PersistentNavBarNavigator.pushNewScreen(
                     context,
-                    screen: const schoolRegistration(),
+                    screen: const SchoolRegistration(),
                     withNavBar: true,
                     pageTransitionAnimation: PageTransitionAnimation.scale,
                   );
@@ -189,7 +189,7 @@ class _SchoolOwnerHomeScreenState extends State<SchoolOwnerHomeScreen> {
                   onPressed: () async {
                     await PersistentNavBarNavigator.pushNewScreen(
                       context,
-                      screen: const schoolRegistration(),
+                      screen: const SchoolRegistration(),
                       withNavBar: true,
                       pageTransitionAnimation: PageTransitionAnimation.scale,
                     );

@@ -1,13 +1,14 @@
-import 'package:drive_easy_app/screens/students/find_schools/school_info.dart';
-import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
-import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 
-class DrivingSchoolInfoCard extends StatelessWidget {
-  School school;
+import 'package:drive_easy_app/models/models.dart';
+import 'package:drive_easy_app/screens/students/find_schools/school_info.dart';
+import 'package:flutter/material.dart';
 
-  DrivingSchoolInfoCard({super.key, required this.school});
+class DrivingSchoolInfoCard extends StatelessWidget {
+  final School school;
+
+  const DrivingSchoolInfoCard({super.key, required this.school});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class DrivingSchoolInfoCard extends StatelessWidget {
           GestureDetector(
             onTap: () {},
             child: Container(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: Colors.grey.shade200,
@@ -57,17 +58,15 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                             child: DecoratedBox(
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: image
-                                      .image, // Extract the ImageProvider from the Image widget
-                                  fit: BoxFit
-                                      .cover, // Replace with your desired BoxFit
+                                  image: image.image, // Extract the ImageProvider from the Image widget
+                                  fit: BoxFit.cover, // Replace with your desired BoxFit
                                 ),
                               ),
                             ),
                           ),
                         ),
 
-                        SizedBox(width: 10.0),
+                        const SizedBox(width: 10.0),
                         //school name
                         Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -77,18 +76,18 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.5,
                                 child: Text(school.schoolName,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 25.0,
                                       fontWeight: FontWeight.bold,
                                     )),
                               ),
-                              SizedBox(height: 10.0),
+                              const SizedBox(height: 10.0),
                               Row(
                                 children: [
                                   //rating
                                   Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.star_rate,
                                         color: Colors.amber,
                                       ),
@@ -96,18 +95,16 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                                     ],
                                   ),
 
-                                  SizedBox(width: 15),
+                                  const SizedBox(width: 15),
                                   //distance
                                   Icon(
                                     Icons.directions_car,
                                     color: Colors.grey.shade600,
                                   ),
-                                  SizedBox(width: 5.0),
+                                  const SizedBox(width: 5.0),
                                   Text(
-                                    school.distance >= 1
-                                        ? '${school.distance.toStringAsFixed(1)} km'
-                                        : '${(school.distance * 1000).toInt()} m',
-                                    style: TextStyle(
+                                    school.distance >= 1 ? '${school.distance.toStringAsFixed(1)} km' : '${(school.distance * 1000).toInt()} m',
+                                    style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w300,
@@ -120,7 +117,7 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 10.0),
 
                     //location
                     Row(
@@ -132,32 +129,27 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                         ),
                         Text(
                           school.address,
-                          style: TextStyle(
-                              color: Colors.grey.shade400,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w300),
+                          style: TextStyle(color: Colors.grey.shade400, fontSize: 16.0, fontWeight: FontWeight.w300),
                         ),
                       ],
                     ),
 
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 10.0),
 
                     //view button
                     MaterialButton(
                       onPressed: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => SchoolInfo(school: school)),
+                          MaterialPageRoute(builder: (context) => SchoolInfo(school: school)),
                         );
                       },
                       minWidth: double.infinity,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 15.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
                       color: Colors.indigo.shade900,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
-                      child: Text(
+                      child: const Text(
                         "View",
                         style: TextStyle(color: Colors.white, fontSize: 16.00),
                       ),
