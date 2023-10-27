@@ -48,16 +48,16 @@ _____________________
 
 ## Drive Easy Mobile Application
 
-| Registration Number | Name | Email |
-| :---: | :---: | :---: |
-| **IT21169908** | **Prashantha K.G.M** | ***it21169908@my.sliit.lk*** |
-|  |  |  |
-| IT21156410 | Fonseka M.M.N.H | *it21156410@my.sliit.lk* |
-|  |  |  |
-| IT | Name | *@my.sliit.lk* |
-|  |  |  |
-| IT | Name | *@my.sliit.lk* |
-|  |  |  |
+| Registration Number |         Name         |            Email             |
+|:-------------------:|:--------------------:|:----------------------------:|
+|   **IT21169908**    | **Prashantha K.G.M** | ***it21169908@my.sliit.lk*** |
+|                     |                      |                              |
+|     IT21156410      |   Fonseka M.M.N.H    |   *it21156410@my.sliit.lk*   |
+|                     |                      |                              |
+|       IT21074622       |   Samaraweera S.M    |   *it21074622@my.sliit.lk*   |
+|                     |                      |                              |
+|         IT          |         Name         |        *@my.sliit.lk*        |
+|                     |                      |                              |
 
 ______________
 
