@@ -58,7 +58,7 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                             children: [
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.5,
-                                child: Text(school.name,
+                                child: Text(school.schoolName,
                                     style: TextStyle(
                                       fontSize: 25.0,
                                       fontWeight: FontWeight.bold,

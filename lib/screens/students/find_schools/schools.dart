@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:drive_easy_app/screens/students/find_schools/widgets/driving_school_info_card.dart';
 import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
+import 'package:drive_easy_app/screens/students/find_schools/widgets/filter_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
-import 'dart:math'; // Import the dart:math library
+import 'dart:math';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:drive_easy_app/screens/school_owner/school_registration.dart';
 
 class Schools extends StatefulWidget {
   Schools({Key? key}) : super(key: key);
@@ -13,25 +16,79 @@ class Schools extends StatefulWidget {
 }
 
 class _SchoolsState extends State<Schools> {
-  List<School> schoolData = schoolList;
+  final DatabaseReference dbRef =
+      FirebaseDatabase.instance.ref().child('schools');
+  List<School> schoolData = [];
   double sliderValue = 4.0;
+  double userLat = 0.0;
+  double userLon = 0.0;
 
+//fetch school data
+  Future<void> fetchSchoolData() async {
+    DatabaseEvent event = await dbRef.once();
+    DataSnapshot dataSnapshot = event.snapshot;
+
+    List<School> tempList = [];
+
+    if (dataSnapshot.value != null) {
+      Map<dynamic, dynamic> data = dataSnapshot.value as Map<dynamic, dynamic>;
+
+      data.forEach((key, value) {
+        School school = School(
+          schoolName: value['schoolName'],
+          address: value['address'],
+          contactNo1: value['contactNo1'],
+          contactNo2: value['contactNo2'],
+          aboutUs: value['aboutUs'],
+          latitude: value['latitude'],
+          longitude: value['longitude'],
+          imageBase64: value['imageBase64'],
+        );
+
+        tempList.add(school);
+      });
+    }
+
+    setState(() {
+      schoolData = tempList;
+    });
+
+    //////////////////////////////
+    // After obtaining the user's location, calculate distances to schools
+    final List<School> schoolsWithDistances = [];
+
+    for (var school in schoolData) {
+      double distance = calculateDistance(
+        school.latitude,
+        school.longitude,
+        userLat,
+        userLon,
+      );
+      school.distance = distance;
+      schoolsWithDistances.add(school);
+    }
+
+    setState(() {
+      schoolData = schoolsWithDistances;
+    });
+  }
+
+//slider
   void onSliderValueReceived(double data) {
     // Process the data received from the child widget.
     setState(() {
       sliderValue = data;
-      print('value received in the school list screen');
     });
 
     // Filter schoolData based on the slider value
     schoolData =
         schoolData.where((school) => school.distance < sliderValue).toList();
-        print(schoolData);
+    print(schoolData);
   }
 
   void resetSchoolData() {
     setState(() {
-      schoolData = schoolList; // Reset to the original schoolList
+      // schoolData = schoolList; // Reset to the original schoolList
       sliderValue = 0.0; // Reset the slider value
     });
   }
@@ -61,40 +118,25 @@ class _SchoolsState extends State<Schools> {
   }
 
   Future<void> _getUserLocation() async {
-    // Code to get the user's current location
     await Geolocator.checkPermission();
     await Geolocator.requestPermission();
 
     Position userPosition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
-    double userLat = userPosition.latitude;
-    double userLon = userPosition.longitude;
-    //////////////////////////////////////////////////////////////////////////////////////////////
-
-    // After obtaining the user's location, calculate distances to schools
-    final List<School> schoolsWithDistances = [];
-
-    for (var school in schoolData) {
-      double distance = calculateDistance(
-        school.location.latitude,
-        school.location.longitude,
-        userLat,
-        userLon,
-      );
-      school.distance = distance;
-      schoolsWithDistances.add(school);
-    }
-
     setState(() {
-      schoolData = schoolsWithDistances;
+      userLat = userPosition.latitude;
+      userLon = userPosition.longitude;
     });
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
   }
 
   @override
   void initState() {
     super.initState();
     _getUserLocation();
+    fetchSchoolData();
   }
 
   @override
@@ -107,7 +149,11 @@ class _SchoolsState extends State<Schools> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const schoolRegistration(),
+              ),
+            );
           },
         ),
       ),
@@ -162,7 +208,8 @@ class _SchoolsState extends State<Schools> {
                           ),
                           builder: (context) => filterScreen(
                                 callback: onSliderValueReceived,
-                                 resetCallback: resetSchoolData, // Pass the reset function
+                                resetCallback:
+                                    resetSchoolData, // Pass the reset function
                               ));
                     },
                     //////////////////////////////////
@@ -194,188 +241,6 @@ class _SchoolsState extends State<Schools> {
                       },
                     ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-//slider
-class SliderExample extends StatefulWidget {
-  final Function(double) callback;
-  const SliderExample({super.key, required this.callback});
-
-  @override
-  State<SliderExample> createState() => _SliderExampleState();
-}
-
-class _SliderExampleState extends State<SliderExample> {
-  double _currentSliderValue = 4;
-
-  double get sliderValue => _currentSliderValue;
-
-  @override
-  Widget build(BuildContext context) {
-    return Slider(
-      value: _currentSliderValue,
-      min: 0,
-      max: 10,
-      divisions: 10,
-      activeColor: Colors.amber,
-      label: _currentSliderValue.round().toString() + "KM",
-      onChanged: (double value) {
-        setState(() {
-          _currentSliderValue = value;
-          widget.callback(_currentSliderValue);
-          print('passing value from slider');
-        });
-      },
-    );
-  }
-}
-
-//filter screen
-class filterScreen extends StatefulWidget {
-  final Function(double) callback;
-  final Function resetCallback;
-  const filterScreen(
-      {super.key, required this.callback, required this.resetCallback});
-
-  @override
-  State<filterScreen> createState() => _filterScreenState();
-}
-
-class _filterScreenState extends State<filterScreen> {
-  double sliderValue = 0;
-
-  void onSliderValueReceived(double data) {
-    // Process the data received from the child widget.
-    setState(() {
-      sliderValue = data;
-      print('received slider value to the filter screen');
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                //close button
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Icon(
-                    Icons.close,
-                    color: Colors.black,
-                    size: 30.0,
-                  ),
-                ),
-              ],
-            ),
-            //title
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.tune,
-                  color: Colors.black,
-                  size: 30.0,
-                ),
-                SizedBox(width: 5.0),
-                Text(
-                  "Filter",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 32.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            //body
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //text1
-                  Text(
-                    "Filter by distance",
-                    style:
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.left,
-                  ),
-
-                  //text2
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Text(
-                      "You can filter nearest driving schools upto 10KM",
-                      style: TextStyle(
-                        color: Colors.grey.shade700,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 15.0),
-                  //slider
-                  Container(
-                      child: SliderExample(callback: onSliderValueReceived)),
-                  SizedBox(height: 10.0),
-                  //2 button
-
-                  MaterialButton(
-                    onPressed: () {
-                      widget.callback(sliderValue);
-                      Navigator.of(context).pop();
-                      print(
-                          'button click - passing slider value to the school list screen');
-                    },
-                    minWidth: double.infinity,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-                    color: Colors.indigo.shade900,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Text(
-                      "Apply",
-                      style: TextStyle(color: Colors.white, fontSize: 16.00),
-                    ),
-                  ),
-                  SizedBox(height: 10.0),
-
-                  MaterialButton(
-                    onPressed: () {
-                      widget.resetCallback(); // Call the reset function
-                      Navigator.of(context).pop();
-                    },
-                    minWidth: double.infinity,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-                    color: Colors.grey,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Text(
-                      "Reset",
-                      style: TextStyle(color: Colors.white, fontSize: 16.00),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
           ],
         ),
       ),
