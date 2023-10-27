@@ -6,7 +6,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../widgets/cards/course_content_card.dart';
 import '../../../widgets/widgets.g.dart';
-import '../exams/widgets/exam_dashboard.dart';
+import '../exams/exam_dashboard.dart';
 
 class ViewCourseContentScreen extends StatefulWidget {
   const ViewCourseContentScreen({super.key});

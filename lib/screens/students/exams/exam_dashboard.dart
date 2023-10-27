@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../exam_pie_chart.dart';
-import 'exam_grid_card.dart';
+import 'widgets/exam_grid_card.dart';
+import 'widgets/exam_pie_chart.dart';
 
 class ExamDashboardScreen extends StatefulWidget {
   const ExamDashboardScreen({super.key});

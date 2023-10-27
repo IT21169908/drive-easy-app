@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../widgets/widgets.g.dart';
+import '../../../../widgets/widgets.g.dart';
 
 class ExamPieChartInfo extends StatefulWidget {
   const ExamPieChartInfo({super.key});
