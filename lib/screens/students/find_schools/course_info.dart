@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-
 class CourseInfo extends StatelessWidget {
-  Course course;
-  CourseInfo({super.key, required this.course});
+  final Course course;
+
+  CourseInfo({Key? key, required this.course}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +23,12 @@ class CourseInfo extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               Positioned(
-                top: 10, // Adjust the top position as needed
-                left: 10, // Adjust the left position as needed
+                top: 10,
+                left: 10,
                 child: IconButton(
                   icon: Icon(Icons.chevron_left),
-                  color: Colors.black, // Icon color
-                  iconSize: 32, // Icon size
+                  color: Colors.black,
+                  iconSize: 32,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -38,6 +38,7 @@ class CourseInfo extends StatelessWidget {
           ),
           panelBuilder: (controller) => PanelWidget(
             controller: controller,
+            course: course,
           ),
         ),
       ),
@@ -47,7 +48,10 @@ class CourseInfo extends StatelessWidget {
 
 class PanelWidget extends StatelessWidget {
   final ScrollController controller;
-  const PanelWidget({super.key, required this.controller});
+  final Course course;
+
+  const PanelWidget({Key? key, required this.controller, required this.course})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +70,13 @@ class PanelWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Course Name",
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    Flexible(
+                      // Wrap in Flexible to prevent overflow
+                      child: Text(
+                        course.name,
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
+                      ),
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -79,7 +86,7 @@ class PanelWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
-                          "LKR 25000",
+                          "LKR ${course.price.toStringAsFixed(2)}",
                           style: TextStyle(
                             fontSize: 12.0,
                             color: Colors.white,
@@ -94,7 +101,7 @@ class PanelWidget extends StatelessWidget {
                 //start course button
                 MaterialButton(
                   onPressed: () {
-                    
+                    // Add your logic here
                   },
                   minWidth: double.infinity,
                   padding:
@@ -117,7 +124,7 @@ class PanelWidget extends StatelessWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "Driving lessons are essential educational programs designed to teach individuals the knowledge, skills, and responsible behaviors necessary for safe and confident driving. These courses typically cover a wide range of topics, including road rules, defensive driving techniques, traffic signs, and vehicle operation. They often include both theoretical classroom instruction and practical hands-on training behind the wheel. These lessons are a fundamental step in preparing new drivers to obtain their driver's licenses and navigate the complexities of the road. Importantly, driving lessons not only focus on teaching the technical aspects of driving but also emphasize the importance of safe driving practices and responsible behavior on the road, contributing to overall road safety and reducing accidents.",
+                  course.description,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                       fontWeight: FontWeight.w200, color: Colors.grey),
