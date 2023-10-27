@@ -1,5 +1,5 @@
-import 'package:drive_easy_app/firebase_auth_service.dart';
 import 'package:drive_easy_app/screens/guests/auth/register_screen.dart';
+import 'package:drive_easy_app/services/firebase_auth_service.dart';
 import 'package:drive_easy_app/utils/auth_checker.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,11 +39,11 @@ class _LoginScreenState extends State<LoginScreen> {
       CircularLoaderWidget(context);
       try {
         User? user = await FireAuthService.signInUsingEmailPassword(
+          context: context,
           email: _emailController.text,
           password: _passwordController.text,
         );
         if (mounted) {
-          // TODO: get role from db
           CheckRoleAndRedirect(context, user);
         }
       } catch (e) {

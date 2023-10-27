@@ -1,4 +1,4 @@
-import 'package:drive_easy_app/firebase_auth_service.dart';
+import 'package:drive_easy_app/services/firebase_auth_service.dart';
 import 'package:drive_easy_app/utils/check_role_and_redirect.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,6 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       CircularLoaderWidget(context);
       try {
         User? user = await FireAuthService.registerUsingEmailPassword(
+          context: context,
           name: _fullNameController.text,
           role: _selectedUserRole.name,
           email: _emailController.text,

@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+import '../widgets/widgets.g.dart';
 
 class FireAuthService {
   // For registering a new user
   static Future<User?> registerUsingEmailPassword({
+    required context,
     required String email,
     required String name,
     required String role,
@@ -37,18 +41,38 @@ class FireAuthService {
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
+        AppSnackBarWidget(
+          context: context,
+          bgColor: Colors.red,
+        ).show(message: "The password provided is too weak.");
         if (kDebugMode) {
           print('The password provided is too weak.');
         }
       } else if (e.code == 'email-already-in-use') {
+        AppSnackBarWidget(
+          context: context,
+          bgColor: Colors.red,
+        ).show(message: "The account already exists for that email.");
         if (kDebugMode) {
           print('The account already exists for that email.');
         }
+      }
+      if (kDebugMode) {
+        print(e.message);
+      } else {
+        AppSnackBarWidget(
+          context: context,
+          bgColor: Colors.red,
+        ).show(message: e.message ?? 'Something went wrong!');
       }
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
+      AppSnackBarWidget(
+        context: context,
+        bgColor: Colors.red,
+      ).show(message: e.toString());
     }
 
     return user;
@@ -56,6 +80,7 @@ class FireAuthService {
 
   // For signing in an user (have already registered)
   static Future<User?> signInUsingEmailPassword({
+    required context,
     required String email,
     required String password,
   }) async {
@@ -70,14 +95,38 @@ class FireAuthService {
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+        AppSnackBarWidget(
+          context: context,
+          bgColor: Colors.red,
+        ).show(message: "No user found for that email.");
         if (kDebugMode) {
           print('No user found for that email.');
         }
-      } else if (e.code == 'wrong-password') {
+      } else if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
+        AppSnackBarWidget(
+          context: context,
+          bgColor: Colors.red,
+        ).show(message: "Wrong password provided.");
         if (kDebugMode) {
           print('Wrong password provided.');
         }
+      } else {
+        AppSnackBarWidget(
+          context: context,
+          bgColor: Colors.red,
+        ).show(message: 'Something went wrong!');
       }
+      if (kDebugMode) {
+        print("FirebaseAuthException: ${e.message} | ${e.code}");
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("signInWithEmailAndPassword: $e");
+      }
+      AppSnackBarWidget(
+        context: context,
+        bgColor: Colors.red,
+      ).show(message: e.toString());
     }
 
     return user;

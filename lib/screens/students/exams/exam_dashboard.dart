@@ -1,8 +1,10 @@
+import 'package:drive_easy_app/screens/students/exams/start_exam_screen.dart';
 import 'package:drive_easy_app/widgets/banners/exam_page_top_banner.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'widgets/exam_grid_card.dart';
 import 'widgets/exam_pie_chart.dart';
@@ -150,30 +152,62 @@ class _ExamDashboardScreenState extends State<ExamDashboardScreen> {
                     childAspectRatio: (MediaQuery.of(context).size.width / 2) / 235,
                     crossAxisSpacing: 15,
                     mainAxisSpacing: 15,
-                    children: const [
+                    children: [
                       ExamGridCard(
                         asset: "assets/images/courses/exam-grid-img.png",
                         title: 'MCQ Exam 1',
                         subtitle: '30 Questions',
                         examDuration: '1 Hour',
+                        onPressed: () {
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const StartExamScreen(),
+                            withNavBar: false,
+                            pageTransitionAnimation: PageTransitionAnimation.scale,
+                          );
+                        },
                       ),
                       ExamGridCard(
                         asset: "assets/images/courses/exam-grid-img-2.png",
                         title: 'MCQ Exam 2',
                         subtitle: '60 Questions',
                         examDuration: '1 Hour',
+                        onPressed: () {
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const StartExamScreen(),
+                            withNavBar: false,
+                            pageTransitionAnimation: PageTransitionAnimation.scale,
+                          );
+                        },
                       ),
                       ExamGridCard(
                         asset: "assets/images/courses/exam-grid-img-3.png",
                         title: 'MCQ Exam 3',
                         subtitle: '25 Questions',
                         examDuration: '30 Min',
+                        onPressed: () {
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const StartExamScreen(),
+                            withNavBar: false,
+                            pageTransitionAnimation: PageTransitionAnimation.scale,
+                          );
+                        },
                       ),
                       ExamGridCard(
                         asset: "assets/images/courses/exam-grid-img-5.png",
                         title: 'MCQ Exam 4',
                         subtitle: '30 Questions',
                         examDuration: '1 Hour',
+                        onPressed: () {
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const StartExamScreen(),
+                            withNavBar: false,
+                            pageTransitionAnimation: PageTransitionAnimation.scale,
+                          );
+                        },
                       ),
                     ],
                   ),

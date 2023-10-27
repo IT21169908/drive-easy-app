@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../widgets/widgets.g.dart';
+import '../students/find_schools/schools.dart';
 
 class GuestHomeScreen extends StatefulWidget {
   const GuestHomeScreen({super.key});
@@ -158,23 +160,31 @@ class _GuestHomeScreenState extends State<GuestHomeScreen> {
               crossAxisSpacing: 15,
               mainAxisSpacing: 15,
               padding: const EdgeInsets.symmetric(vertical: 20),
-              children: const [
+              children: [
                 ButtonCard(
                   title: "Find Schools",
                   count: "200 learners",
                   asset: "assets/images/learning.png",
+                  onPressed: () async {
+                    await PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: Schools(),
+                      withNavBar: true,
+                      pageTransitionAnimation: PageTransitionAnimation.scale,
+                    );
+                  },
                 ),
-                ButtonCard(
+                const ButtonCard(
                   title: "Tutorials",
                   count: "15 Courses",
                   asset: "assets/images/tools.png",
                 ),
-                ButtonCard(
+                const ButtonCard(
                   title: "Blog & News",
                   count: "42 Articles",
                   asset: "assets/images/action.png",
                 ),
-                ButtonCard(
+                const ButtonCard(
                   title: "Contact Us",
                   count: "24hr Support",
                   asset: "assets/images/agent.png",

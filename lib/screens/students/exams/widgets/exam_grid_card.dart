@@ -39,7 +39,7 @@ class ExamGridCard extends StatelessWidget {
         color: Colors.white,
       ),
       child: MaterialButton(
-        onPressed: () => log('Screen => exam grid'),
+        onPressed: onPressed ?? () => log('Screen => exam grid'),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(8),
