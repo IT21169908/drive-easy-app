@@ -19,6 +19,7 @@ class _SchoolsState extends State<Schools> {
   final DatabaseReference dbRef =
       FirebaseDatabase.instance.ref().child('schools');
   List<School> schoolData = [];
+  List<School> schoolDataCopy = [];
   double sliderValue = 4.0;
   double userLat = 0.0;
   double userLon = 0.0;
@@ -70,6 +71,7 @@ class _SchoolsState extends State<Schools> {
 
     setState(() {
       schoolData = schoolsWithDistances;
+      schoolDataCopy = schoolsWithDistances;
     });
   }
 
@@ -88,7 +90,7 @@ class _SchoolsState extends State<Schools> {
 
   void resetSchoolData() {
     setState(() {
-      // schoolData = schoolList; // Reset to the original schoolList
+      schoolData = schoolDataCopy; // Reset to the original schoolList
       sliderValue = 0.0; // Reset the slider value
     });
   }
