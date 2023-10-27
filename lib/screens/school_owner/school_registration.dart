@@ -71,10 +71,8 @@ class _schoolRegistrationState extends State<schoolRegistration> {
               'contactNo1': contactNoController1.text,
               'contactNo2': contactNoController2.text,
               'aboutUs': aboutUsController.text,
-              'location': {
-                'latitude': userLat,
-                'longitude': userLon,
-              },
+              'latitude': userLat,
+              'longitude': userLon,
               'imageBase64': base64Image,
             };
 

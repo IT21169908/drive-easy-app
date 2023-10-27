@@ -67,7 +67,7 @@ class CheckRoleAndRedirect {
   }
 
   Future<void> _redirectToSchoolOwnerDashboard() async {
-    // await Navigator.of(widgetContext).pushNamedAndRemoveUntil(RouteName.studentDashboard, (route) => false);
+    await Navigator.of(widgetContext).pushNamedAndRemoveUntil(RouteName.schoolOwnerDashboard, (route) => false);
     _redirectTNotFound();
   }
 

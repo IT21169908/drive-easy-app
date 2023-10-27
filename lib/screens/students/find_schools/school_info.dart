@@ -78,7 +78,7 @@ class SchoolInfo extends StatelessWidget {
                     children: [
                       Center(
                         child: Text(
-                          school.name,
+                          school.schoolName,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 32.0,
@@ -160,11 +160,11 @@ class SchoolInfo extends StatelessWidget {
                       //view button
                       MaterialButton(
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    CoursesList(courses: school.courses)),
-                          );
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           CoursesList(courses: school)),
+                          // );
                         },
                         minWidth: double.infinity,
                         padding: EdgeInsets.symmetric(
@@ -211,8 +211,8 @@ class SchoolInfo extends StatelessWidget {
                       children: [
                         MaterialButton(
                           onPressed: () {
-                            openMap(school.location.latitude,
-                                school.location.longitude);
+                            openMap(school.latitude,
+                                school.longitude);
                           },
                           minWidth: MediaQuery.of(context).size.width * 0.4,
                           padding: EdgeInsets.symmetric(
