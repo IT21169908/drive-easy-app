@@ -247,7 +247,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                     onPressed: () async {
                       await PersistentNavBarNavigator.pushNewScreen(
                         context,
-                        screen: Schools(),
+                        screen: const Schools(),
                         withNavBar: true,
                         pageTransitionAnimation: PageTransitionAnimation.scale,
                       );

@@ -1,18 +1,16 @@
+import 'package:drive_easy_app/models/models.dart';
 import 'package:drive_easy_app/screens/students/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../../routes/app_routes.dart';
 
+class PaymentInvoiceScreen extends StatelessWidget {
+  final Course course;
 
-class PaymentInvoiceScreen extends StatefulWidget {
-  const PaymentInvoiceScreen({super.key});
+  const PaymentInvoiceScreen({super.key, required this.course});
 
-  @override
-  State<PaymentInvoiceScreen> createState() => _PaymentInvoiceScreenState();
-}
-
-class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,9 +78,9 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                     ),
                   ),
                   const SizedBox(height: 1),
-                  const Text(
-                    "Light Vehicle",
-                    style: TextStyle(
+                  Text(
+                    course.name,
+                    style: const TextStyle(
                       color: Color(0xff474A56),
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -155,9 +153,9 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                     ),
                   ),
                   const SizedBox(height: 1),
-                  const Text(
-                    "LKR 25,600.00",
-                    style: TextStyle(
+                  Text(
+                    "LKR ${course.totalAmount}",
+                    style: const TextStyle(
                       color: Color(0xff474A56),
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -177,9 +175,9 @@ class _PaymentInvoiceScreenState extends State<PaymentInvoiceScreen> {
                     ),
                   ),
                   const SizedBox(height: 1),
-                  const Text(
-                    "15 OCT 2023, 10:30 AM",
-                    style: TextStyle(
+                  Text(
+                    DateFormat('dd MMM y, hh:mm a').format(DateTime.now()),
+                    style: const TextStyle(
                       color: Color(0xff474A56),
                       fontSize: 15,
                       fontWeight: FontWeight.w600,

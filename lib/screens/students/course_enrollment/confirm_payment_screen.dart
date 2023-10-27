@@ -1,22 +1,39 @@
+import 'package:drive_easy_app/models/models.dart';
 import 'package:drive_easy_app/screens/students/course_enrollment/pay_methods/bank_payment.dart';
 import 'package:drive_easy_app/screens/students/course_enrollment/pay_methods/online_payment.dart';
 import 'package:drive_easy_app/screens/students/course_enrollment/payment_invoice.dart';
 import 'package:drive_easy_app/widgets/cards/payment_method_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../../../routes/app_routes.dart';
+import '../../../utils/auth_checker.dart';
 import '../../../widgets/widgets.g.dart';
 
 class ConfirmPaymentScreen extends StatefulWidget {
-  const ConfirmPaymentScreen({super.key});
+  final Course course;
+
+  const ConfirmPaymentScreen({super.key, required this.course});
 
   @override
   State<ConfirmPaymentScreen> createState() => _ConfirmPaymentScreenState();
 }
 
 class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
+  late final User? loggedUser;
+
+  @override
+  void initState() {
+    loggedUser = FirebaseAuth.instance.currentUser;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      checkAuthAndLogout(context, mounted, routeName: RouteName.login);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +126,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                           Column(
                             children: [
                               Text(
-                                'Light Vehicle',
+                                widget.course.name,
                                 textAlign: TextAlign.left,
                                 style: GoogleFonts.inter(
                                   color: const Color.fromRGBO(62, 62, 63, 1),
@@ -118,7 +135,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                 ),
                               ),
                               Text(
-                                'LKR 25,000.00',
+                                'LKR ${widget.course.totalAmount}',
                                 textAlign: TextAlign.left,
                                 style: GoogleFonts.inter(
                                   color: const Color.fromRGBO(62, 62, 63, 1),
@@ -147,7 +164,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             ),
                           ),
                           Text(
-                            'Navod Hansajith',
+                            loggedUser?.displayName ?? '-',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
                               color: const Color.fromRGBO(62, 62, 63, 1),
@@ -166,7 +183,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             ),
                           ),
                           Text(
-                            'Light Vehicle',
+                            widget.course.name,
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
                               color: const Color.fromRGBO(62, 62, 63, 1),
@@ -185,7 +202,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             ),
                           ),
                           Text(
-                            'LKR 25,000.00',
+                            'LKR ${widget.course.price}',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
                               color: const Color.fromRGBO(62, 62, 63, 1),
@@ -204,7 +221,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             ),
                           ),
                           Text(
-                            'LKR 100.00',
+                            'LKR ${widget.course.tax}',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
                               color: const Color.fromRGBO(62, 62, 63, 1),
@@ -223,7 +240,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             ),
                           ),
                           Text(
-                            'LKR 500.00',
+                            'LKR ${widget.course.documentFee}',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
                               color: const Color.fromRGBO(62, 62, 63, 1),
@@ -242,7 +259,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             ),
                           ),
                           Text(
-                            'LKR 25,600.00',
+                            'LKR ${widget.course.totalAmount}',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.inter(
                               color: const Color.fromRGBO(62, 62, 63, 1),
@@ -269,7 +286,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                   onPressed: () {
                     PersistentNavBarNavigator.pushNewScreen(
                       context,
-                      screen: const PaymentInvoiceScreen(),
+                      screen: PaymentInvoiceScreen(course: widget.course),
                       withNavBar: true, // OPTIONAL VALUE. True by default.
                       pageTransitionAnimation: PageTransitionAnimation.cupertino,
                     );

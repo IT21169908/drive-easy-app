@@ -11,15 +11,20 @@ Course _$CourseFromJson(Map<String, dynamic> json) => Course(
       name: json['name'] as String,
       school: School.fromJson(json['school'] as Map<String, dynamic>),
       price: (json['price'] as num).toDouble(),
+      tax: json['tax'] as num? ?? 100,
+      documentFee: json['documentFee'] as num? ?? 500,
       instructor: json['instructor'] as String?,
       description: json['description'] as String,
-    );
+    )..totalAmount = json['totalAmount'] as num;
 
 Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
       'id': instance.id,
       'school': instance.school.toJson(),
       'name': instance.name,
       'price': instance.price,
+      'tax': instance.tax,
+      'documentFee': instance.documentFee,
+      'totalAmount': instance.totalAmount,
       'instructor': instance.instructor,
       'description': instance.description,
     };

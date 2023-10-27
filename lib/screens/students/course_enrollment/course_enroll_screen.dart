@@ -1,10 +1,12 @@
 import 'package:drive_easy_app/models/models.dart';
+import 'package:drive_easy_app/routes/app_routes.dart';
 import 'package:drive_easy_app/screens/students/course_enrollment/confirm_payment_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../../../utils/auth_checker.dart';
 import '../../../utils/theme_consts.dart';
 
 class CourseEnrollScreen extends StatefulWidget {
@@ -17,6 +19,14 @@ class CourseEnrollScreen extends StatefulWidget {
 }
 
 class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      checkAuthAndLogout(context, mounted, routeName: RouteName.login);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +45,9 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                       color: const Color.fromRGBO(201, 131, 222, 1),
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    child: const Text(
-                      "ABS Learner",
-                      style: TextStyle(
+                    child: Text(
+                      widget.course.name,
+                      style: const TextStyle(
                         color: Color(0xFFFFFFFF),
                         fontFamily: 'Montserrat',
                         fontSize: 14,
@@ -66,9 +76,9 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Light Vehicle",
-                    style: TextStyle(
+                  Text(
+                    widget.course.name,
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -76,10 +86,10 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: const Color(0xff292574)),
-                    child: const Text(
-                      'LKR 25000.00',
+                    child: Text(
+                      "LKR ${widget.course.price}",
                       textAlign: TextAlign.left,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xffffffff),
                         fontSize: 14,
                         fontWeight: FontWeight.normal,
@@ -217,7 +227,7 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                         onPressed: () {
                           PersistentNavBarNavigator.pushNewScreen(
                             context,
-                            screen: const ConfirmPaymentScreen(),
+                            screen: ConfirmPaymentScreen(course: widget.course),
                             withNavBar: true, // OPTIONAL VALUE. True by default.
                             pageTransitionAnimation: PageTransitionAnimation.cupertino,
                           );

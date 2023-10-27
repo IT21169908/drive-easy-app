@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import '../widgets/widgets.g.dart';
 import 'check_role_and_redirect.dart';
 
-checkAuthAndLogout(widgetContext, widgetMounted) async {
+checkAuthAndLogout(widgetContext, widgetMounted, {String? routeName}) async {
   final user = await FirebaseAuth.instance.authStateChanges().take(1).first;
   if (user == null) {
     AppToastWidget("Authentication is Required.");
     if (widgetMounted) {
-      Navigator.of(widgetContext).pushNamedAndRemoveUntil(RouteName.guestDashboard, (route) => false);
+      Navigator.of(widgetContext).pushNamedAndRemoveUntil(routeName ?? RouteName.guestDashboard, (route) => false);
     }
   } else {}
   return null;
