@@ -1,6 +1,8 @@
 import 'package:drive_easy_app/screens/students/find_schools/school_info.dart';
 import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:typed_data';
 
 class DrivingSchoolInfoCard extends StatelessWidget {
   School school;
@@ -9,6 +11,14 @@ class DrivingSchoolInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String base64ImageFromDatabase = school.imageBase64;
+
+    // Decode the base64 string back to bytes.
+    Uint8List bytes = base64Decode(base64ImageFromDatabase);
+
+    // Create an image from the bytes.
+    Image image = Image.memory(bytes);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Column(
@@ -44,9 +54,17 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                           height: 100, // Set the desired height
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
-                            child: Image.network(
-                                'https://houstondrivingschool.net/wp-content/uploads/2020/04/driving-lessons.jpg'),
-                          ), // Replace with your image URL
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: image
+                                      .image, // Extract the ImageProvider from the Image widget
+                                  fit: BoxFit
+                                      .cover, // Replace with your desired BoxFit
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
 
                         SizedBox(width: 10.0),
@@ -64,7 +82,6 @@ class DrivingSchoolInfoCard extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     )),
                               ),
-
                               SizedBox(height: 10.0),
                               Row(
                                 children: [

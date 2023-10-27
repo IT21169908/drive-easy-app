@@ -3,6 +3,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
 import 'package:drive_easy_app/screens/students/find_schools/courses_list.dart';
+import 'dart:convert';
+import 'dart:typed_data';
 
 class SchoolInfo extends StatelessWidget {
   School school;
@@ -25,6 +27,14 @@ class SchoolInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String base64ImageFromDatabase = school.imageBase64;
+
+    // Decode the base64 string back to bytes.
+    Uint8List bytes = base64Decode(base64ImageFromDatabase);
+
+    // Create an image from the bytes.
+    Image image = Image.memory(bytes);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -36,9 +46,14 @@ class SchoolInfo extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.4,
-                    child: Image.network(
-                      'https://houstondrivingschool.net/wp-content/uploads/2020/04/driving-lessons.jpg',
-                      fit: BoxFit.cover,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: image
+                              .image, // Extract the ImageProvider from the Image widget
+                          fit: BoxFit.fill, // Replace with your desired BoxFit
+                        ),
+                      ),
                     ),
                   ),
                   Positioned(
@@ -211,8 +226,7 @@ class SchoolInfo extends StatelessWidget {
                       children: [
                         MaterialButton(
                           onPressed: () {
-                            openMap(school.latitude,
-                                school.longitude);
+                            openMap(school.latitude, school.longitude);
                           },
                           minWidth: MediaQuery.of(context).size.width * 0.4,
                           padding: EdgeInsets.symmetric(
@@ -375,7 +389,6 @@ class _rateNowScreenState extends State<rateNowScreen> {
                 style: TextStyle(color: Colors.white, fontSize: 16.00),
               ),
             ),
-            
           ],
         ),
       ),

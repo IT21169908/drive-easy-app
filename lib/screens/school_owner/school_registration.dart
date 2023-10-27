@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:drive_easy_app/screens/students/find_schools/models/school_model.dart';
 
 class schoolRegistration extends StatefulWidget {
   const schoolRegistration({super.key});
@@ -55,49 +56,57 @@ class _schoolRegistrationState extends State<schoolRegistration> {
   }
 
   Future<void> uploadData() async {
-    try {
-      if (file != null) {
-        String base64Image = base64Encode(file!.readAsBytesSync());
+  try {
+    if (file != null) {
+      String base64Image = base64Encode(file!.readAsBytesSync());
+      String locationText = locationController.text;
 
-        String locationText = locationController.text;
+      if (locationText.isNotEmpty) {
+        List<String> locationParts = locationText.split(', ');
 
-        if (locationText.isNotEmpty) {
-          List<String> locationParts = locationText.split(', ');
+        if (locationParts.length == 2) {
+          double userLat = double.tryParse(locationParts[0]) ?? 0.0;
+          double userLon = double.tryParse(locationParts[1]) ?? 0.0;
 
-          if (locationParts.length == 2) {
-            double userLat = double.tryParse(locationParts[0]) ?? 0.0;
-            double userLon = double.tryParse(locationParts[1]) ?? 0.0;
+          School school = School(
+            schoolName: schoolNameController.text,
+            address: addressController.text,
+            contactNo1: contactNoController1.text,
+            contactNo2: contactNoController2.text,
+            aboutUs: aboutUsController.text,
+            latitude: userLat,
+            longitude: userLon,
+            imageBase64: base64Image,
+          );
 
-            Map<String, dynamic> schoolData = {
-              'schoolName': schoolNameController.text,
-              'address': addressController.text,
-              'contactNo1': contactNoController1.text,
-              'contactNo2': contactNoController2.text,
-              'aboutUs': aboutUsController.text,
-              'latitude': userLat,
-              'longitude': userLon,
-              'imageBase64': base64Image,
-            };
-
-            if (loggedUser != null) {
-              String? userId = loggedUser?.uid;
-              DatabaseReference schoolRef = dbRef!.child(userId ?? '');
-              schoolRef.set(schoolData);
-            } else {
-              print("No user is currently logged in.");
-            }
+          if (loggedUser != null) {
+            String? userId = loggedUser?.uid;
+            DatabaseReference schoolRef = dbRef!.child(userId ?? '');
+            schoolRef.set(school.toJson());
+            Fluttertoast.showToast(
+              msg: "School info added successfully",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.grey.shade800,
+              textColor: Colors.white,
+              fontSize: 16.0,
+            );
           } else {
-            print("Invalid location format in locationController");
+            print("No user is currently logged in.");
           }
         } else {
-          print("Location is empty in locationController");
+          print("Invalid location format in locationController");
         }
+      } else {
+        print("Location is empty in locationController");
       }
-    } catch (e) {
-      // Handle errors
-      print("Error uploading data: $e");
     }
+  } catch (e) {
+    // Handle errors
+    print("Error uploading data: $e");
   }
+}
+
 
   @override
   void initState() {
