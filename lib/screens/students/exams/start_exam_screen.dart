@@ -1,3 +1,4 @@
+import 'package:drive_easy_app/screens/students/exams/mcq_exam_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -88,7 +89,7 @@ class _StartExamScreenState extends State<StartExamScreen> {
                 onPressed: () {
                   PersistentNavBarNavigator.pushNewScreen(
                     context,
-                    screen: const Placeholder(),
+                    screen: const McqExamScreen(),
                     withNavBar: true, // OPTIONAL VALUE. True by default.
                     pageTransitionAnimation: PageTransitionAnimation.cupertino,
                   );
