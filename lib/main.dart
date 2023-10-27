@@ -1,10 +1,31 @@
+import 'package:drive_easy_app/providers/app_provider.dart';
 import 'package:drive_easy_app/routes/app_routes.dart';
 import 'package:drive_easy_app/screens/splash_screen.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'firebase_options.dart';
+
+late final FirebaseApp app;
+late final FirebaseAuth auth;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  app = await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  auth = FirebaseAuth.instanceFor(app: app);
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AppProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +38,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Drive Easy',
       theme: ThemeConsts.lightTheme,
-      darkTheme: ThemeConsts.darkTheme,
+      // darkTheme: ThemeConsts.darkTheme,
       home: const SplashScreen(),
       routes: routes,
     );

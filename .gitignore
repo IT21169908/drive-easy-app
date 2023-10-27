@@ -5,7 +5,7 @@
 doc/api/
 
 # dotenv environment variables file
-.env*
+.env
 
 # Avoid committing generated Javascript files:
 *.dart.js
@@ -34,7 +34,7 @@ migrate_working_dir/
 *.iws
 .idea/
 
-/lib/configs/config.dart
+/lib/config/config.dart
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -68,5 +68,13 @@ app.*.map.json
 
 android/key.properties
 android/construct_pro_key.jks
+
+# Firebase Configurations
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
+/ios/firebase_app_id_file.json
+/macos/Runner/GoogleService-Info.plist
+/macos/firebase_app_id_file.json
+/lib/firebase_options.dart
 
 #TODO: Add standerd ignore files

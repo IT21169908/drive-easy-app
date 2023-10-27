@@ -1,8 +1,14 @@
+import 'package:drive_easy_app/services/firebase_auth_service.dart';
+import 'package:drive_easy_app/utils/check_role_and_redirect.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../enums/user_roles.dart';
+import '../../../utils/auth_checker.dart';
 import '../../../widgets/widgets.g.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -13,6 +19,62 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final _formKey = GlobalKey<FormState>();
+  bool terms = false;
+  bool _obscureText = true;
+
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  UserRoles _selectedUserRole = UserRoles.student; // TODO: implement role select from registration form
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      navigateByAuth(context, mounted, redirectToGuest: false, waitDuration: 0);
+    });
+    super.initState();
+  }
+
+  Future<void> _register() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState?.save();
+      CircularLoaderWidget(context);
+      try {
+        User? user = await FireAuthService.registerUsingEmailPassword(
+          context: context,
+          name: _fullNameController.text,
+          role: _selectedUserRole.name,
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+        if (mounted) {
+          CheckRoleAndRedirect(context, user);
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print("_register catch : $e");
+        }
+      } finally {
+        CircularLoaderWidget.dismiss();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    CircularLoaderWidget.dismiss();
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -54,9 +116,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 20),
                   Form(
+                    key: _formKey,
                     child: Column(
                       children: [
                         TextFormField(
+                          controller: _fullNameController,
+                          validator: (fullName) {
+                            if ((fullName == null || fullName.isEmpty)) {
+                              return "Please enter your Full Name";
+                            }
+                            if (fullName.split(" ").length <= 1) {
+                              return "Please provide your full name";
+                            }
+                            return null;
+                          },
                           decoration: const InputDecoration(
                             labelText: "Full Name",
                             hintText: "Enter your full name",
@@ -65,15 +138,78 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
+                          controller: _emailController,
+                          validator: (email) {
+                            if ((email == null || email.isEmpty)) {
+                              return "Please enter your email";
+                            }
+                            return null;
+                          },
                           decoration: const InputDecoration(
                             labelText: "Email",
                             hintText: "Enter your email or phone",
                             suffixIcon: SizedBox(),
                           ),
                         ),
+                        const SizedBox(height: 8),
+                        DropdownButtonHideUnderline(
+                          child: ButtonTheme(
+                            alignedDropdown: true,
+                            child: DropdownButtonFormField<UserRoles?>(
+                              isExpanded: true,
+                              value: null,
+                              dropdownColor: const Color(0xffe1f3fd),
+                              items: const [
+                                DropdownMenuItem(
+                                  value: null,
+                                  child: Text(
+                                    "Choose Account Type",
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: UserRoles.student,
+                                  child: Text("Student"),
+                                ),
+                                DropdownMenuItem(
+                                  value: UserRoles.schoolOwner,
+                                  child: Text("School Owner"),
+                                ),
+                                DropdownMenuItem(
+                                  value: UserRoles.instructor,
+                                  child: Text("Instructor"),
+                                ),
+                              ],
+                              hint: const Text("User Type"),
+                              validator: (role) {
+                                if ((role == null)) {
+                                  return "Please select a user type";
+                                }
+                                return null;
+                              },
+                              onChanged: (UserRoles? role) {
+                                if ((role != null)) {
+                                  _selectedUserRole = role;
+                                }
+                              },
+                            ),
+                          ),
+                        ),
                         const SizedBox(height: 10),
                         TextFormField(
+                          controller: _passwordController,
                           obscureText: true,
+                          validator: (password) {
+                            if ((password == null || password.isEmpty)) {
+                              return "Please enter your password";
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
                             labelText: "Password",
                             hintText: "Enter your Password",
@@ -92,7 +228,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
+                          controller: _confirmPasswordController,
                           obscureText: true,
+                          validator: (confirmPassword) {
+                            if ((confirmPassword == null || confirmPassword.isEmpty)) {
+                              return "Please enter the confirm password";
+                            }
+                            if ((confirmPassword != _passwordController.text)) {
+                              return "Confirm password does not match the password!";
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
                             labelText: "Confirm Password",
                             hintText: "Retype your Password",
@@ -143,7 +289,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const SizedBox(height: 20),
                         MaterialButton(
-                          onPressed: () {},
+                          onPressed: _register,
                           minWidth: double.infinity,
                           height: 50,
                           shape: RoundedRectangleBorder(

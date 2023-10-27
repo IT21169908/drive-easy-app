@@ -1,10 +1,11 @@
+import 'package:drive_easy_app/utils/auth_checker.dart';
 import 'package:drive_easy_app/widgets/dashboard/scaffold_widget.dart';
+import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../course_enroll_screen.dart';
-import '../home.dart';
+import '../dashboard.dart';
 
 class StudentDashboardLayout extends StatefulWidget {
   const StudentDashboardLayout({super.key});
@@ -14,6 +15,14 @@ class StudentDashboardLayout extends StatefulWidget {
 }
 
 class _StudentDashboardLayoutState extends State<StudentDashboardLayout> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      checkAuthAndLogout(context, mounted);
+    });
+    super.initState();
+  }
+
   List<PersistentBottomNavBarItem> _navBarItems(BuildContext buildContext) => [
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.home),
@@ -39,24 +48,30 @@ class _StudentDashboardLayoutState extends State<StudentDashboardLayout> {
           },
         ),
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.person_2_outlined),
-          title: ("Profile"),
+          icon: const Icon(Icons.logout),
+          title: ("Logout"),
           activeColorPrimary: Colors.blue,
           inactiveColorPrimary: Colors.grey,
-          onPressed: (BuildContext? context) {
+          onPressed: (BuildContext? context) async {
             if (kDebugMode) {
-              print("Profile screen");
+              print("Logout screen");
             }
+            showSignOutDialog(buildContext, mounted);
           },
         ),
       ];
 
   final List<Widget> _buildScreens = [
     const StudentHomeScreen(),
-    const CourseEnrollScreen(),
+    Container(),
     Container(),
     Container(),
   ];
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

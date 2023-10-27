@@ -45,6 +45,20 @@ dependencies:
   great_circle_distance_calculator: ^1.0.4
   sliding_up_panel: ^2.0.0+1
   auto_size_text: ^3.0.0
+  google_maps_flutter: ^2.5.0
+  flutter_polyline_points: ^2.0.0
+  location: ^5.0.3
+  flutter_dotenv: ^5.1.0
+  image_picker: ^1.0.4
+  firebase_core: ^2.20.0
+  firebase_auth: ^4.12.0
+  provider: ^6.0.5
+  package_info_plus: ^4.2.0
+  firebase_database: ^10.3.2
+  flutter_overlay_loader: ^2.0.0
+  expandable_bottom_sheet: ^1.1.1+1
+  fl_chart: ^0.64.0
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +69,9 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.3
+  flutter_lints: ^3.0.0
+  build_runner: ^2.4.6
+  json_serializable: ^6.7.1
 
 # run the package: dart run flutter_launcher_icons
 flutter_launcher_icons:
@@ -76,6 +92,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/clip-arts/
+    - assets/images/courses/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
