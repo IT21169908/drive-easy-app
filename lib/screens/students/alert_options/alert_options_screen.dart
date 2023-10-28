@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:drive_easy_app/screens/students/alert_options/add_guardians_screen.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AlertOptionsScreen extends StatefulWidget {
@@ -274,7 +276,14 @@ class _AlertOptionsScreenState extends State<AlertOptionsScreen> {
                               backgroundColor: const Color(0xff4E74F9),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             ),
-                            onPressed: () => log("Add Parents / Guardians"),
+                            onPressed: () async {
+                              await PersistentNavBarNavigator.pushNewScreen(
+                                context,
+                                screen: const AddGuardiansScreen(),
+                                withNavBar: true,
+                                pageTransitionAnimation: PageTransitionAnimation.sizeUp,
+                              );
+                            },
                             child: const Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
