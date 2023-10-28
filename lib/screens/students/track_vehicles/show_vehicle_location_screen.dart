@@ -19,11 +19,8 @@ class ShowVehicleLocationScreen extends StatefulWidget {
 class _ShowVehicleLocationScreenState extends State<ShowVehicleLocationScreen> {
   final GlobalKey<ExpandableBottomSheetState> _bottomSheetKey = GlobalKey();
 
-  List<dynamic> _availableVehicles = [];
-
   @override
   void initState() {
-    _getNearbyVehicles();
     super.initState();
   }
 
@@ -32,64 +29,60 @@ class _ShowVehicleLocationScreenState extends State<ShowVehicleLocationScreen> {
     super.dispose();
   }
 
-  void _getNearbyVehicles() {
-    setState(() {
-      _availableVehicles = [1, 2, 3, 4, 5];
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ExpandableBottomSheet(
         key: _bottomSheetKey,
         enableToggle: true,
-        background: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              child: Column(
-                children: [
-                  const TopAppBar(),
-                  const SizedBox(height: 20),
-                  ScreenTopBanner(
-                    isNormalPage: true,
-                    bannerMargin: EdgeInsets.zero,
-                    imageWidth: 100,
-                    assets: 'assets/images/track-vehicles/vehicle_drive.png',
-                    title: Padding(
-                      padding: const EdgeInsets.only(bottom: 0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Show Location',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+        background: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                child: Column(
+                  children: [
+                    const TopAppBar(),
+                    const SizedBox(height: 20),
+                    ScreenTopBanner(
+                      isNormalPage: true,
+                      bannerMargin: EdgeInsets.zero,
+                      imageWidth: 100,
+                      assets: 'assets/images/track-vehicles/vehicle_drive.png',
+                      title: Padding(
+                        padding: const EdgeInsets.only(bottom: 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Show Location',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Vehicle - ${widget.vehicleNo}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
+                            Text(
+                              'Vehicle - ${widget.vehicleNo}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            MapContainer(
-              mapHeight: MediaQuery.of(context).size.height - 260,
-            ),
-          ],
+              MapContainer(
+                mapHeight: MediaQuery.of(context).size.height - 220,
+              ),
+            ],
+          ),
         ),
         expandableContent: const SizedBox(),
         animationDurationExtend: const Duration(milliseconds: 500),

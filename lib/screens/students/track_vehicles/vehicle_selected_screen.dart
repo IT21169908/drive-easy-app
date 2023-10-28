@@ -1,5 +1,7 @@
+import 'package:drive_easy_app/screens/insructor/instructor_profile.dart';
 import 'package:drive_easy_app/screens/students/track_vehicles/available_vehicle_space_screen.dart';
 import 'package:drive_easy_app/screens/students/track_vehicles/show_vehicle_location_screen.dart';
+import 'package:drive_easy_app/screens/students/track_vehicles/vehicles/vehicle_details.dart';
 import 'package:drive_easy_app/screens/students/track_vehicles/widgets/vehicle_details_bottom_sheet.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
@@ -143,12 +145,12 @@ class _VehicleSelectedScreenState extends State<VehicleSelectedScreen> {
                         ),
                       ),
                       onPressed: () async {
-                        // await PersistentNavBarNavigator.pushNewScreen(
-                        //   context,
-                        //   screen: const AvailableVehiclesScreen(),
-                        //   withNavBar: true,
-                        //   pageTransitionAnimation: PageTransitionAnimation.sizeUp,
-                        // );
+                        await PersistentNavBarNavigator.pushNewScreen(
+                          context,
+                          screen: const InstructorProfile(),
+                          withNavBar: false,
+                          pageTransitionAnimation: PageTransitionAnimation.sizeUp,
+                        );
                       },
                     ),
                     ButtonCardWide(
@@ -160,7 +162,7 @@ class _VehicleSelectedScreenState extends State<VehicleSelectedScreen> {
                           screen: ShowVehicleLocationScreen(
                             vehicleNo: widget.vehicleNo,
                           ),
-                          withNavBar: true,
+                          withNavBar: false,
                           pageTransitionAnimation: PageTransitionAnimation.sizeUp,
                         );
                       },
@@ -185,7 +187,7 @@ class _VehicleSelectedScreenState extends State<VehicleSelectedScreen> {
                       onPressed: () async {
                         await PersistentNavBarNavigator.pushNewScreen(
                           context,
-                          screen: AvailableVehicleSpaceScreen(
+                          screen: VehicleDetails(
                             vehicleNo: widget.vehicleNo,
                           ),
                           withNavBar: true,

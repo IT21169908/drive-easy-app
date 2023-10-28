@@ -268,11 +268,6 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                     },
                   ),
                 const ButtonCard(
-                  title: "Alert Options", //TODO: Add relevant feature
-                  count: "15 Courses",
-                  asset: "assets/images/track-vehicles/alert_options.png",
-                ),
-                const ButtonCard(
                   title: "Tutorials", //TODO: Add relevant feature
                   count: "15 Courses",
                   asset: "assets/images/tools.png",
@@ -281,6 +276,10 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   title: "Blog & News", //TODO: Add relevant feature
                   count: "42 Articles",
                   asset: "assets/images/action.png",
+                ),
+                const ButtonCard(
+                  title: "Alert Options", //TODO: Add relevant feature
+                  asset: "assets/images/track-vehicles/alert_options.png",
                 ),
                 if (!isCourseEnrolled)
                   const ButtonCard(
