@@ -1,16 +1,20 @@
 part of '../widgets.g.dart';
 
 class ButtonCardWide extends StatelessWidget {
-  final String title;
+  final String? title;
+  final Widget? titleWidget;
   final String? subtitle;
-  final String asset;
+  final String? asset;
+  final Widget? image;
   final VoidCallback? onPressed;
 
   const ButtonCardWide({
     super.key,
-    required this.title,
+    this.title,
+    this.titleWidget,
     this.subtitle,
-    required this.asset,
+    this.asset,
+    this.image,
     this.onPressed,
   });
 
@@ -38,20 +42,22 @@ class ButtonCardWide extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(asset, width: 100),
+            asset != null ? Image.asset(asset!, width: 100) : image!,
             const SizedBox(width: 20),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: GoogleFonts.rubik(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
-                ),
+                title != null
+                    ? Text(
+                        title!,
+                        style: GoogleFonts.rubik(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      )
+                    : titleWidget!,
                 subtitle != null
                     ? Text(
                         subtitle!,

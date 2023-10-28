@@ -32,7 +32,7 @@ class VehicleCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           usersStack(),
-          Image.asset("assets/images/vehicle_card.png", width: 100),
+          Image.asset("assets/images/track-vehicles/vehicle_card.png", width: 100),
           Text(
             vehicleNo,
             style: GoogleFonts.rubik(
@@ -59,7 +59,7 @@ class VehicleCard extends StatelessWidget {
                 backgroundColor: ThemeConsts.appPrimaryBlue,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              onPressed: () => onPressed,
+              onPressed: onPressed,
               child: const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,

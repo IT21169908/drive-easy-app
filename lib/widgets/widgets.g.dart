@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:drive_easy_app/screens/students/dashboard.dart';
+import 'package:drive_easy_app/screens/students/layouts/dashboard_layout.dart';
 import 'package:drive_easy_app/utils/check_image_extension.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:drive_easy_app/utils/user_location.dart';
@@ -17,6 +19,8 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../routes/app_routes.dart';
 
 part 'alert_dialogs/sign_out_confirmation.dart';
+
+part 'alert_dialogs/common_confirmation.dart';
 
 part 'app_bar/top_app_bar.dart';
 
@@ -41,6 +45,8 @@ part 'maps/map_container.dart';
 part 'maps/rounded_map_container.dart';
 
 part 'cards/vehicle_card.dart';
+
+part 'cards/vehicle_space_card.dart';
 
 part 'notifications/app_snack_bar_widget.dart';
 

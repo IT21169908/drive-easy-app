@@ -59,6 +59,7 @@ dependencies:
   expandable_bottom_sheet: ^1.1.1+1
   fl_chart: ^0.64.0
   json_annotation: ^4.8.1
+  url_launcher: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -91,8 +92,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/icons/
     - assets/images/clip-arts/
     - assets/images/courses/
+    - assets/images/track-vehicles/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
