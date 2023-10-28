@@ -186,7 +186,7 @@ class _CourseEnrollScreenState extends State<CourseEnrollScreen> {
                             color: const Color(0xfff1f1f1),
                             onPressed: () {},
                             child: const Text(
-                              "Choose file",
+                              "Choose Your Medical Report",
                             ),
                           ),
                           const SizedBox(width: 4),
