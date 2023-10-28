@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class QuestionScreen extends StatelessWidget {
-  final Map question;
-  final Function(int index) setCurrentQuestion;
   final int currentQuestion;
   final int questionCount;
+  final Map question;
+  final Function(int index) setCurrentQuestion;
+  final Function(String answerKey) setAnswer;
 
   const QuestionScreen({
     super.key,
@@ -15,6 +16,7 @@ class QuestionScreen extends StatelessWidget {
     required this.setCurrentQuestion,
     required this.currentQuestion,
     required this.questionCount,
+    required this.setAnswer,
   });
 
   @override
@@ -93,6 +95,11 @@ class QuestionScreen extends StatelessWidget {
             }
             Map option = question['options'];
             return QuestionAnswer(
+              onPressed: () {
+                setAnswer('option_id_$index');
+              },
+              question: question,
+              isAnswerSelected: 'option_id_$index' == question['given_answer'],
               answerText: option['option_id_$index'],
             );
           },
@@ -135,7 +142,7 @@ class QuestionScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            if (questionCount > currentQuestion)
+            if (questionCount > (currentQuestion + 1))
               Container(
                 width: 150,
                 height: 48,
