@@ -1,21 +1,23 @@
 import 'package:drive_easy_app/screens/students/track_vehicles/widgets/vehicle_details_bottom_sheet.dart';
+import 'package:drive_easy_app/screens/students/track_vehicles/vehicle_selected_screen.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-class NearbyVehiclesScreen extends StatefulWidget {
-  const NearbyVehiclesScreen({super.key});
+class AvailableVehiclesScreen extends StatefulWidget {
+  const AvailableVehiclesScreen({super.key});
 
   @override
-  State<NearbyVehiclesScreen> createState() => _NearbyVehiclesScreenState();
+  State<AvailableVehiclesScreen> createState() => _AvailableVehiclesScreenState();
 }
 
-class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
+class _AvailableVehiclesScreenState extends State<AvailableVehiclesScreen> {
   final GlobalKey<ExpandableBottomSheetState> _bottomSheetKey = GlobalKey();
   final TextEditingController _searchController = TextEditingController();
 
-  List<dynamic> _nearbyVehicles = [];
+  List<dynamic> _availableVehicles = [];
 
   @override
   void initState() {
@@ -31,7 +33,7 @@ class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
 
   void _getNearbyVehicles() {
     setState(() {
-      _nearbyVehicles = [1, 2, 3, 4, 5];
+      _availableVehicles = [1, 2, 3, 4, 5];
     });
   }
 
@@ -53,11 +55,11 @@ class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
                   isNormalPage: true,
                   bannerMargin: EdgeInsets.zero,
                   imageWidth: 100,
-                  assets: 'assets/images/track-vehicles/nearby_vehicles.png',
+                  assets: 'assets/images/track-vehicles/available_vehicles.png',
                   title: Padding(
                     padding: EdgeInsets.only(bottom: 0),
                     child: Text(
-                      'Nearby Vehicles',
+                      'Available Vehicles',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -66,7 +68,7 @@ class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
                     ),
                   ),
                 ),
-                _nearbyVehicles.isEmpty
+                _availableVehicles.isEmpty
                     ? Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +81,7 @@ class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
                               Image.asset("assets/images/track-vehicles/select_vehicles.png", width: 300),
                               const SizedBox(height: 5),
                               Text(
-                                'Closest Vehicles to your Location',
+                                'See Available Vehicles Today',
                                 style: TextStyle(
                                   color: ThemeConsts.appPrimaryColorDark.withOpacity(0.8),
                                   fontSize: 14,
@@ -112,7 +114,7 @@ class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
                                   Image.asset("assets/images/track-vehicles/select_vehicles.png", width: 150),
                                   const SizedBox(height: 5),
                                   Text(
-                                    'Closest Vehicles to your Location',
+                                    'See Available Vehicles Today',
                                     style: TextStyle(
                                       color: ThemeConsts.appPrimaryColorDark.withOpacity(0.8),
                                       fontSize: 14,
@@ -137,14 +139,17 @@ class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
                                   crossAxisSpacing: 15,
                                   mainAxisSpacing: 15,
                                   padding: const EdgeInsets.symmetric(vertical: 5),
-                                  children: _nearbyVehicles.map((e) {
+                                  children: _availableVehicles.map((e) {
                                     return VehicleCard(
                                       vehicleNo: "ABC 1234",
                                       vehicleCategory: "VAN",
-                                      onPressed: () {
-                                        setState(() {
-                                          _bottomSheetKey.currentState!.expand();
-                                        });
+                                      onPressed: () async {
+                                        await PersistentNavBarNavigator.pushNewScreen(
+                                          context,
+                                          screen: const VehicleSelectedScreen(vehicleNo: "ABC 1234"),
+                                          withNavBar: true,
+                                          pageTransitionAnimation: PageTransitionAnimation.sizeUp,
+                                        );
                                       },
                                     );
                                   }).toList(),
@@ -159,7 +164,7 @@ class _NearbyVehiclesScreenState extends State<NearbyVehiclesScreen> {
             ),
           ),
         ),
-        expandableContent: const VehicleDetailsBottomSheet(),
+        expandableContent: const SizedBox(),
         animationDurationExtend: const Duration(milliseconds: 500),
         animationCurveExpand: Curves.easeIn,
       ),

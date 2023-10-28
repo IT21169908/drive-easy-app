@@ -1,7 +1,12 @@
 part of '../widgets.g.dart';
 
 class MapContainer extends StatefulWidget {
-  const MapContainer({super.key});
+  final double? mapHeight;
+
+  const MapContainer({
+    super.key,
+    this.mapHeight,
+  });
 
   @override
   State<MapContainer> createState() => _MapContainerState();
@@ -82,7 +87,7 @@ class _MapContainerState extends State<MapContainer> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 400,
+          height: widget.mapHeight ?? 400,
           child: GoogleMap(
             mapType: MapType.normal,
             myLocationEnabled: true,

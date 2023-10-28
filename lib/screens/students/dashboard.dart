@@ -257,7 +257,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   ButtonCard(
                     title: "Vehicle Track",
                     count: "4 Vehicles",
-                    asset: "assets/images/tracking-vehicles.png",
+                    asset: "assets/images/track-vehicles/tracking-vehicles.png",
                     onPressed: () async {
                       await PersistentNavBarNavigator.pushNewScreen(
                         context,
@@ -276,6 +276,10 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   title: "Blog & News", //TODO: Add relevant feature
                   count: "42 Articles",
                   asset: "assets/images/action.png",
+                ),
+                const ButtonCard(
+                  title: "Alert Options", //TODO: Add relevant feature
+                  asset: "assets/images/track-vehicles/alert_options.png",
                 ),
                 if (!isCourseEnrolled)
                   const ButtonCard(
