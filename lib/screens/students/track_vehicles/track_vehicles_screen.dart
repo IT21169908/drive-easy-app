@@ -1,7 +1,9 @@
-import 'package:drive_easy_app/screens/students/track_vehicles/select_location_bottom_sheet.dart';
+import 'package:drive_easy_app/screens/students/track_vehicles/available_vehicles_screen.dart';
+import 'package:drive_easy_app/screens/students/track_vehicles/widgets/select_location_bottom_sheet.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class TrackVehiclesScreen extends StatefulWidget {
   const TrackVehiclesScreen({super.key});
@@ -41,7 +43,7 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
                   isNormalPage: true,
                   bannerMargin: EdgeInsets.zero,
                   imageWidth: 110,
-                  assets: 'assets/images/tracking-vehicles.png',
+                  assets: 'assets/images/track-vehicles/tracking-vehicles.png',
                   title: Padding(
                     padding: EdgeInsets.only(bottom: 0),
                     child: Text(
@@ -73,13 +75,21 @@ class _TrackVehiclesScreenState extends State<TrackVehiclesScreen> {
                     mainAxisSpacing: 15,
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     children: [
-                      const ButtonCardWide(
+                      ButtonCardWide(
                         title: "Available Vehicles",
-                        asset: "assets/images/available_vehicles.png",
+                        asset: "assets/images/track-vehicles/available_vehicles.png",
+                        onPressed: () async {
+                          await PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const AvailableVehiclesScreen(),
+                            withNavBar: true,
+                            pageTransitionAnimation: PageTransitionAnimation.sizeUp,
+                          );
+                        },
                       ),
                       ButtonCardWide(
                         title: "Nearby Vehicles",
-                        asset: "assets/images/nearby_vehicles.png",
+                        asset: "assets/images/track-vehicles/nearby_vehicles.png",
                         onPressed: () {
                           setState(() {
                             _bottomSheetKey.currentState!.expand();

@@ -5,6 +5,7 @@ class Assets {
   static const String assetsImagesIcon250x250 = 'assets/images/icon-250x250.svg';
   static const String clipArts403 = 'assets/images/clip-arts/403.svg';
   static const String clipArts404 = 'assets/images/clip-arts/404.svg';
+  static const String clipArtsExamStart = 'assets/images/clip-arts/exam-start.png';
   static const String clipArtsIdeaBulb = 'assets/images/clip-arts/idea-bulb.svg';
   static const String clipArtsLaptopBulbIdea = 'assets/images/clip-arts/laptop-bulb-idea.svg';
   static const String coursesBusyRoad = 'assets/images/courses/busy-road.png';
@@ -14,6 +15,9 @@ class Assets {
   static const String coursesCrossTram = 'assets/images/courses/cross-tram.png';
   static const String coursesDeadEnd = 'assets/images/courses/dead-end.png';
   static const String coursesExamGridImg = 'assets/images/courses/exam-grid-img.jpg';
+  static const String coursesExamGridImg2 = 'assets/images/courses/exam-grid-img-2.png';
+  static const String coursesExamGridImg3 = 'assets/images/courses/exam-grid-img-3.png';
+  static const String coursesExamGridImg5 = 'assets/images/courses/exam-grid-img-5.png';
   static const String coursesForbidden = 'assets/images/courses/forbidden.png';
   static const String coursesImage9 = 'assets/images/courses/Image-9.png';
   static const String coursesInfo = 'assets/images/courses/info.png';
@@ -36,6 +40,7 @@ class Assets {
   static const String imagesExamBgBannerDecoration1 = 'assets/images/exam-bg-banner-decoration-1.png';
   static const String imagesExamBgBannerDecoration2 = 'assets/images/exam-bg-banner-decoration-2.png';
   static const String imagesExamBgBannerDecoration3 = 'assets/images/exam-bg-banner-decoration-3.png';
+  static const String imagesExamBgDecoration4 = 'assets/images/exam-bg-decoration-4.png';
   static const String imagesExamResultsIcon = 'assets/images/exam-results-icon.svg';
   static const String imagesFbIcon = 'assets/images/fb_icon.svg';
   static const String imagesGoogleIcon = 'assets/images/google_icon.svg';
@@ -62,5 +67,5 @@ class Assets {
   static const String imagesTools = 'assets/images/tools.png';
   static const String imagesTrackingVehicles = 'assets/images/tracking-vehicles.png';
   static const String imagesUserIcon = 'assets/images/user-icon.svg';
-
+  static const String trackVehiclesVehicleCard = 'assets/images/track-vehicles/vehicle_card.png';
 }
