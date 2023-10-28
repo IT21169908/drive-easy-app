@@ -6,12 +6,16 @@ class PieChartWidget extends StatelessWidget {
     this.touchCallback,
     required this.touchedIndex,
     this.sections,
-    required this.child,
+    this.child,
     this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.centerSpaceRadius = 50,
+    this.aspectRatio = 1,
   });
 
   final CrossAxisAlignment crossAxisAlignment;
-  final Widget child;
+  final Widget? child;
+  final double aspectRatio;
+  final double centerSpaceRadius;
   final int touchedIndex;
   final void Function(FlTouchEvent, PieTouchResponse?)? touchCallback;
   final List<PieChartSectionData>? sections;
@@ -22,10 +26,10 @@ class PieChartWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: crossAxisAlignment,
       children: [
-        child,
+        if (child != null) child!,
         Expanded(
           child: AspectRatio(
-            aspectRatio: 1,
+            aspectRatio: aspectRatio,
             child: PieChart(
               swapAnimationDuration: const Duration(milliseconds: 150), // Optional
               swapAnimationCurve: Curves.easeInOutCubicEmphasized, // Optiona
@@ -37,7 +41,7 @@ class PieChartWidget extends StatelessWidget {
                   show: false,
                 ),
                 sectionsSpace: 0,
-                centerSpaceRadius: 50,
+                centerSpaceRadius: centerSpaceRadius,
                 sections: sections,
               ),
             ),

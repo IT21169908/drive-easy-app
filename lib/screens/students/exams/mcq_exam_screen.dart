@@ -1,7 +1,13 @@
+import 'package:drive_easy_app/screens/students/exams/exam_result_screen.dart';
 import 'package:drive_easy_app/screens/students/exams/widgets/question_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../../../routes/app_routes.dart';
+import '../../../utils/auth_checker.dart';
 
 class McqExamScreen extends StatefulWidget {
   const McqExamScreen({super.key});
@@ -12,6 +18,16 @@ class McqExamScreen extends StatefulWidget {
 
 class _McqExamScreenState extends State<McqExamScreen> {
   int currentQuestion = 0;
+  late final User? loggedUser;
+
+  @override
+  void initState() {
+    loggedUser = FirebaseAuth.instance.currentUser;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      checkAuthAndLogout(context, mounted, routeName: RouteName.login);
+    });
+    super.initState();
+  }
 
   final List questions = [
     {
@@ -40,7 +56,7 @@ class _McqExamScreenState extends State<McqExamScreen> {
         "option_id_2": "Speed up",
         "option_id_3": "Turn around",
       },
-      "correct_option_id": "Proceed with caution"
+      "correct_option_id": "option_id_1"
     },
     {
       "text": "What does this road sign mean?",
@@ -104,7 +120,7 @@ class _McqExamScreenState extends State<McqExamScreen> {
     }
   }
 
-  bool finishTheExam() {
+  Future<bool> finishTheExam() async {
     bool allAnswersSelected = questions.every((question) {
       return question.containsKey('given_answer') && question['given_answer'] != null;
     });
@@ -118,6 +134,33 @@ class _McqExamScreenState extends State<McqExamScreen> {
     } else {
       if (kDebugMode) {
         print('All answers selected!');
+      }
+
+      try {
+        CircularLoaderWidget(context);
+        DatabaseReference usersRef = FirebaseDatabase.instance.ref("users/${loggedUser?.uid}/exam_results");
+        DatabaseReference examResults = usersRef.push();
+        await examResults.set(questions);
+        if (mounted) {
+          Navigator.pushReplacement<void, void>(
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) => ExamResultScreen(answeredQuestions: questions),
+            ),
+          );
+          // PersistentNavBarNavigator.pushNewScreen(
+          //   context,
+          //   screen: ExamResultScreen(answeredQuestions: questions),
+          //   withNavBar: false,
+          //   pageTransitionAnimation: PageTransitionAnimation.scale,
+          // );
+        }
+      } catch (e) {
+        if (mounted) {
+          AppSnackBarWidget(context: context).show(message: e.toString());
+        }
+      } finally {
+        CircularLoaderWidget.dismiss();
       }
       // Proceed with the next step
     }

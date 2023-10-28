@@ -70,9 +70,9 @@ class QuestionScreen extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 20),
-        const Text(
-          "When skidding, if the rear end of the car is skidding to the right, turn your wheel to the:",
-          style: TextStyle(
+        Text(
+          question['text'],
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 18,
             color: Color(0xff383A44),
