@@ -8,19 +8,19 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class VehicleDetails extends StatefulWidget {
+class VehicleDetailsScreen extends StatefulWidget {
   final String vehicleNo;
 
-  const VehicleDetails({
+  const VehicleDetailsScreen({
     super.key,
     required this.vehicleNo,
   });
 
   @override
-  State<VehicleDetails> createState() => _VehicleDetailsState();
+  State<VehicleDetailsScreen> createState() => _VehicleDetailsScreenState();
 }
 
-class _VehicleDetailsState extends State<VehicleDetails> {
+class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
   final GlobalKey<ExpandableBottomSheetState> _bottomSheetKey = GlobalKey();
 
   @override

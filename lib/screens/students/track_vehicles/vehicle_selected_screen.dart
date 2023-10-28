@@ -1,7 +1,7 @@
 import 'package:drive_easy_app/screens/insructor/instructor_profile.dart';
 import 'package:drive_easy_app/screens/students/track_vehicles/available_vehicle_space_screen.dart';
 import 'package:drive_easy_app/screens/students/track_vehicles/show_vehicle_location_screen.dart';
-import 'package:drive_easy_app/screens/students/track_vehicles/vehicles/vehicle_details.dart';
+import 'package:drive_easy_app/screens/students/track_vehicles/vehicles/vehicle_details_screen.dart';
 import 'package:drive_easy_app/screens/students/track_vehicles/widgets/vehicle_details_bottom_sheet.dart';
 import 'package:drive_easy_app/utils/theme_consts.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
@@ -187,7 +187,7 @@ class _VehicleSelectedScreenState extends State<VehicleSelectedScreen> {
                       onPressed: () async {
                         await PersistentNavBarNavigator.pushNewScreen(
                           context,
-                          screen: VehicleDetails(
+                          screen: VehicleDetailsScreen(
                             vehicleNo: widget.vehicleNo,
                           ),
                           withNavBar: true,
