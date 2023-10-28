@@ -1,3 +1,4 @@
+import 'package:drive_easy_app/screens/students/alert_options/alert_options_screen.dart';
 import 'package:drive_easy_app/screens/students/course_contents/view_course_content_screen.dart';
 import 'package:drive_easy_app/screens/students/exams/exam_dashboard.dart';
 import 'package:drive_easy_app/screens/students/find_schools/schools.dart';
@@ -291,9 +292,17 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                     asset: "assets/images/payments.png",
                   ),
                 ],
-                const ButtonCard(
-                  title: "Alert Options", //TODO: Add relevant feature
+                ButtonCard(
+                  title: "Alert Options",
                   asset: "assets/images/track-vehicles/alert_options.png",
+                  onPressed: () async {
+                    await PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: const AlertOptionsScreen(),
+                      withNavBar: true,
+                      pageTransitionAnimation: PageTransitionAnimation.scale,
+                    );
+                  },
                 ),
                 const ButtonCard(
                   title: "Tutorials", //TODO: Add relevant feature
