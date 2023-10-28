@@ -173,7 +173,6 @@ class _ExamDashboardScreenState extends State<ExamDashboardScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
                   //if (examSummery != null)
                   FirebaseAnimatedList(
                     query: FirebaseDatabase.instance.ref().child('users/${loggedUser?.uid}/exam_results').limitToLast(1),
