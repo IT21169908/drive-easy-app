@@ -1,6 +1,6 @@
-import 'package:drive_easy_app/screens/students/exams/exam_dashboard.dart';
+import 'package:drive_easy_app/screens/students/exams/utils/calculate_exam_summery.dart';
+import 'package:drive_easy_app/screens/students/layouts/dashboard_layout.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../widgets/widgets.g.dart';
@@ -21,35 +21,8 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
 
   @override
   initState() {
-    examSummery = calculatePercentages();
+    examSummery = calculatePercentages(widget.answeredQuestions);
     super.initState();
-  }
-
-  Map<String, double> calculatePercentages() {
-    int totalQuestions = widget.answeredQuestions.length;
-    int correctAnswers = widget.answeredQuestions.where((question) {
-      return question.containsKey('given_answer') && question['given_answer'] == question['correct_option_id'];
-    }).length;
-    int incorrectAnswers = totalQuestions - correctAnswers;
-
-    double correctPercentage = (correctAnswers / totalQuestions) * 100;
-    double incorrectPercentage = (incorrectAnswers / totalQuestions) * 100;
-
-    if (kDebugMode) {
-      print('Correct Answers: $correctAnswers out of $totalQuestions');
-      print('Correct Percentage: $correctPercentage%');
-
-      print('Incorrect Answers: $incorrectAnswers out of $totalQuestions');
-      print('Incorrect Percentage: $incorrectPercentage%');
-    }
-
-    return {
-      "totalQuestions": double.parse(totalQuestions.toString()),
-      "correctAnswers": double.parse(correctAnswers.toString()),
-      "incorrectAnswers": double.parse(incorrectAnswers.toString()),
-      "correctPercentage": correctPercentage,
-      "incorrectPercentage": incorrectPercentage,
-    };
   }
 
   @override
@@ -61,8 +34,9 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
             height: MediaQuery.of(context).size.height - MediaQuery.of(context).viewPadding.top,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const TopAppBar(),
+                const SizedBox(height: 40),
                 Text(
                   examSummery['correctPercentage']! > 40 ? 'Congratulation!' : "Whoops, sorry...",
                   style: const TextStyle(
@@ -85,48 +59,8 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                   aspectRatio: 1,
                   centerSpaceRadius: 100,
                   touchedIndex: touchedIndex,
-                  sections: List.generate(2, (i) {
-                    final isTouched = i == touchedIndex;
-                    final fontSize = isTouched ? 20.0 : 16.0;
-                    final radius = isTouched ? 40.0 : 35.0;
-                    const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
-                    switch (i) {
-                      case 0: // incorrect
-                        return PieChartSectionData(
-                          color: const Color(0xFFF59304),
-                          value: examSummery['incorrectPercentage'],
-                          title: '${examSummery['incorrectPercentage']?.toInt()}%',
-                          borderSide: const BorderSide(width: 0),
-                          radius: radius,
-                          titleStyle: TextStyle(
-                            fontSize: fontSize,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            shadows: shadows,
-                          ),
-                        );
-                      case 1: // correct
-                        return PieChartSectionData(
-                          color: const Color(0xFF4E74F9),
-                          value: examSummery['correctPercentage'],
-                          title: '${examSummery['correctPercentage']?.toInt()}%',
-                          radius: radius,
-                          borderSide: const BorderSide(width: 0),
-                          titleStyle: TextStyle(
-                            fontSize: fontSize,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            shadows: shadows,
-                          ),
-                        );
-                      default:
-                        if (kDebugMode) {
-                          print("showingSections $i");
-                        }
-                        return PieChartSectionData();
-                    }
-                  }),
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  examSummery: examSummery,
                 ),
                 Text(
                   examSummery['correctPercentage']! > 40 ? 'Driving Test Passed' : 'Driving Test Failed',
@@ -205,14 +139,14 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                       Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                         MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return const ExamDashboardScreen();
+                            return const StudentDashboardLayout();
                           },
                         ),
                         (_) => false,
                       );
                     },
                     child: const Text(
-                      "Exam Dashboard",
+                      "Home",
                       style: TextStyle(color: Color(0xff383A44), fontWeight: FontWeight.bold),
                     ),
                   ),

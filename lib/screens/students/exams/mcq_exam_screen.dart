@@ -19,6 +19,7 @@ class McqExamScreen extends StatefulWidget {
 class _McqExamScreenState extends State<McqExamScreen> {
   int currentQuestion = 0;
   late final User? loggedUser;
+  bool willPopScope = false;
 
   @override
   void initState() {
@@ -142,6 +143,7 @@ class _McqExamScreenState extends State<McqExamScreen> {
         DatabaseReference examResults = usersRef.push();
         await examResults.set(questions);
         if (mounted) {
+          willPopScope = true;
           Navigator.pushReplacement<void, void>(
             context,
             MaterialPageRoute<void>(
@@ -173,7 +175,7 @@ class _McqExamScreenState extends State<McqExamScreen> {
     return WillPopScope(
       onWillPop: () async {
         AppToastWidget("You cannot exit from the exam until you finish!.");
-        return false;
+        return willPopScope;
       },
       child: Scaffold(
         body: Column(

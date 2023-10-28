@@ -1,11 +1,12 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../widgets/widgets.g.dart';
 
 class ExamPieChartInfo extends StatefulWidget {
-  const ExamPieChartInfo({super.key});
+  const ExamPieChartInfo({super.key, required this.examSummery});
+
+  final Map<String, double> examSummery;
 
   @override
   State<ExamPieChartInfo> createState() => _ExamPieChartInfoState();
@@ -42,55 +43,15 @@ class _ExamPieChartInfoState extends State<ExamPieChartInfo> {
           });
         },
         touchedIndex: touchedIndex,
-        sections: List.generate(2, (i) {
-          final isTouched = i == touchedIndex;
-          final fontSize = isTouched ? 25.0 : 16.0;
-          final radius = isTouched ? 35.0 : 30.0;
-          const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
-          switch (i) {
-            case 0:
-              return PieChartSectionData(
-                color: const Color(0xFFF59304),
-                value: 40,
-                title: '40%',
-                borderSide: const BorderSide(width: 0),
-                radius: radius,
-                titleStyle: TextStyle(
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  shadows: shadows,
-                ),
-              );
-            case 1:
-              return PieChartSectionData(
-                color: const Color(0xFF4E74F9),
-                value: 60,
-                title: '60%',
-                radius: radius,
-                borderSide: const BorderSide(width: 0),
-                titleStyle: TextStyle(
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  shadows: shadows,
-                ),
-              );
-            default:
-              if (kDebugMode) {
-                print("showingSections $i");
-              }
-              return PieChartSectionData();
-          }
-        }),
         crossAxisAlignment: CrossAxisAlignment.start,
-        child: const Padding(
-          padding: EdgeInsets.only(left: 18),
+        examSummery: widget.examSummery,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 18),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 25),
-              Text(
+              const SizedBox(height: 25),
+              const Text(
                 "Mock Exam Mcq",
                 style: TextStyle(
                   fontSize: 20,
@@ -98,20 +59,20 @@ class _ExamPieChartInfoState extends State<ExamPieChartInfo> {
                   color: Color(0xff27093E),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Indicator(
-                color: Color(0xFF4E74F9),
-                text: '60',
-                label: Text(
+                color: const Color(0xFF4E74F9),
+                text: "${widget.examSummery['correctAnswers']?.toInt()}",
+                label: const Text(
                   "Correct",
                   style: TextStyle(color: Color(0xff1D1E23), fontWeight: FontWeight.bold),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Indicator(
-                color: Color(0xFFF59304),
-                text: '40',
-                label: Text(
+                color: const Color(0xFFF59304),
+                text: "${widget.examSummery['incorrectAnswers']?.toInt()}",
+                label: const Text(
                   "Incorrect",
                   style: TextStyle(color: Color(0xff1D1E23), fontWeight: FontWeight.bold),
                 ),
