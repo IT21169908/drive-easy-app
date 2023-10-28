@@ -1,7 +1,13 @@
+import 'package:drive_easy_app/screens/students/exams/exam_result_screen.dart';
 import 'package:drive_easy_app/screens/students/exams/widgets/question_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../../../routes/app_routes.dart';
+import '../../../utils/auth_checker.dart';
 
 class McqExamScreen extends StatefulWidget {
   const McqExamScreen({super.key});
@@ -12,6 +18,17 @@ class McqExamScreen extends StatefulWidget {
 
 class _McqExamScreenState extends State<McqExamScreen> {
   int currentQuestion = 0;
+  late final User? loggedUser;
+  bool willPopScope = false;
+
+  @override
+  void initState() {
+    loggedUser = FirebaseAuth.instance.currentUser;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      checkAuthAndLogout(context, mounted, routeName: RouteName.login);
+    });
+    super.initState();
+  }
 
   final List questions = [
     {
@@ -40,7 +57,7 @@ class _McqExamScreenState extends State<McqExamScreen> {
         "option_id_2": "Speed up",
         "option_id_3": "Turn around",
       },
-      "correct_option": "Proceed with caution"
+      "correct_option_id": "option_id_1"
     },
     {
       "text": "What does this road sign mean?",
@@ -51,7 +68,7 @@ class _McqExamScreenState extends State<McqExamScreen> {
         "option_id_2": "Stop",
         "option_id_3": "One way",
       },
-      "correct_option": "option_id_1"
+      "correct_option_id": "option_id_1"
     },
     {
       "text": "What is the maximum speed limit on a highway?",
@@ -61,7 +78,7 @@ class _McqExamScreenState extends State<McqExamScreen> {
         "option_id_2": "100 mph",
         "option_id_3": "55 mph",
       },
-      "correct_option": "option_id_2"
+      "correct_option_id": "option_id_2"
     },
     {
       "text": "What should you do if your brakes fail?",
@@ -71,7 +88,7 @@ class _McqExamScreenState extends State<McqExamScreen> {
         "option_id_2": "Shift to a lower gear",
         "option_id_3": "Use the handbrake",
       },
-      "correct_option": "option_id_2"
+      "correct_option_id": "option_id_2"
     }
   ];
 
@@ -91,24 +108,144 @@ class _McqExamScreenState extends State<McqExamScreen> {
     }
   }
 
+  setAnswer(String answerKey) {
+    if (kDebugMode) {
+      print("setAnswer: $answerKey");
+    }
+    setState(() {
+      questions[currentQuestion]['given_answer'] = answerKey;
+    });
+    if (kDebugMode) {
+      print("questions[$currentQuestion] given_answer: ${questions[currentQuestion]['given_answer']}");
+      print("given_answer: ${questions[currentQuestion]['given_answer']} | correct answer: ${questions[currentQuestion]['correct_option_id']}");
+    }
+  }
+
+  Future<bool> finishTheExam() async {
+    bool allAnswersSelected = questions.every((question) {
+      return question.containsKey('given_answer') && question['given_answer'] != null;
+    });
+
+    if (!allAnswersSelected) {
+      AppSnackBarWidget(context: context).show(message: "Please Answers to the all the questions!");
+      if (kDebugMode) {
+        print('Not all answers selected!');
+      }
+      // Add code to display a snackbar or handle the case where not all answers are selected
+    } else {
+      if (kDebugMode) {
+        print('All answers selected!');
+      }
+
+      try {
+        CircularLoaderWidget(context);
+        DatabaseReference usersRef = FirebaseDatabase.instance.ref("users/${loggedUser?.uid}/exam_results");
+        DatabaseReference examResults = usersRef.push();
+        await examResults.set(questions);
+        if (mounted) {
+          willPopScope = true;
+          Navigator.pushReplacement<void, void>(
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) => ExamResultScreen(answeredQuestions: questions),
+            ),
+          );
+          // PersistentNavBarNavigator.pushNewScreen(
+          //   context,
+          //   screen: ExamResultScreen(answeredQuestions: questions),
+          //   withNavBar: false,
+          //   pageTransitionAnimation: PageTransitionAnimation.scale,
+          // );
+        }
+      } catch (e) {
+        if (mounted) {
+          AppSnackBarWidget(context: context).show(message: e.toString());
+        }
+      } finally {
+        CircularLoaderWidget.dismiss();
+      }
+      // Proceed with the next step
+    }
+
+    return allAnswersSelected;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TopAppBar(),
-              QuestionScreen(
-                question: questions[currentQuestion],
-                questionCount: questions.length,
-                currentQuestion: currentQuestion,
-                setCurrentQuestion: setCurrentQuestion,
+    return WillPopScope(
+      onWillPop: () async {
+        AppToastWidget("You cannot exit from the exam until you finish!.");
+        return willPopScope;
+      },
+      child: Scaffold(
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // const TopAppBar(),
+                      const SizedBox(height: 20),
+                      QuestionScreen(
+                        question: questions[currentQuestion],
+                        questionCount: questions.length,
+                        currentQuestion: currentQuestion,
+                        setCurrentQuestion: setCurrentQuestion,
+                        setAnswer: setAnswer,
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ],
-          ),
+            ),
+            if (questions.length <= (currentQuestion + 1))
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: double.infinity,
+                  height: 48,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(105, 105, 105, 0.10000000149011612),
+                        offset: Offset(-4, -4),
+                        blurRadius: 25,
+                      ),
+                    ],
+                    color: Color.fromRGBO(253, 205, 85, 1),
+                  ),
+                  child: MaterialButton(
+                    onPressed: finishTheExam,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Finish the test 🏁',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFF383A44),
+                          fontSize: 18,
+                          letterSpacing: -0.23999999463558197,
+                          fontWeight: FontWeight.w500,
+                          height: 1.75,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+          ],
         ),
       ),
     );

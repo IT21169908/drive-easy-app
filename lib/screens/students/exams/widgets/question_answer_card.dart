@@ -3,10 +3,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 class QuestionAnswer extends StatelessWidget {
+  final Map question;
+  final bool isAnswerSelected;
+
   const QuestionAnswer({
     super.key,
     required this.answerText,
     this.onPressed,
+    required this.question,
+    required this.isAnswerSelected,
   });
 
   final String answerText;
@@ -31,6 +36,7 @@ class QuestionAnswer extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
+        color: isAnswerSelected ? const Color(0xffC2E6FF) : Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
         child: Center(
           child: Text(

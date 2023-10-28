@@ -1,7 +1,6 @@
 import 'package:drive_easy_app/screens/students/exams/mcq_exam_screen.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class StartExamScreen extends StatefulWidget {
   const StartExamScreen({super.key});
@@ -87,12 +86,18 @@ class _StartExamScreenState extends State<StartExamScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
                 onPressed: () {
-                  PersistentNavBarNavigator.pushNewScreen(
+                  Navigator.pushReplacement<void, void>(
                     context,
-                    screen: const McqExamScreen(),
-                    withNavBar: true, // OPTIONAL VALUE. True by default.
-                    pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const McqExamScreen(),
+                    ),
                   );
+                  // PersistentNavBarNavigator.pushNewScreen(
+                  //   context,
+                  //   screen: const McqExamScreen(),
+                  //   withNavBar: true, // OPTIONAL VALUE. True by default.
+                  //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                  // );
                 },
                 child: const Text(
                   "START EXAM",

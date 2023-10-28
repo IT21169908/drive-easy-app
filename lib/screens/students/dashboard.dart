@@ -253,7 +253,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                       );
                     },
                   ),
-                if (isCourseEnrolled)
+                if (isCourseEnrolled) ...[
                   ButtonCard(
                     title: "Vehicle Track",
                     count: "4 Vehicles",
@@ -266,37 +266,6 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                         pageTransitionAnimation: PageTransitionAnimation.scale,
                       );
                     },
-                  ),
-                const ButtonCard(
-                  title: "Tutorials", //TODO: Add relevant feature
-                  count: "15 Courses",
-                  asset: "assets/images/tools.png",
-                ),
-                const ButtonCard(
-                  title: "Blog & News", //TODO: Add relevant feature
-                  count: "42 Articles",
-                  asset: "assets/images/action.png",
-                ),
-                const ButtonCard(
-                  title: "Alert Options", //TODO: Add relevant feature
-                  asset: "assets/images/track-vehicles/alert_options.png",
-                ),
-                if (!isCourseEnrolled)
-                  const ButtonCard(
-                    title: "Contact Us", //TODO: Add relevant feature
-                    count: "24hr Support",
-                    asset: "assets/images/agent.png",
-                  ),
-                if (isCourseEnrolled) ...[
-                  const ButtonCard(
-                    title: "My Progress", //TODO: Add relevant feature
-                    count: "2 Tasks pending",
-                    asset: "assets/images/progress.png",
-                  ),
-                  const ButtonCard(
-                    title: "Payments", //TODO: Add relevant feature
-                    count: "2 Invoices",
-                    asset: "assets/images/payments.png",
                   ),
                   ButtonCard(
                     title: "My Exams", //TODO: Add relevant feature
@@ -311,7 +280,37 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                       );
                     },
                   ),
+                  const ButtonCard(
+                    title: "My Progress", //TODO: Add relevant feature
+                    count: "2 Tasks pending",
+                    asset: "assets/images/progress.png",
+                  ),
+                  const ButtonCard(
+                    title: "Payments", //TODO: Add relevant feature
+                    count: "2 Invoices",
+                    asset: "assets/images/payments.png",
+                  ),
                 ],
+                const ButtonCard(
+                  title: "Alert Options", //TODO: Add relevant feature
+                  asset: "assets/images/track-vehicles/alert_options.png",
+                ),
+                const ButtonCard(
+                  title: "Tutorials", //TODO: Add relevant feature
+                  count: "15 Courses",
+                  asset: "assets/images/tools.png",
+                ),
+                const ButtonCard(
+                  title: "Blog & News", //TODO: Add relevant feature
+                  count: "42 Articles",
+                  asset: "assets/images/action.png",
+                ),
+                if (!isCourseEnrolled)
+                  const ButtonCard(
+                    title: "Contact Us", //TODO: Add relevant feature
+                    count: "24hr Support",
+                    asset: "assets/images/agent.png",
+                  ),
               ],
             ),
           ),

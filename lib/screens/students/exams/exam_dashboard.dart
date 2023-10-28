@@ -1,11 +1,17 @@
+import 'package:drive_easy_app/screens/students/exams/exam_history_screen.dart';
 import 'package:drive_easy_app/screens/students/exams/start_exam_screen.dart';
+import 'package:drive_easy_app/screens/students/exams/utils/calculate_exam_summery.dart';
 import 'package:drive_easy_app/widgets/banners/exam_page_top_banner.dart';
 import 'package:drive_easy_app/widgets/widgets.g.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../../../routes/app_routes.dart';
+import '../../../utils/auth_checker.dart';
 import 'widgets/exam_grid_card.dart';
 import 'widgets/exam_pie_chart.dart';
 
@@ -19,11 +25,39 @@ class ExamDashboardScreen extends StatefulWidget {
 class _ExamDashboardScreenState extends State<ExamDashboardScreen> {
   late final User? loggedUser;
 
+  // Map<String, double>? examSummery;
+  // late final List latestExamResult;
+
   @override
   void initState() {
     loggedUser = FirebaseAuth.instance.currentUser;
+    // Query examResultQueryRef = FirebaseDatabase.instance.ref().child('users/${loggedUser?.uid}/exam_results');
+    // getLatestExamResult(examResultQueryRef);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      checkAuthAndLogout(context, mounted, routeName: RouteName.login);
+    });
     super.initState();
   }
+
+  // Future<List> getLatestExamResult(Query examResultQueryRef) async {
+  //   DatabaseEvent event = await examResultQueryRef.limitToLast(1).once(DatabaseEventType.value);
+  //   Map snapshot = event.snapshot.value as Map;
+  //   if (kDebugMode) {
+  //     print("event.snapshot.value ${snapshot[snapshot.keys.first]}");
+  //     print("event.snapshot.key ${event.snapshot.key}");
+  //   }
+  //   latestExamResult = snapshot[snapshot.keys.first] as List;
+  //
+  //   if (mounted) {
+  //     setState(() {
+  //       examSummery = calculatePercentages(latestExamResult);
+  //     });
+  //   }
+  //   if (kDebugMode) {
+  //     print("ExamDashboardScreen getLatestExamResult examSummery: $examSummery");
+  //   }
+  //   return latestExamResult;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +137,10 @@ class _ExamDashboardScreenState extends State<ExamDashboardScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Latest exam result',
                         textAlign: TextAlign.left,
                         style: TextStyle(
@@ -117,20 +151,40 @@ class _ExamDashboardScreenState extends State<ExamDashboardScreen> {
                           height: 1,
                         ),
                       ),
-                      Text(
-                        'See all',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Color(0xE018093E),
-                          fontSize: 14,
-                          letterSpacing: 0,
-                          fontWeight: FontWeight.bold,
+                      InkWell(
+                        onTap: () {
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const ExamHistory(),
+                            withNavBar: false,
+                            pageTransitionAnimation: PageTransitionAnimation.scale,
+                          );
+                        },
+                        child: const Text(
+                          'See all',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Color(0xE018093E),
+                            fontSize: 14,
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  const ExamPieChartInfo(),
+                  //if (examSummery != null)
+                  FirebaseAnimatedList(
+                    query: FirebaseDatabase.instance.ref().child('users/${loggedUser?.uid}/exam_results').limitToLast(1),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
+                      // Map result = snapshot.value as Map;
+                      List latestExamResult = snapshot.value as List;
+                      Map<String, double> summery = calculatePercentages(latestExamResult);
+                      return ExamPieChartInfo(examSummery: summery);
+                    },
+                  ),
                   const SizedBox(height: 20),
                   const Text(
                     'Available exams',
