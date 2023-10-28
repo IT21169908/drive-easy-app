@@ -274,17 +274,7 @@ class _AlertOptionsScreenState extends State<AlertOptionsScreen> {
                               backgroundColor: const Color(0xff4E74F9),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             ),
-                            onPressed: () {
-                              CommonConfirmation.showConfirmationDialog(
-                                context,
-                                image: Image.asset('assets/images/do_you_want.png', width: 200),
-                                title: 'Do you want to join?',
-                                description:
-                                    '"Are you ready to embark on your journey towards becoming a confident driver? Click ' "Yes" ' to start your driving lessons with us!"',
-                                firstButton: "Yes",
-                                secondButton: "Not Now",
-                              );
-                            },
+                            onPressed: () => log("Add Parents / Guardians"),
                             child: const Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
